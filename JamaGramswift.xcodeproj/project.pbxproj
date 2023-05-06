@@ -11,6 +11,7 @@
 		D64BF5B82A05A1460085ED18 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BF5B72A05A1460085ED18 /* ContentView.swift */; };
 		D64BF5BA2A05A1900085ED18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D64BF5B92A05A1900085ED18 /* Assets.xcassets */; };
 		D64BF5BD2A05A1900085ED18 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D64BF5BC2A05A1900085ED18 /* Preview Assets.xcassets */; };
+		D64BF5C52A06C4950085ED18 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BF5C42A06C4950085ED18 /* SignInView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		D64BF5B72A05A1460085ED18 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D64BF5B92A05A1900085ED18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D64BF5BC2A05A1900085ED18 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D64BF5C42A06C4950085ED18 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +53,8 @@
 		D64BF5B42A05A1460085ED18 /* JamaGramswift */ = {
 			isa = PBXGroup;
 			children = (
+				D64BF5C32A06C43C0085ED18 /* Views */,
 				D64BF5B52A05A1460085ED18 /* JamaGramswiftApp.swift */,
-				D64BF5B72A05A1460085ED18 /* ContentView.swift */,
 				D64BF5B92A05A1900085ED18 /* Assets.xcassets */,
 				D64BF5BB2A05A1900085ED18 /* Preview Content */,
 			);
@@ -65,6 +67,15 @@
 				D64BF5BC2A05A1900085ED18 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D64BF5C32A06C43C0085ED18 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D64BF5B72A05A1460085ED18 /* ContentView.swift */,
+				D64BF5C42A06C4950085ED18 /* SignInView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D64BF5C52A06C4950085ED18 /* SignInView.swift in Sources */,
 				D64BF5B82A05A1460085ED18 /* ContentView.swift in Sources */,
 				D64BF5B62A05A1460085ED18 /* JamaGramswiftApp.swift in Sources */,
 			);
