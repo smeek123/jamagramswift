@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var spotify = SpotifyAuthManager()
+    
     var body: some View {
         TabView {
             Text("Home")
@@ -24,6 +26,16 @@ struct ContentView: View {
                 .tabItem {
                     Label("Me", systemImage: "person.circle")
                 }
+        }
+        .onOpenURL { url in
+            Task {
+                await spotify.HandleURLCode(url)
+            }
+        }
+        .task {
+            if SpotifyAuthManager.shouldRefresh {
+                try? await SpotifyAuthManager.getRefreshedAccessToken()
+            }
         }
     }
 }

@@ -27,6 +27,7 @@
 		D64BF5C72A06C6910085ED18 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		D64BF5C92A0704580085ED18 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D64BF5CC2A07388A0085ED18 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		D64BF5CF2A0744720085ED18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,13 +60,14 @@
 		D64BF5B42A05A1460085ED18 /* JamaGramswift */ = {
 			isa = PBXGroup;
 			children = (
+				D64BF5CF2A0744720085ED18 /* Info.plist */,
+				D64BF5CE2A0740300085ED18 /* Utilities */,
 				D64BF5CB2A07386D0085ED18 /* Models */,
 				D64BF5C62A06C6500085ED18 /* View Models */,
 				D64BF5C32A06C43C0085ED18 /* Views */,
 				D64BF5B52A05A1460085ED18 /* JamaGramswiftApp.swift */,
 				D64BF5B92A05A1900085ED18 /* Assets.xcassets */,
 				D64BF5BB2A05A1900085ED18 /* Preview Content */,
-				D64BF5C92A0704580085ED18 /* Extensions.swift */,
 			);
 			path = JamaGramswift;
 			sourceTree = "<group>";
@@ -101,6 +103,14 @@
 				D64BF5CC2A07388A0085ED18 /* AuthResponse.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D64BF5CE2A0740300085ED18 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D64BF5C92A0704580085ED18 /* Extensions.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,6 +320,7 @@
 				DEVELOPMENT_TEAM = MP9649YB4K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JamaGramswift/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -339,6 +350,7 @@
 				DEVELOPMENT_TEAM = MP9649YB4K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JamaGramswift/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
