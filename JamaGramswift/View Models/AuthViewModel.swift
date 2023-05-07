@@ -11,24 +11,32 @@ import CryptoKit
 import Security
 
 struct SpotifyAM {
+    //appstorage variables store data in the devices database
+    //the clientid and clien secret are generated on the spotify api dashboard and allow for authentication
     @State static var isRetrievingTokens: Bool = false
     @AppStorage("signedIn") static var isSignedIn: Bool = false
     @AppStorage("expiresAt") static var expiresAt: Date = Date()
     static let client_id: String = "243fed7dca8e464c912074d9f2e4e7b0"
     
+    //the keychain is similar to appstorage but more secure and is often used for storing OAuth tokens or passwords
     enum KeychainError: Error {
         case duplicateEntry
         case unknown(OSStatus)
         case noPassword
     }
     
-    static func updateTokens(service: String, accounr: String, authData: Data) async throws {
-        let query: [String: AnyObject] = [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service as AnyObject, kSecAttrAccount as String: accounr as AnyObject]
+    //this is an asyncronous method that updates the access tokens when needed
+    static func updateTokens(service: String, account: String, authData: Data) async throws {
+        //this uses the apple security framework to access the keychain safely, this query provides the information about the token that should update
+        let query: [String: AnyObject] = [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service as AnyObject, kSecAttrAccount as String: account as AnyObject]
         
+        //this dictionary contains the fields that should be updated
         let attrubutes: [String: AnyObject] = [kSecValueData as String: authData as AnyObject]
         
+        //this variable contains the return value so we can check for errors or success
         let status = SecItemUpdate(query as CFDictionary, attrubutes as CFDictionary)
         
+        //these statements help check if certain errors are found for easier debugging
         guard status != errSecItemNotFound else {
             print("notFound")
             throw KeychainError.noPassword
@@ -39,6 +47,7 @@ struct SpotifyAM {
             throw KeychainError.unknown(status)
         }
         
+        //if none of the checks throw an error, the success variable is set to true
         await MainActor.run {
             SpotifyAM.isSignedIn = true
         }
@@ -50,8 +59,11 @@ struct SpotifyAM {
 
 class SpotifyAuthManager: ObservableObject {
     let client_secret: String = "7c74fc7a60664fbe8f8138d4d62c4885"
-    let redirect_uriURL: URL = URL(string: "vybecheck-app://login-callback")!
+    //this url provides a place for spotify to send the user back to after the login process
+    let redirect_uriURL: URL = URL(string: "jamagram-app://login-callback")!
+    //these tell spotify what data the user wants to access
     let scopes: String = "user-modify-playback-state%20user-top-read%20user-read-private"
+    //these fields are included in the url that is passed to spotify for auth
     var inputState: String = ""
     var returnState: String = ""
     var returnCode: String = ""
@@ -59,16 +71,19 @@ class SpotifyAuthManager: ObservableObject {
     var code_challenge: String = ""
     var code_verifier: String = ""
     
+    //this var makes sure the refresh token is requested with enough time to proccess before the token expires
     static var shouldRefresh: Bool {
         guard SpotifyAM.expiresAt <= Date().addingTimeInterval(300) else {
             return false
         }
+        
         guard SpotifyAM.isRetrievingTokens == false else {
             return false
         }
         return true
     }
     
+    //request an access and refresh token from spotify
     static func withCurrentToken() async -> String {
         var accessToken: String = ""
         do {
@@ -94,21 +109,24 @@ class SpotifyAuthManager: ObservableObject {
         case failedToCreateChallengeForVerifier
     }
     
+    //creates a random string for the auth url parameter
     func randomString(length: Int) -> String {
         let chars: String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.-~"
         return String((0..<length).map{ _ in chars.randomElement()! })
     }
     
+    //this is how spotify requires the request to be incrypted
     func generateCryptographicallySecureRandomOctets(count: Int) throws -> [UInt8] {
         var octets = [UInt8](repeating: 0, count: count)
         let status = SecRandomCopyBytes(kSecRandomDefault, octets.count, &octets)
-        if status == errSecSuccess { // Always test the status.
+        if status == errSecSuccess {
             return octets
         } else {
             throw PKCEError.failedToGenerateRandomOctets
         }
     }
     
+    //this func encodes the string with the octates generated
     func base64URLEncode<S>(octets: S) -> String where S : Sequence, UInt8 == S.Element {
         let data = Data(octets)
         return data
@@ -119,11 +137,12 @@ class SpotifyAuthManager: ObservableObject {
             .trimmingCharacters(in: .whitespaces)
     }
     
+    //this function generates a code challenge that helps spotify safely create a token these are required because mobile apps do not have a safe way to store the client secret so in case of any issues these random strings will always be generated.
     func challenge(for verifier: String) throws -> String {
         let challenge = verifier
-            .data(using: .ascii) // (a)
-            .map { SHA256.hash(data: $0) } // (b)
-            .map { base64URLEncode(octets: $0) } // (c)
+            .data(using: .ascii)
+            .map { SHA256.hash(data: $0) }
+            .map { base64URLEncode(octets: $0) }
 
         if let challenge = challenge {
             return challenge
@@ -132,6 +151,7 @@ class SpotifyAuthManager: ObservableObject {
         }
     }
     
+    //this func takes all the parameters we generated and puts them into the url to be sent to the api
     func spotifyURL() -> URL {
         do {
             code_verifier = try base64URLEncode(octets: generateCryptographicallySecureRandomOctets(count: 32))
@@ -146,9 +166,11 @@ class SpotifyAuthManager: ObservableObject {
         return spotifyURL
     }
     
+    //the url we generated will return a code and this func will hanle that code and access the date we want once our app is redirected to
     func HandleURLCode(_ url: URL) async {
         SpotifyAM.isRetrievingTokens = true
         
+        //this checks to make sure the url is the correct url and not an attack
         guard url.scheme == self.redirect_uriURL.scheme else {
             print("Invalid scheme")
             return
@@ -162,6 +184,7 @@ class SpotifyAuthManager: ObservableObject {
             returnState = state
         }
         
+        //the url is broken into components and the component named code is stored
         if let code = components?.queryItems?.first(where: { QueryItem -> Bool in
             QueryItem.name == "code"
         })?.value {
@@ -174,6 +197,7 @@ class SpotifyAuthManager: ObservableObject {
             returnError = error
         }
         
+        //the state is another safety measure which should be a string returned, the returned state should match the state that we passed in
         if returnState == inputState {
             if returnError == "" {
                 try? await getAccessToken(accessCode: returnCode, code_verifier: code_verifier)
@@ -183,7 +207,9 @@ class SpotifyAuthManager: ObservableObject {
         }
     }
     
+    //this func takes the code we got and requests the tokens
     func getAccessToken(accessCode: String, code_verifier: String) async throws {
+        //this key tells spotify that the jamagram app is requesting access
         let api_auth_key: String = "Basic \((SpotifyAM.client_id + ":" + client_secret).data(using: .utf8)!.base64EncodedString())"
         
         let requestHeaders: [String: String] = ["authorization" : api_auth_key, "Content-Type" : "application/x-www-form-urlencoded"]
@@ -201,6 +227,7 @@ class SpotifyAuthManager: ObservableObject {
                 throw URLError(.dataNotAllowed)
             }
             
+            //this is apples way to manage url requests and here we are uploading the code to spotify to get the token
             let (responseData, response) = try await
             URLSession.shared.upload(for: request, from: data)
             
@@ -208,8 +235,10 @@ class SpotifyAuthManager: ObservableObject {
                 fatalError("error with fetching data")
             }
             
+            //this tries to decode the response into a model that we can use to acces parts of the response
             let result = try JSONDecoder().decode(AuthResponse.self, from: responseData)
             
+            //this func call the save token to the keychain
             try await saveToKeychain(service: "spotify.com", account: "accessToken", authData: result.access_token.data(using: .utf8) ?? Data())
             
             guard let refreshToken = result.refresh_token else {
@@ -218,6 +247,7 @@ class SpotifyAuthManager: ObservableObject {
             
             try await saveToKeychain(service: "spotify.com", account: "refreshToken", authData: refreshToken.data(using: .utf8) ?? Data())
             
+            //this resets the expiration date of the tokens, the mainactor call is a way for swift to get back onto the main thread which is the only way to update these variables
             await MainActor.run {
                 SpotifyAM.expiresAt = Date().addingTimeInterval(TimeInterval(result.expires_in))
                 
@@ -232,14 +262,14 @@ class SpotifyAuthManager: ObservableObject {
         }
     }
     
-    // 1. saveauth data to keychain
+    //saveauth data to keychain
     func saveToKeychain(service: String, account: String, authData: Data) async throws {
         let query: [String: AnyObject] = [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service as AnyObject, kSecAttrAccount as String: account as AnyObject, kSecValueData as String: authData as AnyObject]
         
         let status = SecItemAdd(query as CFDictionary, nil)
         
         if status == errSecDuplicateItem {
-            try? await SpotifyAM.updateTokens(service: service, accounr: account, authData: authData)
+            try? await SpotifyAM.updateTokens(service: service, account: account, authData: authData)
             print("duplicate")
             throw SpotifyAM.KeychainError.duplicateEntry
         } else {
@@ -255,7 +285,7 @@ class SpotifyAuthManager: ObservableObject {
         print("saved")
     }
     
-    // 2. request new access_token
+    //request new access_token
     static func getRefreshedAccessToken() async throws {
         let requestHeaders: [String: String] = ["Content-Type": "application/x-www-form-urlencoded"]
         
@@ -283,13 +313,13 @@ class SpotifyAuthManager: ObservableObject {
             
             let result = try JSONDecoder().decode(AuthResponse.self, from: responseData)
             
-            try await SpotifyAM.updateTokens(service: "spotify.com", accounr: "accessToken", authData: result.access_token.data(using: .utf8) ?? Data())
+            try await SpotifyAM.updateTokens(service: "spotify.com", account: "accessToken", authData: result.access_token.data(using: .utf8) ?? Data())
             
             guard let refreshToken = result.refresh_token else {
                 return
             }
             
-            try await SpotifyAM.updateTokens(service: "spotify.com", accounr: "refreshToken", authData: refreshToken.data(using: .utf8) ?? Data())
+            try await SpotifyAM.updateTokens(service: "spotify.com", account: "refreshToken", authData: refreshToken.data(using: .utf8) ?? Data())
             
             print("refreshed")
             
@@ -304,8 +334,7 @@ class SpotifyAuthManager: ObservableObject {
         }
     }
     
-    //read the refresh token and put it into call qhich should be after 3000 secconds from start of expired_in value
-    
+    //read the refresh token and put it into call which should be after 3000 secconds from start of expired_in value
     static func getTokens(service: String, account: String) throws -> Data? {
         let query: [String: AnyObject] = [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service as AnyObject, kSecAttrAccount as String: account as AnyObject, kSecReturnData as String: kCFBooleanTrue, kSecMatchLimit as String: kSecMatchLimitOne]
         
@@ -325,6 +354,7 @@ class SpotifyAuthManager: ObservableObject {
         return result as? Data
     }
     
+    //deletes the old tokens
     static func deleteToken(service: String, accounr: String) async throws {
         let query: [String: AnyObject] = [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service as AnyObject, kSecAttrAccount as String: accounr as AnyObject]
         
