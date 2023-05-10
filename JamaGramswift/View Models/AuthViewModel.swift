@@ -143,7 +143,7 @@ class SpotifyAuthManager: ObservableObject {
             .data(using: .ascii)
             .map { SHA256.hash(data: $0) }
             .map { base64URLEncode(octets: $0) }
-
+        
         if let challenge = challenge {
             return challenge
         } else {
@@ -200,7 +200,7 @@ class SpotifyAuthManager: ObservableObject {
         //the state is another safety measure which should be a string returned, the returned state should match the state that we passed in
         if returnState == inputState {
             if returnError == "" {
-                try? await getAccessToken(accessCode: returnCode, code_verifier: code_verifier)
+                try? await getAccessToken(accessCode: returnCode, verifier: code_verifier)
             } else {
                 print(returnError)
             }
@@ -208,14 +208,14 @@ class SpotifyAuthManager: ObservableObject {
     }
     
     //this func takes the code we got and requests the tokens
-    func getAccessToken(accessCode: String, code_verifier: String) async throws {
+    func getAccessToken(accessCode: String, verifier: String) async throws {
         //this key tells spotify that the jamagram app is requesting access
         let api_auth_key: String = "Basic \((SpotifyAM.client_id + ":" + client_secret).data(using: .utf8)!.base64EncodedString())"
         
         let requestHeaders: [String: String] = ["authorization" : api_auth_key, "Content-Type" : "application/x-www-form-urlencoded"]
         
         var requestBodyComponents = URLComponents()
-        requestBodyComponents.queryItems = [URLQueryItem(name: "grant_type", value: "authorization_code"), URLQueryItem(name: "client_id", value: SpotifyAM.client_id), URLQueryItem(name: "code", value: accessCode), URLQueryItem(name: "redirect_uri", value: redirect_uriURL.absoluteString), URLQueryItem(name: "code_verifier", value: code_verifier)]
+        requestBodyComponents.queryItems = [URLQueryItem(name: "grant_type", value: "authorization_code"), URLQueryItem(name: "client_id", value: SpotifyAM.client_id), URLQueryItem(name: "code", value: accessCode), URLQueryItem(name: "redirect_uri", value: redirect_uriURL.absoluteString), URLQueryItem(name: "code_verifier", value: verifier)]
         
         var request = URLRequest(url: URL(string: "https://accounts.spotify.com/api/token")!)
         request.httpMethod = "POST"
@@ -230,6 +230,7 @@ class SpotifyAuthManager: ObservableObject {
             //this is apples way to manage url requests and here we are uploading the code to spotify to get the token
             let (responseData, response) = try await
             URLSession.shared.upload(for: request, from: data)
+            
             
             guard (response as? HTTPURLResponse)?.statusCode == 200 else {
                 fatalError("error with fetching data")

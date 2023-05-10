@@ -9,23 +9,30 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var spotify = SpotifyAuthManager()
+    @AppStorage("signedIn") var isSignedIn: Bool = false
     
     var body: some View {
-        TabView {
-            Text("Home")
-                .tabItem {
-                    Label("Home", systemImage: "house")
+        VStack {
+            if isSignedIn {
+                TabView {
+                    Text("Home")
+                        .tabItem {
+                            Label("Home", systemImage: "house")
+                        }
+                    
+                    Text("Favorites")
+                        .tabItem {
+                            Label("Favorites", systemImage: "star")
+                        }
+                    
+                    Text("Me")
+                        .tabItem {
+                            Label("Me", systemImage: "person.circle")
+                        }
                 }
-            
-            Text("Favorites")
-                .tabItem {
-                    Label("Favorites", systemImage: "star")
-                }
-            
-            Text("Me")
-                .tabItem {
-                    Label("Me", systemImage: "person.circle")
-                }
+            } else {
+                SignInView()
+            }
         }
         .onOpenURL { url in
             Task {

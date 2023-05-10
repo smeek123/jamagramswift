@@ -15,6 +15,7 @@
 		D64BF5C82A06C6910085ED18 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BF5C72A06C6910085ED18 /* AuthViewModel.swift */; };
 		D64BF5CA2A0704580085ED18 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BF5C92A0704580085ED18 /* Extensions.swift */; };
 		D64BF5CD2A07388A0085ED18 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BF5CC2A07388A0085ED18 /* AuthResponse.swift */; };
+		D64BF5D12A0B18710085ED18 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D64BF5D02A0B18710085ED18 /* SpotifyiOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,8 @@
 		D64BF5C92A0704580085ED18 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D64BF5CC2A07388A0085ED18 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		D64BF5CF2A0744720085ED18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D64BF5D02A0B18710085ED18 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
+		D64BF5D42A0B1AF70085ED18 /* JamaGramswift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JamaGramswift-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D64BF5D12A0B18710085ED18 /* SpotifyiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,7 +71,9 @@
 				D64BF5C32A06C43C0085ED18 /* Views */,
 				D64BF5B52A05A1460085ED18 /* JamaGramswiftApp.swift */,
 				D64BF5B92A05A1900085ED18 /* Assets.xcassets */,
+				D64BF5D02A0B18710085ED18 /* SpotifyiOS.framework */,
 				D64BF5BB2A05A1900085ED18 /* Preview Content */,
+				D64BF5D42A0B1AF70085ED18 /* JamaGramswift-Bridging-Header.h */,
 			);
 			path = JamaGramswift;
 			sourceTree = "<group>";
@@ -145,6 +151,7 @@
 				TargetAttributes = {
 					D64BF5B12A05A1460085ED18 = {
 						CreatedOnToolsVersion = 14.3;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -314,11 +321,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"JamaGramswift/Preview Content\"";
 				DEVELOPMENT_TEAM = MP9649YB4K;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/JamaGramswift/Preview\\ Content",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JamaGramswift/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -331,9 +343,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SeanMeek.JamaGramswift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "JamaGramswift/JamaGramswift-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -344,11 +359,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"JamaGramswift/Preview Content\"";
 				DEVELOPMENT_TEAM = MP9649YB4K;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/JamaGramswift/Preview\\ Content",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JamaGramswift/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -361,9 +381,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SeanMeek.JamaGramswift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "JamaGramswift/JamaGramswift-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
