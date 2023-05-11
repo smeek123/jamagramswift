@@ -231,10 +231,11 @@ class SpotifyAuthManager: ObservableObject {
             let (responseData, response) = try await
             URLSession.shared.upload(for: request, from: data)
             
+            print(response)
             
-            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-                fatalError("error with fetching data")
-            }
+//            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+//                fatalError("error with fetching data")
+//            }
             
             //this tries to decode the response into a model that we can use to acces parts of the response
             let result = try JSONDecoder().decode(AuthResponse.self, from: responseData)
