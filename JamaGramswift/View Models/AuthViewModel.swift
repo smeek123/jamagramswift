@@ -69,7 +69,7 @@ class SpotifyAuthManager: ObservableObject {
     var returnCode: String = ""
     var returnError: String = ""
     var code_challenge: String = ""
-    var code_verifier: String = ""
+    static var code_verifier: String = ""
     
     //this var makes sure the refresh token is requested with enough time to proccess before the token expires
     static var shouldRefresh: Bool {
@@ -154,8 +154,8 @@ class SpotifyAuthManager: ObservableObject {
     //this func takes all the parameters we generated and puts them into the url to be sent to the api
     func spotifyURL() -> URL {
         do {
-            code_verifier = try base64URLEncode(octets: generateCryptographicallySecureRandomOctets(count: 32))
-            code_challenge = try challenge(for: code_verifier)
+            SpotifyAuthManager.code_verifier = try base64URLEncode(octets: generateCryptographicallySecureRandomOctets(count: 32))
+            code_challenge = try challenge(for: SpotifyAuthManager.code_verifier)
         } catch {
             print(error.localizedDescription)
         }
@@ -163,6 +163,8 @@ class SpotifyAuthManager: ObservableObject {
         guard let spotifyURL: URL = URL(string: "https://accounts.spotify.com/authorize?response_type=code&client_id=\(SpotifyAM.client_id)&scope=\(scopes)&redirect_uri=\(redirect_uriURL.absoluteString)&state=\(inputState)&code_challenge_method=S256&code_challenge=\(String(describing: code_challenge))&show_dialog=TRUE") else {
             return URL(string: "https://google.com")!
         }
+        
+        print("first varifier \(SpotifyAuthManager.code_verifier)")
         return spotifyURL
     }
     
@@ -189,19 +191,23 @@ class SpotifyAuthManager: ObservableObject {
             QueryItem.name == "code"
         })?.value {
             returnCode = code
+            print("code \(returnCode)")
         }
         
         if let error = components?.queryItems?.first(where: { QueryItem -> Bool in
             QueryItem.name == "error"
         })?.value {
             returnError = error
+            print("error getting code \(returnError)")
         }
         
         //the state is another safety measure which should be a string returned, the returned state should match the state that we passed in
         if returnState == inputState {
             if returnError == "" {
-                try? await getAccessToken(accessCode: returnCode, verifier: code_verifier)
+                try? await getAccessToken(accessCode: returnCode, verifier: SpotifyAuthManager.code_verifier)
+                print("varifier \(SpotifyAuthManager.code_verifier)")
             } else {
+                print("error getting token")
                 print(returnError)
             }
         }
@@ -214,6 +220,7 @@ class SpotifyAuthManager: ObservableObject {
         
         let requestHeaders: [String: String] = ["authorization" : api_auth_key, "Content-Type" : "application/x-www-form-urlencoded"]
         
+        print("varifier in request \(SpotifyAuthManager.code_verifier)")
         var requestBodyComponents = URLComponents()
         requestBodyComponents.queryItems = [URLQueryItem(name: "grant_type", value: "authorization_code"), URLQueryItem(name: "client_id", value: SpotifyAM.client_id), URLQueryItem(name: "code", value: accessCode), URLQueryItem(name: "redirect_uri", value: redirect_uriURL.absoluteString), URLQueryItem(name: "code_verifier", value: verifier)]
         
