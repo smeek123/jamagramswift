@@ -19,19 +19,62 @@ struct SignInView: View {
     )
     
     var body: some View {
-        //sends user to the auth screen
-        Link(destination: spotify.spotifyURL()) {
-            HStack(spacing: 20) {
-                Text("Log in with Spotify")
-                    .font(.system(size: 30))
+        ZStack {
+            ZStack {
+                VStack {
+                    Spacer()
+                    
+                    Image("Background")
+                        .resizable()
+                        .scaledToFill()
+                }
+                .overlay {
+                    Color.black
+                        .opacity(0.4)
+                }
             }
-            .background(RoundedRectangle(cornerRadius: 15)
-                .fill(spotifyGradient)
-                .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.1))
+            
+            VStack {
+                Spacer()
+                
+                Text("Welcome to\nJamaGram!")
+                    .font(.system(size: 50))
+                    .foregroundColor(.white)
+                    .padding(20)
+                
+                Text("To continue, please connect to\nyour Spotify Account.")
+                    .foregroundColor(.white)
+                    .padding(10)
+                    .font(.title3)
+                    .multilineTextAlignment(.center)
+                
+                Spacer()
+                
+                //sends user to the auth screen
+                Link(destination: spotify.spotifyURL()) {
+                    HStack(spacing: 20) {
+                        Image("White_Icon")
+                            .interpolation(.high)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 50)
+                        
+                        Text("Log in with Spotify")
+                            .font(.system(size: 30))
+                            .foregroundColor(.white)
+                    }
+                    .background(Capsule()
+                        .fill(spotifyGradient)
+                        .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.1))
+                    .padding(20)
+                }
+                .accessibility(identifier: "Log in with Spotify Identifier")
+                .padding(.vertical)
+                .allowsHitTesting(!SpotifyAM.isRetrievingTokens)
+                
+                Spacer()
+            }
         }
-        .accessibility(identifier: "Log in with Spotify Identifier")
-        .padding(.vertical)
-        .allowsHitTesting(!SpotifyAM.isRetrievingTokens)
     }
 }
 
