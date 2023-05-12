@@ -12,6 +12,9 @@ struct ContentView: View {
     @AppStorage("signedIn") var isSignedIn: Bool = false
     
     var body: some View {
+        //this is the main view that loads
+        //if the user is signed into spotify, it shows the home
+        //if not, it shows the login view
         VStack {
             if isSignedIn {
                 TabView {
@@ -25,7 +28,7 @@ struct ContentView: View {
                             Label("Favorites", systemImage: "star")
                         }
                     
-                    Text("Me")
+                    ProfileView()
                         .tabItem {
                             Label("Me", systemImage: "person.circle")
                         }
@@ -34,11 +37,13 @@ struct ContentView: View {
                 SignInView()
             }
         }
+        //this function handles the url code that is opened
         .onOpenURL { url in
             Task {
                 await spotify.HandleURLCode(url)
             }
         }
+        //this requests a new token when needed
         .task {
             if SpotifyAuthManager.shouldRefresh {
                 try? await SpotifyAuthManager.getRefreshedAccessToken()

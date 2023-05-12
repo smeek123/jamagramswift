@@ -21,6 +21,7 @@ struct SignInView: View {
     var body: some View {
         ZStack {
             ZStack {
+                //shows a background image behing the main section
                 VStack {
                     Spacer()
                     
@@ -28,6 +29,7 @@ struct SignInView: View {
                         .resizable()
                         .scaledToFill()
                 }
+                //makes the image a little darker 
                 .overlay {
                     Color.black
                         .opacity(0.4)
@@ -42,7 +44,7 @@ struct SignInView: View {
                     .foregroundColor(.white)
                     .padding(20)
                 
-                Text("To continue, please connect to\nyour Spotify Account.")
+                Text("To continue, please connect to\nyour Spotify account.")
                     .foregroundColor(.white)
                     .padding(10)
                     .font(.title3)
