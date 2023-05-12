@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+//this package helps show an image given by a url
+import SDWebImageSwiftUI
 
 struct ProfileView: View {
     @StateObject var SpotifyAM = SpotifyAuthManager()

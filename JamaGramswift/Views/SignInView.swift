@@ -20,20 +20,21 @@ struct SignInView: View {
     
     var body: some View {
         ZStack {
-            ZStack {
-                //shows a background image behing the main section
-                VStack {
-                    Spacer()
-                    
-                    Image("Background")
-                        .resizable()
-                        .scaledToFill()
-                }
-                //makes the image a little darker 
-                .overlay {
-                    Color.black
-                        .opacity(0.4)
-                }
+            Color.black
+                .edgesIgnoringSafeArea(.all)
+            
+            //shows a background image behing the main section
+            VStack {
+                Spacer()
+                
+                Image("Background")
+                    .resizable()
+                    .scaledToFill()
+            }
+            //makes the image a little darker
+            .overlay {
+                Color.black
+                    .opacity(0.4)
             }
             
             VStack {
