@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 
 struct ProfileView: View {
     @AppStorage("signedIn") var isSignedIn: Bool = false
+    @AppStorage("numCoins") var numCoins: Int = 0
     @StateObject var SpotifyAM = SpotifyAuthManager()
     @StateObject var spotifyData = SpotifyDataManager()
     @State var currentUser: User? = nil
@@ -59,9 +60,28 @@ struct ProfileView: View {
                                 .font(.system(size: 75))
                         }
                         
-                        Text(user.display_name)
-                            .foregroundColor(.primary)
-                            .font(.title)
+                        HStack {
+                            Spacer()
+                            
+                            Text(user.display_name)
+                                .foregroundColor(.primary)
+                                .font(.title)
+                            
+                            Spacer()
+                            
+                            Label {
+                                Text("\(numCoins)")
+                                    .foregroundColor(.primary)
+                                    .font(.title)
+                            } icon: {
+                                Image(systemName: "dollarsign.circle.fill")
+                                    .foregroundColor(.yellow)
+                                    .font(.title)
+                            }
+
+                            
+                            Spacer()
+                        }
                     }
                 }
             }
