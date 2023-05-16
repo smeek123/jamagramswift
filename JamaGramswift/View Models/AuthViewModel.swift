@@ -58,7 +58,7 @@ struct SpotifyAM {
 }
 
 class SpotifyAuthManager: ObservableObject {
-    let client_secret: String = "7c74fc7a60664fbe8f8138d4d62c4885"
+    let client_secret: String = "7d4f16ad367f408aa439112d2872ff40"
     //this url provides a place for spotify to send the user back to after the login process
     let redirect_uriURL: URL = URL(string: "jamagram-app://login-callback")!
     //these tell spotify what data the user wants to access

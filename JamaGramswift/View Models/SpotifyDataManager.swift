@@ -43,10 +43,9 @@ class SpotifyDataManager: ObservableObject {
             
             let (data, response) = try await URLSession.shared.data(for: profileRequest)
             
-            print((response as? HTTPURLResponse)?.statusCode)
-//            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-//                fatalError("error with fetching data")
-//            }
+            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+                fatalError("error with fetching data")
+            }
             
 //            let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
 //

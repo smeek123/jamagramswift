@@ -73,8 +73,8 @@ struct ProfileView: View {
             } label: {
                 Text("Remove Account")
                     .foregroundColor(.primary)
-                    .font(.title)
-                    .padding(.horizontal)
+                    .font(.title3)
+                    .padding(.horizontal, 15)
             }
             .clipShape(Capsule())
             .buttonStyle(.bordered)
