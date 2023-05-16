@@ -25,12 +25,11 @@ class SpotifyDataManager: ObservableObject {
         guard let url = url else {
             throw URLError(.badURL)
         }
-
+        
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = type.rawValue
-        request.timeoutInterval = 30
+        request.timeoutInterval = 50
         return request
     }
     
@@ -44,9 +43,14 @@ class SpotifyDataManager: ObservableObject {
             
             let (data, response) = try await URLSession.shared.data(for: profileRequest)
             
+            print((response as? HTTPURLResponse)?.statusCode)
 //            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
 //                fatalError("error with fetching data")
 //            }
+            
+//            let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//
+//            print(result)
             
             let currentUser = try JSONDecoder().decode(User.self, from: data)
             

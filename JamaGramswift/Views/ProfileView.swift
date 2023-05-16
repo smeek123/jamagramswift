@@ -33,10 +33,12 @@ struct ProfileView: View {
         VStack {
             if isSignedIn {
                 if spotifyData.isRetrievingData {
-                    Image(systemName: "person.circle")
-                        .font(.system(size: 100))
-                        .foregroundColor(Color(UIColor.secondarySystemBackground))
-                        .padding()
+                    VStack {
+                        Image(systemName: "person.circle")
+                            .font(.system(size: 100))
+                            .foregroundColor(Color(UIColor.secondarySystemBackground))
+                            .padding()
+                    }
                     
                 } else {
                     //checks to make sure no value are nil
@@ -44,16 +46,22 @@ struct ProfileView: View {
                         //checks that the url is not nil
                         if let image = user.images?.first?.url {
                             //takes the url and use the image package to show a circular image
-                            WebImage(url: URL(string: image) ?? URL(string: "")!)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 100, height: 100)
-                                .clipShape(Circle())
-                                .padding()
+                            VStack {
+                                WebImage(url: URL(string: image) ?? URL(string: "")!)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 100)
+                                    .clipShape(Circle())
+                                    .padding()
+                            }
                         } else {
                             Image(systemName: "person.circle")
                                 .font(.system(size: 75))
                         }
+                        
+                        Text(user.display_name)
+                            .foregroundColor(.primary)
+                            .font(.title)
                     }
                 }
             }
@@ -90,10 +98,6 @@ struct ProfileView: View {
         .task {
             if isSignedIn {
                 currentUser = try? await spotifyData.getProfile()
-            }
-            
-            if SpotifyAuthManager.shouldRefresh {
-                try? await SpotifyAuthManager.getRefreshedAccessToken()
             }
         }
     }

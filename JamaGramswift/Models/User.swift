@@ -9,10 +9,8 @@ import Foundation
 
 //this model allows us to decode the data return from the user profile request
 struct User: Codable {
-    let country: String
     let display_name: String
-    let explicit_content: [String: Bool]
-    let external_urls: [String: String]
+//    let external_urls: [String: String]
     let id: String
     let product: String
     let uri: String
