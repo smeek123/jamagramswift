@@ -11,7 +11,6 @@ import SDWebImageSwiftUI
 
 struct ProfileView: View {
     @AppStorage("signedIn") var isSignedIn: Bool = false
-    @AppStorage("numCoins") var numCoins: Int = 0
     @StateObject var SpotifyAM = SpotifyAuthManager()
     @StateObject var spotifyData = SpotifyDataManager()
     @State var currentUser: User? = nil
@@ -40,7 +39,6 @@ struct ProfileView: View {
                             .foregroundColor(Color(UIColor.secondarySystemBackground))
                             .padding()
                     }
-                    
                 } else {
                     //checks to make sure no value are nil
                     if let user = currentUser {
@@ -58,33 +56,37 @@ struct ProfileView: View {
                         } else {
                             Image(systemName: "person.circle")
                                 .font(.system(size: 75))
+                                .foregroundColor(Color(UIColor.secondarySystemBackground))
                         }
                         
-                        HStack {
-                            Spacer()
-                            
+                        if !spotifyData.isRetrievingData {
                             Text(user.display_name)
                                 .foregroundColor(.primary)
                                 .font(.title)
-                            
-                            Spacer()
-                            
-                            Label {
-                                Text("\(numCoins)")
-                                    .foregroundColor(.primary)
-                                    .font(.title)
-                            } icon: {
-                                Image(systemName: "dollarsign.circle.fill")
-                                    .foregroundColor(.yellow)
-                                    .font(.title)
-                            }
-
-                            
-                            Spacer()
+                        } else {
+                            Text("username")
+                                .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                .font(.title)
                         }
                     }
                 }
             }
+            
+            Spacer()
+            
+            VStack(spacing: 40) {
+                Image(systemName: "folder")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200)
+                    .foregroundColor(.primary)
+                
+                Text("Saved tracks will show up here.")
+                    .foregroundColor(.primary)
+                    .font(.caption)
+                    .multilineTextAlignment(.center)
+            }
+            .padding(100)
             
             Spacer()
             

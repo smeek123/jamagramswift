@@ -18,7 +18,7 @@ struct ContentView: View {
         VStack {
             if isSignedIn {
                 TabView {
-                    Text("Home")
+                    HomeView()
                         .tabItem {
                             Label("Home", systemImage: "house")
                         }
