@@ -10,7 +10,6 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var spotify = SpotifyAuthManager()
     @AppStorage("signedIn") var isSignedIn: Bool = false
-    @AppStorage("favArtists") static var favArtists: String = ""
     
     var body: some View {
         //this is the main view that loads

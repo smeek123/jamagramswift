@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @StateObject var spotifyData = SpotifyDataManager()
     @State var tracks: [track] = []
+    @AppStorage("favArtists") static var favArtists: String = ""
     
     var body: some View {
         VStack {
@@ -20,6 +21,7 @@ struct HomeView: View {
             }
         }
         .task {
+            _ = try? await spotifyData.getTopArtist()
             tracks = await spotifyData.getRecomended()?.tracks ?? []
         }
     }

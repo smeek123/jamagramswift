@@ -79,14 +79,19 @@ class SpotifyDataManager: ObservableObject {
             await MainActor.run {
                 isRetrievingData = false
                 
+                HomeView.favArtists = ""
+                
                 for item in topArtist.items {
-                    ContentView.favArtists += item.id
-                    ContentView.favArtists += ","
+                    HomeView.favArtists += item.id
+                    HomeView.favArtists += ","
                 }
             }
             
             return topArtist
         } catch {
+            
+            print("top")
+            
             print(error.localizedDescription)
             return nil
         }
@@ -98,9 +103,13 @@ class SpotifyDataManager: ObservableObject {
                 isRetrievingData = true
             }
             
-            let recommended = try await createRequest(url: URL(string: Constants.baseURL + "/recommendations?seed_artists=\(ContentView.favArtists)&limit=50"), type: .GET)
+            await print(HomeView.favArtists)
             
-            let (data, _) = try await URLSession.shared.data(for: recommended)
+            let recommended = try await createRequest(url: URL(string: Constants.baseURL + "/recommendations?seed_artists=\(HomeView.favArtists)&limit=50"), type: .GET)
+            
+            let (data, response) = try await URLSession.shared.data(for: recommended)
+            
+            print((response as? HTTPURLResponse)?.statusCode)
             
             let recommendation = try JSONDecoder().decode(recommendation.self, from: data)
             
@@ -112,6 +121,7 @@ class SpotifyDataManager: ObservableObject {
             
             return recommendation
         } catch {
+            print("reco")
             print(error.localizedDescription)
             return nil
         }
