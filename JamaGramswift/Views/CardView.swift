@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardView: View {
-    @State var track: String
+    @State var track: track
     @State private var offset = CGSize.zero
     
     var body: some View {
@@ -21,7 +21,7 @@ struct CardView: View {
                 .shadow(color: Color.primary.opacity(0.5), radius: 5)
             
             HStack {
-                Text(track)
+                Text(track.name)
                     .foregroundColor(Color(UIColor.systemBackground))
                     .font(.largeTitle)
                     .bold()

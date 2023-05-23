@@ -47,9 +47,9 @@ class SpotifyDataManager: ObservableObject {
                 fatalError("error with fetching data")
             }
             
-//            let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-//
-//            print(result)
+            //            let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+            //
+            //            print(result)
             
             let currentUser = try JSONDecoder().decode(User.self, from: data)
             
@@ -58,6 +58,59 @@ class SpotifyDataManager: ObservableObject {
             }
             
             return currentUser
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    func getTopArtist() async throws -> topArtistModel? {
+        do {
+            await MainActor.run {
+                isRetrievingData = true
+            }
+            
+            let artistRequest = try await createRequest(url: URL(string: Constants.baseURL + "/me/top/artists?limit=5&time_range=short_term"), type: .GET)
+            
+            let (data, _) = try await URLSession.shared.data(for: artistRequest)
+            
+            let topArtist = try JSONDecoder().decode(topArtistModel.self, from: data)
+            
+            await MainActor.run {
+                isRetrievingData = false
+                
+                for item in topArtist.items {
+                    ContentView.favArtists += item.id
+                    ContentView.favArtists += ","
+                }
+            }
+            
+            return topArtist
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    func getRecomended() async -> recommendation? {
+        do {
+            await MainActor.run {
+                isRetrievingData = true
+            }
+            
+            let recommended = try await createRequest(url: URL(string: Constants.baseURL + "/recommendations?seed_artists=\(ContentView.favArtists)&limit=50"), type: .GET)
+            
+            let (data, _) = try await URLSession.shared.data(for: recommended)
+            
+            let recommendation = try JSONDecoder().decode(recommendation.self, from: data)
+            
+            print(recommendation)
+            
+            await MainActor.run {
+                isRetrievingData = false
+            }
+            
+            return recommendation
         } catch {
             print(error.localizedDescription)
             return nil

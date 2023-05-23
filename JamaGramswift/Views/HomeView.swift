@@ -8,21 +8,19 @@
 import SwiftUI
 
 struct HomeView: View {
-    private var tracks: [String] = ["F.N.", "20 min", "Lucid Dreams", "Zoo York"]
+    @StateObject var spotifyData = SpotifyDataManager()
+    @State var tracks: [track] = []
     
     var body: some View {
         VStack {
             ZStack {
-                ForEach(tracks, id: \.self) { track in
+                ForEach(tracks) { track in
                     CardView(track: track)
                 }
             }
         }
-    }
-}
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
+        .task {
+            tracks = await spotifyData.getRecomended()?.tracks ?? []
+        }
     }
 }
