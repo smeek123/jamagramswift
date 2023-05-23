@@ -8,8 +8,16 @@
 import SwiftUI
 
 struct HomeView: View {
+    private var tracks: [String] = ["F.N.", "20 min", "Lucid Dreams", "Zoo York"]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            ZStack {
+                ForEach(tracks, id: \.self) { track in
+                    CardView(track: track)
+                }
+            }
+        }
     }
 }
 
