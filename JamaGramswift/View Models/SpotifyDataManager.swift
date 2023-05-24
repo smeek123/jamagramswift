@@ -107,9 +107,7 @@ class SpotifyDataManager: ObservableObject {
             
             let recommended = try await createRequest(url: URL(string: Constants.baseURL + "/recommendations?seed_artists=\(HomeView.favArtists)&limit=50"), type: .GET)
             
-            let (data, response) = try await URLSession.shared.data(for: recommended)
-            
-            print((response as? HTTPURLResponse)?.statusCode)
+            let (data, _) = try await URLSession.shared.data(for: recommended)
             
             let recommendation = try JSONDecoder().decode(recommendation.self, from: data)
             
