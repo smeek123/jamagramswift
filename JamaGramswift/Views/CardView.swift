@@ -68,27 +68,31 @@ struct CardView: View {
                                 player.play()
                             }
                         } label: {
-                            HStack(spacing: 10) {
+                            HStack(spacing: 7) {
                                 if isPlaying {
                                     Image(systemName: "pause.circle.fill")
                                         .foregroundColor(.primary)
                                         .font(.system(size: 35))
                                         .padding(.vertical, 10)
+                                    
+                                    Text("Pause")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(.primary)
                                 } else {
                                     Image(systemName: "play.circle.fill")
                                         .foregroundColor(.primary)
                                         .font(.system(size: 35))
                                         .padding(.vertical, 10)
+                                    
+                                    Text("Play")
+                                        .font(.system(size: 18))
+                                        .foregroundColor(.primary)
                                 }
-                                
-                                Text("Play")
-                                    .font(.system(size: 18))
-                                    .foregroundColor(.primary)
-                                    .onAppear {
-                                            if let url = URL(string: track.preview_url ?? "") {
-                                                player = AVPlayer(playerItem: AVPlayerItem(url: url))
-                                            }
-                                        }
+                            }
+                            .onAppear {
+                                if let url = URL(string: track.preview_url ?? "") {
+                                    player = AVPlayer(playerItem: AVPlayerItem(url: url))
+                                }
                             }
                             .background(Capsule()
                                 .fill(Color(UIColor.systemBackground))
@@ -153,10 +157,6 @@ struct CardView: View {
                     withAnimation {
                         swipeCard(width: offset.width)
                     }
-                    
-                    player.pause()
-                    isPlaying = false
-                    player = AVPlayer()
                 }
         )
     }
@@ -165,8 +165,14 @@ struct CardView: View {
         switch width {
         case -500...(-150):
             offset = CGSize(width: -500, height: 0)
+            player.pause()
+            isPlaying = false
+            player = AVPlayer()
         case 150...500:
             offset = CGSize(width: 500, height: 0)
+            player.pause()
+            isPlaying = false
+            player = AVPlayer()
         default:
             offset = .zero
         }

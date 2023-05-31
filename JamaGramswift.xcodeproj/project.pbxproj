@@ -11,6 +11,7 @@
 		D61A221D2A1C2FFD0021C3AF /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61A221C2A1C2FFC0021C3AF /* CardView.swift */; };
 		D61A221F2A1D48E30021C3AF /* TopArtistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61A221E2A1D48E30021C3AF /* TopArtistModel.swift */; };
 		D61A22212A1D4A7A0021C3AF /* RecommendationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61A22202A1D4A7A0021C3AF /* RecommendationModel.swift */; };
+		D635859F2A26C6BA0010FD74 /* PlaylistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635859E2A26C6BA0010FD74 /* PlaylistModel.swift */; };
 		D64BF5B62A05A1460085ED18 /* JamaGramswiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BF5B52A05A1460085ED18 /* JamaGramswiftApp.swift */; };
 		D64BF5B82A05A1460085ED18 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BF5B72A05A1460085ED18 /* ContentView.swift */; };
 		D64BF5BA2A05A1900085ED18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D64BF5B92A05A1900085ED18 /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 		D61A221C2A1C2FFC0021C3AF /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D61A221E2A1D48E30021C3AF /* TopArtistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopArtistModel.swift; sourceTree = "<group>"; };
 		D61A22202A1D4A7A0021C3AF /* RecommendationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationModel.swift; sourceTree = "<group>"; };
+		D635859E2A26C6BA0010FD74 /* PlaylistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistModel.swift; sourceTree = "<group>"; };
 		D64BF5B22A05A1460085ED18 /* JamaGramswift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JamaGramswift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D64BF5B52A05A1460085ED18 /* JamaGramswiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JamaGramswiftApp.swift; sourceTree = "<group>"; };
 		D64BF5B72A05A1460085ED18 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				D6AE405A2A0F1521000748D2 /* User.swift */,
 				D61A221E2A1D48E30021C3AF /* TopArtistModel.swift */,
 				D61A22202A1D4A7A0021C3AF /* RecommendationModel.swift */,
+				D635859E2A26C6BA0010FD74 /* PlaylistModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				D64BF5CD2A07388A0085ED18 /* AuthResponse.swift in Sources */,
 				D6AE405B2A0F1521000748D2 /* User.swift in Sources */,
 				D6AE40542A0EE09E000748D2 /* ProfileView.swift in Sources */,
+				D635859F2A26C6BA0010FD74 /* PlaylistModel.swift in Sources */,
 				D6AE40592A0F1470000748D2 /* SpotifyDataManager.swift in Sources */,
 				D61A221D2A1C2FFD0021C3AF /* CardView.swift in Sources */,
 				D61A221F2A1D48E30021C3AF /* TopArtistModel.swift in Sources */,

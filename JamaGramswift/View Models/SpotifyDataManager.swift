@@ -124,4 +124,6 @@ class SpotifyDataManager: ObservableObject {
             return nil
         }
     }
+    
+    
 }

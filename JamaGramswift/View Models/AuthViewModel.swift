@@ -62,7 +62,7 @@ class SpotifyAuthManager: ObservableObject {
     //this url provides a place for spotify to send the user back to after the login process
     let redirect_uriURL: URL = URL(string: "jamagram-app://login-callback")!
     //these tell spotify what data the user wants to access
-    let scopes: String = "user-modify-playback-state%20user-top-read%20user-read-private%20user-read-email"
+    let scopes: String = "user-modify-playback-state%20user-top-read%20user-read-private%20user-read-email%20playlist-modify-public%20playlist-modify-private"
     //these fields are included in the url that is passed to spotify for auth
     var inputState: String = ""
     var returnState: String = ""
