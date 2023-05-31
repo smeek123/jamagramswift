@@ -15,6 +15,10 @@ class SpotifyDataManager: ObservableObject {
     @Published var isRetrievingData: Bool = false
     static var instance = SpotifyDataManager()
     
+    enum playlistError: Error {
+        case noUserId
+    }
+    
     enum HTTPMethod: String {
         case GET
         case POST
@@ -125,5 +129,31 @@ class SpotifyDataManager: ObservableObject {
         }
     }
     
+    func createPlaylist() async throws -> PlaylistResponse? {
+        do {
+            await MainActor.run {
+                isRetrievingData = true
+            }
+            
+            guard let userId: String = try await getProfile()?.id else {
+                throw playlistError.noUserId
+            }
+            
+            let playlistRequest = try await createRequest(url: URL(string: Constants.baseURL + "/users/\(userId)/playlists?name=JamaGram&public=false"), type: .POST)
+            
+            let (responseData, response) = try await
+            URLSession.shared.upload(for: <#T##URLRequest#>, from: <#T##Data#>)
+            
+            await MainActor.run {
+                isRetrievingData = false
+            }
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
     
+    func getPlaylist() async {
+        
+    }
 }

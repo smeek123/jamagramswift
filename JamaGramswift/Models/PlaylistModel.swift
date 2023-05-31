@@ -11,3 +11,7 @@ struct Playlist: Codable {
     let id: String
     let tracks: [track]
 }
+
+struct PlaylistResponse: Codable {
+    let id: String
+}

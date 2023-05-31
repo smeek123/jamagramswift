@@ -206,6 +206,8 @@ class SpotifyAuthManager: ObservableObject {
             if returnError == "" {
                 try? await getAccessToken(accessCode: returnCode, verifier: SpotifyAuthManager.code_verifier)
                 print("varifier \(SpotifyAuthManager.code_verifier)")
+                
+                
             } else {
                 print("error getting token")
                 print(returnError)
