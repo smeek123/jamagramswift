@@ -21,6 +21,7 @@ struct CardView: View {
     )
     @State var player = AVPlayer()
     @State var isPlaying: Bool = false
+    @State var favorittes: [track] = []
     
     var body: some View {
         ZStack {
@@ -155,13 +156,13 @@ struct CardView: View {
                     offset = gesture.translation
                 } .onEnded { _ in
                     withAnimation {
-                        swipeCard(width: offset.width)
+                        swipeCard(width: offset.width, track: track)
                     }
                 }
         )
     }
     
-    func swipeCard(width: CGFloat) {
+    func swipeCard(width: CGFloat, track: track) {
         switch width {
         case -500...(-150):
             offset = CGSize(width: -500, height: 0)
@@ -173,6 +174,7 @@ struct CardView: View {
             player.pause()
             isPlaying = false
             player = AVPlayer()
+            favorittes.append(track)
         default:
             offset = .zero
         }

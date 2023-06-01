@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var spotifyData = SpotifyDataManager()
     @StateObject var spotify = SpotifyAuthManager()
     @AppStorage("signedIn") var isSignedIn: Bool = false
+    @AppStorage("playlistId") var playlistId: String = ""
     
     var body: some View {
         //this is the main view that loads
@@ -21,11 +23,6 @@ struct ContentView: View {
                     HomeView()
                         .tabItem {
                             Label("Home", systemImage: "house")
-                        }
-                    
-                    Text("Favorites")
-                        .tabItem {
-                            Label("Favorites", systemImage: "star")
                         }
                     
                     ProfileView()
@@ -41,6 +38,12 @@ struct ContentView: View {
         .onOpenURL { url in
             Task {
                 await spotify.HandleURLCode(url)
+                
+//                do {
+//                    playlistId = try await spotifyData.createPlaylist()?.id ?? ""
+//                } catch {
+//                    print(error.localizedDescription)
+//                }
             }
         }
         //this requests a new token when needed

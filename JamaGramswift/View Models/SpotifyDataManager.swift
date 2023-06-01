@@ -141,19 +141,23 @@ class SpotifyDataManager: ObservableObject {
             
             let playlistRequest = try await createRequest(url: URL(string: Constants.baseURL + "/users/\(userId)/playlists?name=JamaGram&public=false"), type: .POST)
             
-            let (responseData, response) = try await
-            URLSession.shared.upload(for: <#T##URLRequest#>, from: <#T##Data#>)
+            guard let data = playlistRequest.httpBody else {
+                throw URLError(.dataNotAllowed)
+            }
+            
+            let (responseData, _) = try await
+            URLSession.shared.upload(for: playlistRequest, from: data)
+            
+            let result = try JSONDecoder().decode(PlaylistResponse.self, from: responseData)
             
             await MainActor.run {
                 isRetrievingData = false
             }
+            
+            return result
         } catch {
             print(error.localizedDescription)
             return nil
         }
-    }
-    
-    func getPlaylist() async {
-        
     }
 }
