@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//this is the first view that shows up asking you to connect to spotify
 struct SignInView: View {
     //allows access to methods in the auth manager class
     @StateObject var spotify = SpotifyAuthManager()
@@ -40,11 +41,13 @@ struct SignInView: View {
             VStack {
                 Spacer()
                 
+                //shows welcome text
                 Text("Welcome to\nJamaGram!")
                     .font(.system(size: 50))
                     .foregroundColor(.white)
                     .padding(20)
                 
+                //shows continue message
                 Text("To continue, please connect to\nyour Spotify account.")
                     .foregroundColor(.white)
                     .padding(10)
@@ -71,8 +74,8 @@ struct SignInView: View {
                         .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.1))
                     .padding(20)
                 }
-                .accessibility(identifier: "Log in with Spotify Identifier")
                 .padding(.vertical)
+                //this makes it so you cannot request a tokenuntil the previos one is done loading
                 .allowsHitTesting(!SpotifyAM.isRetrievingTokens)
                 
                 Spacer()
@@ -81,8 +84,4 @@ struct SignInView: View {
     }
 }
 
-struct SignInView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignInView()
-    }
-}
+

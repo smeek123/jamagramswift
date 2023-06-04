@@ -9,7 +9,9 @@ import SwiftUI
 //this package helps show an image given by a url
 import SDWebImageSwiftUI
 
+//this shows the spotify image and username of the person signed in. It also allows for signing out.
 struct ProfileView: View {
+    //holds the value of issignedin in the device storage
     @AppStorage("signedIn") var isSignedIn: Bool = false
     @StateObject var SpotifyAM = SpotifyAuthManager()
     @StateObject var spotifyData = SpotifyDataManager()
@@ -20,10 +22,12 @@ struct ProfileView: View {
     func logOut() {
         Task {
             do {
+                //any func that can throw and error has try in front
                 try await SpotifyAuthManager.deleteToken(service: "spotify.com", accounr: "accessToken")
                 
                 try await SpotifyAuthManager.deleteToken(service: "spotify.com", accounr: "refreshToken")
             } catch {
+                //prints any error that happens.
                 print(error.localizedDescription)
             }
         }
@@ -32,6 +36,7 @@ struct ProfileView: View {
     var body: some View {
         VStack {
             if isSignedIn {
+                //while data is loading a place holder is shown
                 if spotifyData.isRetrievingData {
                     VStack {
                         Image(systemName: "person.circle")
@@ -40,7 +45,7 @@ struct ProfileView: View {
                             .padding()
                     }
                 } else {
-                    //checks to make sure no value are nil
+                    //checks to make sure no values are nil
                     if let user = currentUser {
                         //checks that the url is not nil
                         if let image = user.images?.first?.url {
@@ -54,12 +59,14 @@ struct ProfileView: View {
                                     .padding()
                             }
                         } else {
+                            //if image is nil, place holder is shown
                             Image(systemName: "person.circle")
                                 .font(.system(size: 75))
                                 .foregroundColor(Color(UIColor.secondarySystemBackground))
                         }
                         
                         if !spotifyData.isRetrievingData {
+                            //when data loads, username is shown
                             Text(user.display_name)
                                 .foregroundColor(.primary)
                                 .font(.title)
@@ -72,8 +79,10 @@ struct ProfileView: View {
                 }
             }
             
+            //helps spread out content in SwiftUI
             Spacer()
             
+            //while no favorite tracks are in the list, this message appears. In the future when I add the playlist funtionality, the favorite tracks will show up here.
             VStack(spacing: 40) {
                 Image(systemName: "folder")
                     .resizable()
@@ -90,6 +99,7 @@ struct ProfileView: View {
             
             Spacer()
             
+            //This button shows a dialog to confirm the account removal.
             Button {
                 showDelete = true
             } label: {
@@ -104,12 +114,14 @@ struct ProfileView: View {
         }
         //presents a message to confirm the log out
         .confirmationDialog("Remove Account?", isPresented: $showDelete, titleVisibility: .visible) {
+            //cancels the action
             Button(role: .cancel) {
                 print("canceled")
             } label: {
                 Text("cancel")
             }
             
+            //calls the logout method and deletes the access token and account. 
             Button(role: .destructive) {
                 logOut()
             } label: {
@@ -122,11 +134,5 @@ struct ProfileView: View {
                 currentUser = try? await spotifyData.getProfile()
             }
         }
-    }
-}
-
-struct ProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileView()
     }
 }
