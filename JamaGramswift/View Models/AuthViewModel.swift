@@ -26,6 +26,7 @@ struct SpotifyAM {
     }
     
     //this is an asyncronous method that updates the access tokens when needed
+    //all keychain methods I learned about from the IOS Academy source
     static func updateTokens(service: String, account: String, authData: Data) async throws {
         //this uses the apple security framework to access the keychain safely, this query provides the information about the token that should update
         let query: [String: AnyObject] = [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service as AnyObject, kSecAttrAccount as String: account as AnyObject]
@@ -57,6 +58,7 @@ struct SpotifyAM {
     }
 }
 
+//this holds all methods for authorization in spotify api
 class SpotifyAuthManager: ObservableObject {
     let client_secret: String = "7d4f16ad367f408aa439112d2872ff40"
     //this url provides a place for spotify to send the user back to after the login process
@@ -72,6 +74,7 @@ class SpotifyAuthManager: ObservableObject {
     static var code_verifier: String = ""
     
     //this var makes sure the refresh token is requested with enough time to proccess before the token expires
+    //source "Ios academy"
     static var shouldRefresh: Bool {
         guard SpotifyAM.expiresAt <= Date().addingTimeInterval(300) else {
             return false
@@ -84,6 +87,8 @@ class SpotifyAuthManager: ObservableObject {
     }
     
     //request an access and refresh token from spotify
+    //this is used in later methods to get the tokens
+    //source "iOs Academy"
     static func withCurrentToken() async -> String {
         var accessToken: String = ""
         do {
@@ -110,12 +115,14 @@ class SpotifyAuthManager: ObservableObject {
     }
     
     //creates a random string for the auth url parameter
+    //source "F, Mick"
     func randomString(length: Int) -> String {
         let chars: String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.-~"
         return String((0..<length).map{ _ in chars.randomElement()! })
     }
     
     //this is how spotify requires the request to be incrypted
+    //source "F, Mick"
     func generateCryptographicallySecureRandomOctets(count: Int) throws -> [UInt8] {
         var octets = [UInt8](repeating: 0, count: count)
         let status = SecRandomCopyBytes(kSecRandomDefault, octets.count, &octets)
@@ -127,9 +134,11 @@ class SpotifyAuthManager: ObservableObject {
     }
     
     //this func encodes the string with the octates generated
+    //source "F, Mick"
     func base64URLEncode<S>(octets: S) -> String where S : Sequence, UInt8 == S.Element {
         let data = Data(octets)
         return data
+        //econdes the string in base 64 and replace common charactors
             .base64EncodedString() // Regular base64 encoder
             .replacingOccurrences(of: "=", with: "") // Remove any trailing '='s
             .replacingOccurrences(of: "+", with: "-") // 62nd char of encoding
@@ -152,6 +161,7 @@ class SpotifyAuthManager: ObservableObject {
     }
     
     //this func takes all the parameters we generated and puts them into the url to be sent to the api
+    //source "spotify api docs"
     func spotifyURL() -> URL {
         do {
             SpotifyAuthManager.code_verifier = try base64URLEncode(octets: generateCryptographicallySecureRandomOctets(count: 32))
@@ -160,6 +170,7 @@ class SpotifyAuthManager: ObservableObject {
             print(error.localizedDescription)
         }
         
+        //checks for errors in the url
         guard let spotifyURL: URL = URL(string: "https://accounts.spotify.com/authorize?response_type=code&client_id=\(SpotifyAM.client_id)&scope=\(scopes)&redirect_uri=\(redirect_uriURL.absoluteString)&state=\(inputState)&code_challenge_method=S256&code_challenge=\(String(describing: code_challenge))&show_dialog=TRUE") else {
             return URL(string: "https://google.com")!
         }
@@ -216,6 +227,7 @@ class SpotifyAuthManager: ObservableObject {
     }
     
     //this func takes the code we got and requests the tokens
+    //sources "ios academy" and "spotify docs"
     func getAccessToken(accessCode: String, verifier: String) async throws {
         //this key tells spotify that the jamagram app is requesting access
         let api_auth_key: String = "Basic \((SpotifyAM.client_id + ":" + client_secret).data(using: .utf8)!.base64EncodedString())"
@@ -274,9 +286,12 @@ class SpotifyAuthManager: ObservableObject {
     }
     
     //saveauth data to keychain
+    //source "ios academy"
     func saveToKeychain(service: String, account: String, authData: Data) async throws {
+        //the fields in the keychain that are used for id
         let query: [String: AnyObject] = [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service as AnyObject, kSecAttrAccount as String: account as AnyObject, kSecValueData as String: authData as AnyObject]
         
+        //the returned status
         let status = SecItemAdd(query as CFDictionary, nil)
         
         if status == errSecDuplicateItem {
@@ -287,6 +302,7 @@ class SpotifyAuthManager: ObservableObject {
             print("success")
         }
         
+        //checks that no errors occur
         if status != errSecSuccess {
             throw SpotifyAM.KeychainError.unknown(status)
         } else {
@@ -297,33 +313,42 @@ class SpotifyAuthManager: ObservableObject {
     }
     
     //request new access_token
+    //source "ios academy"
     static func getRefreshedAccessToken() async throws {
         let requestHeaders: [String: String] = ["Content-Type": "application/x-www-form-urlencoded"]
         
+        //assigns the result of the func to refresh data so it can bbe passed into the request
         guard let refreshData = try? getTokens(service: "spotify.com", account: "refreshToken") else {
             throw URLError(.dataNotAllowed)
         }
         
+        //decodes the keychain data into data for the spotify request
         let refreshToken = String(decoding: refreshData, as: UTF8.self)
         
+        //creates a request with the proper fields for the body
         var requestBodyComponents = URLComponents()
         requestBodyComponents.queryItems = [URLQueryItem(name: "grant_type", value: "refresh_token"), URLQueryItem(name: "client_id", value: SpotifyAM.client_id), URLQueryItem(name: "refresh_token", value: refreshToken)]
         
+        //tells what kind of request this will be. It is post because we are sending data to the api.
         var request = URLRequest(url: URL(string: "https://accounts.spotify.com/api/token")!)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = requestHeaders
         request.httpBody = requestBodyComponents.query?.data(using: .utf8)
         
         do {
+            //assigns data the value of the encoded request data to be sent
             guard let data = requestBodyComponents.query?.data(using: .utf8) else {
                 throw URLError(.dataNotAllowed)
             }
             
+            //preforms the request and gets a response
             let (responseData, _) = try await
             URLSession.shared.upload(for: request, from: data)
             
+            //decodes the response into a model that we can then access each field of the data
             let result = try JSONDecoder().decode(AuthResponse.self, from: responseData)
             
+            //puts the new tokens safely into the keychain
             try await SpotifyAM.updateTokens(service: "spotify.com", account: "accessToken", authData: result.access_token.data(using: .utf8) ?? Data())
             
             guard let refreshToken = result.refresh_token else {
@@ -366,6 +391,7 @@ class SpotifyAuthManager: ObservableObject {
     }
     
     //deletes the old tokens
+    //source "ios academy"
     static func deleteToken(service: String, accounr: String) async throws {
         let query: [String: AnyObject] = [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service as AnyObject, kSecAttrAccount as String: accounr as AnyObject]
         
