@@ -7,6 +7,7 @@
 
 import Foundation
 
+//started model for playlists but not complete yet
 struct Playlist: Codable {
     let id: String
     let tracks: [track]

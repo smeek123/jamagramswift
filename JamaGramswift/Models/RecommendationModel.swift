@@ -7,10 +7,12 @@
 
 import Foundation
 
+//decodes recommendations
 struct recommendation: Codable {
     let tracks: [track]
 }
 
+//fields for each track
 struct track: Codable, Identifiable {
     let album: album
     let artists: [artistItem]?
