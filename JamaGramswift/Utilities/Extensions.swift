@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-//this extension allows a date to be saved in the devices app storage which is usex in the login process 
+//this extension allows a date to be saved in the devices app storage which is used in the login process 
 extension Date: RawRepresentable {
     public var rawValue: String {
         self.timeIntervalSinceReferenceDate.description
