@@ -8,8 +8,10 @@
 import SwiftUI
 import AVKit
 
+//main app that initializeses the app
 @main
 struct JamaGramswiftApp: App {
+    //sets up the audio capabilities for the preview links
     func setAudioSession()  {
         let audioSession = AVAudioSession.sharedInstance()
         do {
@@ -23,6 +25,7 @@ struct JamaGramswiftApp: App {
         setAudioSession()
     }
     
+    //this is the first screen shown when the app loads
     var body: some Scene {
         WindowGroup {
             ContentView()
