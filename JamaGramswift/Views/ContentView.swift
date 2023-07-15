@@ -20,13 +20,26 @@ struct ContentView: View {
             //If the user is signed, the tab view is shown
             if isSignedIn {
                 TabView {
-                    //when this tab is selected, the home view is shown. This is the default tab so will be automatically selected when the app loads.
                     HomeView()
                         .tabItem {
                             Label("Home", systemImage: "house")
                         }
                     
-                    //profile is shown when this tab is chosen
+                    SearchView()
+                        .tabItem {
+                            Label("Search", systemImage: "magnifyingglass")
+                        }
+                    
+                    CreateView()
+                        .tabItem {
+                            Label("Create", systemImage: "plus.app")
+                        }
+                    
+                    TrendingView()
+                        .tabItem {
+                            Label("Trending", systemImage: "chart.line.uptrend.xyaxis")
+                        }
+                    
                     ProfileView()
                         .tabItem {
                             Label("Me", systemImage: "person.circle")
@@ -41,12 +54,6 @@ struct ContentView: View {
         .onOpenURL { url in
             Task {
                 await spotify.HandleURLCode(url)
-                
-//                do {
-//                    playlistId = try await spotifyData.createPlaylist()?.id ?? ""
-//                } catch {
-//                    print(error.localizedDescription)
-//                }
             }
         }
         //this requests a new token when needed
