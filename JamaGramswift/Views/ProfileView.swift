@@ -17,6 +17,8 @@ struct ProfileView: View {
     @StateObject var spotifyData = SpotifyDataManager()
     @State var currentUser: User? = nil
     @State var showDelete: Bool = false;
+    @State private var selection: Int = 0
+    @Namespace private var pickerTabs
     
     //This removes the tokens when logging out
     func logOut() {
@@ -92,117 +94,246 @@ struct ProfileView: View {
                         Text("streaming platform")
                     }, label: {
                         HStack {
-                            Image(systemName: "headphones")
-                                .foregroundColor(.primary)
-                                .font(.largeTitle)
+                            Spacer()
                             
-                            Text("Streaming Platform")
+                            Text("Customize")
                                 .foregroundColor(.primary)
                                 .font(.title3)
                                 .padding(.horizontal, 15)
                             
                             Spacer()
                         }
-                        .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
+                        .frame(width: UIScreen.main.bounds.width * 0.8, height: 25)
                         .padding(.horizontal, 15)
                     })
+                    .background(Color("MainColor"))
                     .clipShape(Capsule())
                     .buttonStyle(.bordered)
                     .padding(10)
                     
-                    Button {
-                        showDelete = true
-                    } label: {
-                        HStack {
-                            Image(systemName: "arrowshape.backward")
-                                .foregroundColor(.primary)
-                                .font(.largeTitle)
-                            
-                            Text("Log Out")
-                                .foregroundColor(.primary)
-                                .font(.title3)
-                                .padding(.horizontal, 15)
-                            
-                            Spacer()
+                    HStack {
+                        Spacer()
+                        
+                        Button {
+                            withAnimation(.linear) {
+                                selection = 0
+                            }
+                        } label: {
+                            ZStack {
+                                if selection == 0 {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .foregroundColor(Color("MainColor"))
+                                        .matchedGeometryEffect(id: "tabs", in: pickerTabs)
+                                } else {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                }
+                                
+                                Image(systemName: "headphones")
+                                    .foregroundColor(.primary)
+                                    .font(.title3)
+                                    .padding(10)
+                                    .padding(.horizontal, 10)
+                            }
                         }
-                        .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
-                        .padding(.horizontal, 15)
-                    }
-                    .clipShape(Capsule())
-                    .buttonStyle(.bordered)
-                    .padding(10)
-                    
-                    Button {
-                        showDelete = true
-                    } label: {
-                        HStack {
-                            Image(systemName: "trash")
-                                .foregroundColor(.primary)
-                                .font(.largeTitle)
-                            
-                            Text("Delete Account")
-                                .foregroundColor(.primary)
-                                .font(.title3)
-                                .padding(.horizontal, 15)
-                            
-                            Spacer()
+                        
+                        Spacer()
+                        
+                        Button {
+                            withAnimation(.linear) {
+                                selection = 1
+                            }
+                        } label: {
+                            ZStack {
+                                if selection == 1 {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .foregroundColor(Color("MainColor"))
+                                        .matchedGeometryEffect(id: "tabs", in: pickerTabs)
+                                } else {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                }
+                                
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(.primary)
+                                    .font(.title3)
+                                    .padding(10)
+                                    .padding(.horizontal, 10)
+                            }
                         }
-                        .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
-                        .padding(.horizontal, 15)
+                        
+                        Spacer()
+                        
+                        Button {
+                            withAnimation(.linear) {
+                                selection = 2
+                            }
+                        } label: {
+                            ZStack {
+                                if selection == 2 {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .foregroundColor(Color("MainColor"))
+                                        .matchedGeometryEffect(id: "tabs", in: pickerTabs)
+                                } else {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                }
+                                
+                                Image(systemName: "bookmark.fill")
+                                    .foregroundColor(.primary)
+                                    .font(.title3)
+                                    .padding(10)
+                                    .padding(.horizontal, 10)
+                            }
+                        }
+                        
+                        Spacer()
+                        
+                        Button {
+                            withAnimation(.linear) {
+                                selection = 3
+                            }
+                        } label: {
+                            ZStack {
+                                if selection == 3 {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .foregroundColor(Color("MainColor"))
+                                        .matchedGeometryEffect(id: "tabs", in: pickerTabs)
+                                } else {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                }
+                                
+                                Image(systemName: "gearshape.fill")
+                                    .foregroundColor(.primary)
+                                    .font(.title3)
+                                    .padding(10)
+                                    .padding(.horizontal, 10)
+                            }
+                        }
+                        
+                        Spacer()
                     }
+                    .padding()
+                    .background(Color(UIColor.secondarySystemBackground))
                     .clipShape(Capsule())
-                    .buttonStyle(.bordered)
-                    .padding(10)
+                    .padding()
                 }
+                
+                NavigationLink(destination: {
+                    Text("streaming platform")
+                }, label: {
+                    HStack {
+                        Image(systemName: "headphones")
+                            .foregroundColor(.primary)
+                            .font(.largeTitle)
+                        
+                        Text("Streaming Platform")
+                            .foregroundColor(.primary)
+                            .font(.title3)
+                            .padding(.horizontal, 15)
+                        
+                        Spacer()
+                    }
+                    .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
+                    .padding(.horizontal, 15)
+                })
+                .clipShape(Capsule())
+                .buttonStyle(.bordered)
+                .padding(10)
+                
+                Button {
+                    showDelete = true
+                } label: {
+                    HStack {
+                        Image(systemName: "arrowshape.backward")
+                            .foregroundColor(.primary)
+                            .font(.largeTitle)
+                        
+                        Text("Log Out")
+                            .foregroundColor(.primary)
+                            .font(.title3)
+                            .padding(.horizontal, 15)
+                        
+                        Spacer()
+                    }
+                    .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
+                    .padding(.horizontal, 15)
+                }
+                .clipShape(Capsule())
+                .buttonStyle(.bordered)
+                .padding(10)
+                
+                Button {
+                    showDelete = true
+                } label: {
+                    HStack {
+                        Image(systemName: "trash")
+                            .foregroundColor(.primary)
+                            .font(.largeTitle)
+                        
+                        Text("Delete Account")
+                            .foregroundColor(.primary)
+                            .font(.title3)
+                            .padding(.horizontal, 15)
+                        
+                        Spacer()
+                    }
+                    .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
+                    .padding(.horizontal, 15)
+                }
+                .clipShape(Capsule())
+                .buttonStyle(.bordered)
+                .padding(10)
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Text("JamaGram")
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Text("username")
+                    .foregroundColor(.primary)
+                    .font(.system(size: 25))
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink {
+                    Text("Notifications")
+                } label: {
+                    Image(systemName: "bell")
                         .foregroundColor(.primary)
-                        .font(.system(size: 25))
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        Text("Notifications")
-                    } label: {
-                        Image(systemName: "bell")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 20))
-                    }
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        Text("Messages")
-                    } label: {
-                        Image(systemName: "message")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 20))
-                    }
+                        .font(.system(size: 20))
                 }
             }
-            //presents a message to confirm the log out
-            .confirmationDialog("Remove Account?", isPresented: $showDelete, titleVisibility: .visible) {
-                //cancels the action
-                Button(role: .cancel) {
-                    print("canceled")
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink {
+                    Text("Messages")
                 } label: {
-                    Text("cancel")
-                }
-                
-                //calls the logout method and deletes the access token and account.
-                Button(role: .destructive) {
-                    logOut()
-                } label: {
-                    Text("Remove")
+                    Image(systemName: "message")
+                        .foregroundColor(.primary)
+                        .font(.system(size: 20))
                 }
             }
-            //sets the current user = to the result of the get profile func
-            .task {
-                if isSignedIn {
-                    currentUser = try? await spotifyData.getProfile()
-                }
+        }
+        //presents a message to confirm the log out
+        .confirmationDialog("Remove Account?", isPresented: $showDelete, titleVisibility: .visible) {
+            //cancels the action
+            Button(role: .cancel) {
+                print("canceled")
+            } label: {
+                Text("cancel")
+            }
+            
+            //calls the logout method and deletes the access token and account.
+            Button(role: .destructive) {
+                logOut()
+            } label: {
+                Text("Remove")
+            }
+        }
+        //sets the current user = to the result of the get profile func
+        .task {
+            if isSignedIn {
+                currentUser = try? await spotifyData.getProfile()
             }
         }
     }
