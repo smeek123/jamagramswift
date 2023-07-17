@@ -17,18 +17,41 @@ struct HomeView: View {
     @AppStorage("favArtists") static var favArtists: String = ""
     
     var body: some View {
-        VStack {
-            ZStack {
-                //loops through the tracks list and for every item creates an instance of card view and adds it to the stack
-                ForEach(tracks) { track in
-                    CardView(track: track)
+        NavigationStack {
+            VStack {
+                Text("Home")
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text("JamaGram")
+                        .foregroundColor(.primary)
+                        .font(.system(size: 25))
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        Text("Notifications")
+                    } label: {
+                        Image(systemName: "bell")
+                            .foregroundColor(.primary)
+                            .font(.system(size: 20))
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        Text("Messages")
+                    } label: {
+                        Image(systemName: "message")
+                            .foregroundColor(.primary)
+                            .font(.system(size: 20))
+                    }
                 }
             }
-        }
-        //this gets the top artists which are passed into the recommendation method
-        .task {
-            _ = try? await spotifyData.getTopArtist()
-            tracks = await spotifyData.getRecomended()?.tracks ?? []
+            .task {
+                _ = try? await spotifyData.getTopArtist()
+                tracks = await spotifyData.getRecomended()?.tracks ?? []
+            }
         }
     }
 }

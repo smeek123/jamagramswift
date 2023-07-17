@@ -34,104 +34,114 @@ struct ProfileView: View {
     }
     
     var body: some View {
-        VStack {
-            if isSignedIn {
-                //while data is loading a place holder is shown
-                if spotifyData.isRetrievingData {
-                    VStack {
-                        Image(systemName: "person.circle")
-                            .font(.system(size: 100))
-                            .foregroundColor(Color(UIColor.secondarySystemBackground))
-                            .padding()
-                    }
-                } else {
-                    //checks to make sure no values are nil
-                    if let user = currentUser {
-                        //checks that the url is not nil
-                        if let image = user.images?.first?.url {
-                            //takes the url and use the image package to show a circular image
-                            VStack {
-                                WebImage(url: URL(string: image) ?? URL(string: "")!)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 100, height: 100)
-                                    .clipShape(Circle())
-                                    .padding()
-                            }
-                        } else {
-                            //if image is nil, place holder is shown
+        NavigationStack {
+            VStack {
+                if isSignedIn {
+                    //while data is loading a place holder is shown
+                    if spotifyData.isRetrievingData {
+                        VStack {
                             Image(systemName: "person.circle")
-                                .font(.system(size: 75))
+                                .font(.system(size: 100))
                                 .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                .padding()
                         }
-                        
-                        if !spotifyData.isRetrievingData {
-                            //when data loads, username is shown
-                            Text(user.display_name)
-                                .foregroundColor(.primary)
-                                .font(.title)
-                        } else {
-                            Text("username")
-                                .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                .font(.title)
+                    } else {
+                        //checks to make sure no values are nil
+                        if let user = currentUser {
+                            //checks that the url is not nil
+                            if let image = user.images?.first?.url {
+                                //takes the url and use the image package to show a circular image
+                                VStack {
+                                    WebImage(url: URL(string: image) ?? URL(string: "")!)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 100, height: 100)
+                                        .clipShape(Circle())
+                                        .padding()
+                                }
+                            } else {
+                                //if image is nil, place holder is shown
+                                Image(systemName: "person.circle")
+                                    .font(.system(size: 75))
+                                    .foregroundColor(Color(UIColor.secondarySystemBackground))
+                            }
+                            
+                            if !spotifyData.isRetrievingData {
+                                //when data loads, username is shown
+                                Text(user.display_name)
+                                    .foregroundColor(.primary)
+                                    .font(.title)
+                            } else {
+                                Text("username")
+                                    .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                    .font(.title)
+                            }
                         }
                     }
                 }
-            }
-            
-            //helps spread out content in SwiftUI
-            Spacer()
-            
-            //while no favorite tracks are in the list, this message appears. In the future when I add the playlist funtionality, the favorite tracks will show up here.
-            VStack(spacing: 40) {
-                Image(systemName: "folder")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 200)
-                    .foregroundColor(.primary)
                 
-                Text("Saved tracks will show up here.")
-                    .foregroundColor(.primary)
-                    .font(.caption)
-                    .multilineTextAlignment(.center)
+                Spacer()
+                
+                Button {
+                    showDelete = true
+                } label: {
+                    Text("Remove Account")
+                        .foregroundColor(.primary)
+                        .font(.title3)
+                        .padding(.horizontal, 15)
+                }
+                .clipShape(Capsule())
+                .buttonStyle(.bordered)
+                .padding(20)
             }
-            .padding(100)
-            
-            Spacer()
-            
-            //This button shows a dialog to confirm the account removal.
-            Button {
-                showDelete = true
-            } label: {
-                Text("Remove Account")
-                    .foregroundColor(.primary)
-                    .font(.title3)
-                    .padding(.horizontal, 15)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text("JamaGram")
+                        .foregroundColor(.primary)
+                        .font(.system(size: 25))
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        Text("Notifications")
+                    } label: {
+                        Image(systemName: "bell")
+                            .foregroundColor(.primary)
+                            .font(.system(size: 20))
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        Text("Messages")
+                    } label: {
+                        Image(systemName: "message")
+                            .foregroundColor(.primary)
+                            .font(.system(size: 20))
+                    }
+                }
             }
-            .clipShape(Capsule())
-            .buttonStyle(.bordered)
-            .padding(20)
-        }
-        //presents a message to confirm the log out
-        .confirmationDialog("Remove Account?", isPresented: $showDelete, titleVisibility: .visible) {
-            //cancels the action
-            Button(role: .cancel) {
-                print("canceled")
-            } label: {
-                Text("cancel")
+            //presents a message to confirm the log out
+            .confirmationDialog("Remove Account?", isPresented: $showDelete, titleVisibility: .visible) {
+                //cancels the action
+                Button(role: .cancel) {
+                    print("canceled")
+                } label: {
+                    Text("cancel")
+                }
+                
+                //calls the logout method and deletes the access token and account.
+                Button(role: .destructive) {
+                    logOut()
+                } label: {
+                    Text("Remove")
+                }
             }
-            
-            //calls the logout method and deletes the access token and account. 
-            Button(role: .destructive) {
-                logOut()
-            } label: {
-                Text("Remove")
-            }
-        }
-        //sets the current user = to the result of the get profile func
-        .task {
-            if isSignedIn {
-                currentUser = try? await spotifyData.getProfile()
+            //sets the current user = to the result of the get profile func
+            .task {
+                if isSignedIn {
+                    currentUser = try? await spotifyData.getProfile()
+                }
             }
         }
     }
