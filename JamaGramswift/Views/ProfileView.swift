@@ -81,6 +81,13 @@ struct ProfileView: View {
                         }
                     }
                     
+                    Text("Hi, my name is sean. I like music and this is my bio. My favorite artist atm is prob The Kid Laroi.")
+                        .foregroundColor(.primary)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(4)
+                        .padding(.vertical)
+                        .padding(.horizontal, 50)
+                    
                     NavigationLink(destination: {
                         Text("streaming platform")
                     }, label: {
