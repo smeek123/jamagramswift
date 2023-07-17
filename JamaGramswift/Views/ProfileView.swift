@@ -35,64 +35,118 @@ struct ProfileView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                if isSignedIn {
-                    //while data is loading a place holder is shown
-                    if spotifyData.isRetrievingData {
-                        VStack {
-                            Image(systemName: "person.circle")
-                                .font(.system(size: 100))
-                                .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                .padding()
-                        }
-                    } else {
-                        //checks to make sure no values are nil
-                        if let user = currentUser {
-                            //checks that the url is not nil
-                            if let image = user.images?.first?.url {
-                                //takes the url and use the image package to show a circular image
-                                VStack {
-                                    WebImage(url: URL(string: image) ?? URL(string: "")!)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 100, height: 100)
-                                        .clipShape(Circle())
-                                        .padding()
-                                }
-                            } else {
-                                //if image is nil, place holder is shown
+            ScrollView {
+                VStack {
+                    if isSignedIn {
+                        //while data is loading a place holder is shown
+                        if spotifyData.isRetrievingData {
+                            VStack {
                                 Image(systemName: "person.circle")
-                                    .font(.system(size: 75))
+                                    .font(.system(size: 100))
                                     .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                    .padding()
                             }
-                            
-                            if !spotifyData.isRetrievingData {
-                                //when data loads, username is shown
-                                Text(user.display_name)
-                                    .foregroundColor(.primary)
-                                    .font(.title)
-                            } else {
-                                Text("username")
-                                    .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                    .font(.title)
+                        } else {
+                            //checks to make sure no values are nil
+                            if let user = currentUser {
+                                //checks that the url is not nil
+                                if let image = user.images?.first?.url {
+                                    //takes the url and use the image package to show a circular image
+                                    VStack {
+                                        WebImage(url: URL(string: image) ?? URL(string: "")!)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 100, height: 100)
+                                            .clipShape(Circle())
+                                            .padding()
+                                    }
+                                } else {
+                                    //if image is nil, place holder is shown
+                                    Image(systemName: "person.circle")
+                                        .font(.system(size: 75))
+                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                }
+                                
+                                if !spotifyData.isRetrievingData {
+                                    //when data loads, username is shown
+                                    Text(user.display_name)
+                                        .foregroundColor(.primary)
+                                        .font(.title)
+                                } else {
+                                    Text("username")
+                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                        .font(.title)
+                                }
                             }
                         }
                     }
-                }
-                
-                Spacer()
-                
-                Button {
-                    showDelete = true
-                } label: {
-                    Text("Remove Account")
-                        .foregroundColor(.primary)
-                        .font(.title3)
+                    
+                    NavigationLink(destination: {
+                        Text("streaming platform")
+                    }, label: {
+                        HStack {
+                            Image(systemName: "headphones")
+                                .foregroundColor(.primary)
+                                .font(.largeTitle)
+                            
+                            Text("Streaming Platform")
+                                .foregroundColor(.primary)
+                                .font(.title3)
+                                .padding(.horizontal, 15)
+                            
+                            Spacer()
+                        }
+                        .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
                         .padding(.horizontal, 15)
+                    })
+                    .clipShape(Capsule())
+                    .buttonStyle(.bordered)
+                    .padding(10)
+                    
+                    Button {
+                        showDelete = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "arrowshape.backward")
+                                .foregroundColor(.primary)
+                                .font(.largeTitle)
+                            
+                            Text("Log Out")
+                                .foregroundColor(.primary)
+                                .font(.title3)
+                                .padding(.horizontal, 15)
+                            
+                            Spacer()
+                        }
+                        .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
+                        .padding(.horizontal, 15)
+                    }
+                    .clipShape(Capsule())
+                    .buttonStyle(.bordered)
+                    .padding(10)
+                    
+                    Button {
+                        showDelete = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "trash")
+                                .foregroundColor(.primary)
+                                .font(.largeTitle)
+                            
+                            Text("Delete Account")
+                                .foregroundColor(.primary)
+                                .font(.title3)
+                                .padding(.horizontal, 15)
+                            
+                            Spacer()
+                        }
+                        .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
+                        .padding(.horizontal, 15)
+                    }
+                    .clipShape(Capsule())
+                    .buttonStyle(.bordered)
+                    .padding(10)
                 }
-                .clipShape(Capsule())
-                .buttonStyle(.bordered)
-                .padding(20)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
