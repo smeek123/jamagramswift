@@ -11,6 +11,7 @@ struct ContentView: View {
     @StateObject var spotifyData = SpotifyDataManager()
     @StateObject var spotify = SpotifyAuthManager()
     @AppStorage("signedIn") var isSignedIn: Bool = false
+    @State private var selection: Int = 0
     
     var body: some View {
         //this is the main view that loads
@@ -19,37 +20,53 @@ struct ContentView: View {
         VStack {
             //If the user is signed, the tab view is shown
             if isSignedIn {
-                TabView {
+                TabView(selection: $selection) {
                     HomeView()
                         .tabItem {
-                            Label("Home", systemImage: "house")
-                        }
+                            if selection == 0 {
+                                Image(systemName: "house.fill")
+                            } else {
+                                Image(systemName: "house")
+                                    .environment(\.symbolVariants, .none)
+                            }
+                        }.tag(0)
                     
                     SearchView()
                         .tabItem {
-                            Label("Search", systemImage: "magnifyingglass")
-                        }
+                            Image(systemName: "magnifyingglass")
+                        }.tag(1)
                     
                     CreateView()
                         .tabItem {
-                            Label("Create", systemImage: "plus.app")
-                        }
+                            if selection == 2 {
+                                Image(systemName: "plus.app.fill")
+                            } else {
+                                Image(systemName: "plus.app")
+                                    .environment(\.symbolVariants, .none)
+                            }
+                        }.tag(2)
                     
                     TrendingView()
                         .tabItem {
-                            Label("Trending", systemImage: "chart.line.uptrend.xyaxis")
-                        }
+                            Image(systemName: "chart.line.uptrend.xyaxis")
+                        }.tag(3)
                     
                     ProfileView()
                         .tabItem {
-                            Label("Me", systemImage: "person.circle")
-                        }
+                            if selection == 4 {
+                                Image(systemName: "person.circle.fill")
+                            } else {
+                                Image(systemName: "person.circle")
+                                    .environment(\.symbolVariants, .none)
+                            }
+                        }.tag(4)
                 }
             } else {
                 //shows the signin view if the user is not signed in
                 SignInView()
             }
         }
+        .accentColor(.primary)
         //this function handles the url code that is opened after the spotify sign in screen sends you back to the app
         .onOpenURL { url in
             Task {
