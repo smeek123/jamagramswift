@@ -39,48 +39,89 @@ struct ProfileView: View {
         NavigationStack {
             ScrollView {
                 VStack {
-                    if isSignedIn {
-                        //while data is loading a place holder is shown
-                        if spotifyData.isRetrievingData {
-                            VStack {
-                                Image(systemName: "person.circle")
-                                    .font(.system(size: 100))
-                                    .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                    .padding()
-                            }
-                        } else {
-                            //checks to make sure no values are nil
-                            if let user = currentUser {
-                                //checks that the url is not nil
-                                if let image = user.images?.first?.url {
-                                    //takes the url and use the image package to show a circular image
-                                    VStack {
-                                        WebImage(url: URL(string: image) ?? URL(string: "")!)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 100, height: 100)
-                                            .clipShape(Circle())
-                                            .padding()
-                                    }
-                                } else {
-                                    //if image is nil, place holder is shown
-                                    Image(systemName: "person.circle")
-                                        .font(.system(size: 75))
-                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                }
+                    HStack {
+                        Spacer()
+                        
+                        ZStack {
+                            Circle()
+                                .stroke(Color("MainColor"), lineWidth: 3)
+                                .frame(width: 100, height: 100)
+                            
+                            VStack(spacing: 7) {
+                                Text("12.3M")
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 18))
                                 
-                                if !spotifyData.isRetrievingData {
-                                    //when data loads, username is shown
-                                    Text(user.display_name)
-                                        .foregroundColor(.primary)
-                                        .font(.title)
-                                } else {
-                                    Text("username")
+                                Text("Followers")
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 17))
+                            }
+                        }
+                        
+                        Spacer()
+                        
+                        VStack {
+                            if isSignedIn {
+                                if spotifyData.isRetrievingData {
+                                    Image(systemName: "person.circle")
+                                        .font(.system(size: 100))
                                         .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                        .font(.title)
+                                        .padding()
+                                } else {
+                                    //checks to make sure no values are nil
+                                    if let user = currentUser {
+                                        //checks that the url is not nil
+                                        if let image = user.images?.first?.url {
+                                            //takes the url and use the image package to show a circular image
+                                            VStack {
+                                                WebImage(url: URL(string: image) ?? URL(string: "")!)
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 100, height: 100)
+                                                    .clipShape(Circle())
+                                                    .padding()
+                                            }
+                                        } else {
+                                            //if image is nil, place holder is shown
+                                            Image(systemName: "person.circle")
+                                                .font(.system(size: 75))
+                                                .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                        }
+                                        
+                                        if !spotifyData.isRetrievingData {
+                                            //when data loads, username is shown
+                                            Text(user.display_name)
+                                                .foregroundColor(.primary)
+                                                .font(.title)
+                                        } else {
+                                            Text("username")
+                                                .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                                .font(.title)
+                                        }
+                                    }
                                 }
                             }
                         }
+                        
+                        Spacer()
+                        
+                        ZStack {
+                            Circle()
+                                .stroke(Color("MainColor"), lineWidth: 3)
+                                .frame(width: 100, height: 100)
+                            
+                            VStack(spacing: 7) {
+                                Text("1.3K")
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 18))
+                                
+                                Text("Following")
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 17))
+                            }
+                        }
+                        
+                        Spacer()
                     }
                     
                     Text("Hi, my name is sean. I like music and this is my bio. My favorite artist atm is prob The Kid Laroi.")
@@ -218,123 +259,132 @@ struct ProfileView: View {
                     .background(Color(UIColor.secondarySystemBackground))
                     .clipShape(Capsule())
                     .padding()
-                }
-                
-                NavigationLink(destination: {
-                    Text("streaming platform")
-                }, label: {
-                    HStack {
-                        Image(systemName: "headphones")
-                            .foregroundColor(.primary)
-                            .font(.largeTitle)
-                        
-                        Text("Streaming Platform")
-                            .foregroundColor(.primary)
-                            .font(.title3)
-                            .padding(.horizontal, 15)
-                        
-                        Spacer()
+                    
+                    if selection == 3 {
+                        settings
+                            .transition(.slide)
                     }
-                    .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
-                    .padding(.horizontal, 15)
-                })
-                .clipShape(Capsule())
-                .buttonStyle(.bordered)
-                .padding(10)
-                
-                Button {
-                    showDelete = true
-                } label: {
-                    HStack {
-                        Image(systemName: "arrowshape.backward")
-                            .foregroundColor(.primary)
-                            .font(.largeTitle)
-                        
-                        Text("Log Out")
-                            .foregroundColor(.primary)
-                            .font(.title3)
-                            .padding(.horizontal, 15)
-                        
-                        Spacer()
-                    }
-                    .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
-                    .padding(.horizontal, 15)
                 }
-                .clipShape(Capsule())
-                .buttonStyle(.bordered)
-                .padding(10)
-                
-                Button {
-                    showDelete = true
-                } label: {
-                    HStack {
-                        Image(systemName: "trash")
-                            .foregroundColor(.primary)
-                            .font(.largeTitle)
-                        
-                        Text("Delete Account")
-                            .foregroundColor(.primary)
-                            .font(.title3)
-                            .padding(.horizontal, 15)
-                        
-                        Spacer()
-                    }
-                    .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
-                    .padding(.horizontal, 15)
-                }
-                .clipShape(Capsule())
-                .buttonStyle(.bordered)
-                .padding(10)
             }
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Text("username")
-                    .foregroundColor(.primary)
-                    .font(.system(size: 25))
-            }
-            
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink {
-                    Text("Notifications")
-                } label: {
-                    Image(systemName: "bell")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text("username")
                         .foregroundColor(.primary)
-                        .font(.system(size: 20))
+                        .font(.system(size: 25))
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        Text("Notifications")
+                    } label: {
+                        Image(systemName: "bell")
+                            .foregroundColor(.primary)
+                            .font(.system(size: 20))
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        Text("Messages")
+                    } label: {
+                        Image(systemName: "message")
+                            .foregroundColor(.primary)
+                            .font(.system(size: 20))
+                    }
                 }
             }
-            
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink {
-                    Text("Messages")
+            //presents a message to confirm the log out
+            .confirmationDialog("Remove Account?", isPresented: $showDelete, titleVisibility: .visible) {
+                //cancels the action
+                Button(role: .cancel) {
+                    print("canceled")
                 } label: {
-                    Image(systemName: "message")
-                        .foregroundColor(.primary)
-                        .font(.system(size: 20))
+                    Text("cancel")
+                }
+                
+                //calls the logout method and deletes the access token and account.
+                Button(role: .destructive) {
+                    logOut()
+                } label: {
+                    Text("Remove")
+                }
+            }
+            //sets the current user = to the result of the get profile func
+            .task {
+                if isSignedIn {
+                    currentUser = try? await spotifyData.getProfile()
                 }
             }
         }
-        //presents a message to confirm the log out
-        .confirmationDialog("Remove Account?", isPresented: $showDelete, titleVisibility: .visible) {
-            //cancels the action
-            Button(role: .cancel) {
-                print("canceled")
-            } label: {
-                Text("cancel")
-            }
+    }
+    
+    var settings: some View {
+        VStack {
+            NavigationLink(destination: {
+                Text("streaming platform")
+            }, label: {
+                HStack {
+                    Image(systemName: "headphones")
+                        .foregroundColor(.primary)
+                        .font(.largeTitle)
+                    
+                    Text("Streaming Platform")
+                        .foregroundColor(.primary)
+                        .font(.title3)
+                        .padding(.horizontal, 15)
+                    
+                    Spacer()
+                }
+                .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
+                .padding(.horizontal, 15)
+            })
+            .clipShape(Capsule())
+            .buttonStyle(.bordered)
+            .padding(10)
             
-            //calls the logout method and deletes the access token and account.
-            Button(role: .destructive) {
-                logOut()
+            Button {
+                showDelete = true
             } label: {
-                Text("Remove")
+                HStack {
+                    Image(systemName: "arrowshape.backward")
+                        .foregroundColor(.primary)
+                        .font(.largeTitle)
+                    
+                    Text("Log Out")
+                        .foregroundColor(.primary)
+                        .font(.title3)
+                        .padding(.horizontal, 15)
+                    
+                    Spacer()
+                }
+                .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
+                .padding(.horizontal, 15)
             }
-        }
-        //sets the current user = to the result of the get profile func
-        .task {
-            if isSignedIn {
-                currentUser = try? await spotifyData.getProfile()
+            .clipShape(Capsule())
+            .buttonStyle(.bordered)
+            .padding(10)
+            
+            Button {
+                showDelete = true
+            } label: {
+                HStack {
+                    Image(systemName: "trash")
+                        .foregroundColor(.primary)
+                        .font(.largeTitle)
+                    
+                    Text("Delete Account")
+                        .foregroundColor(.primary)
+                        .font(.title3)
+                        .padding(.horizontal, 15)
+                    
+                    Spacer()
+                }
+                .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
+                .padding(.horizontal, 15)
             }
+            .clipShape(Capsule())
+            .buttonStyle(.bordered)
+            .padding(10)
         }
     }
 }
