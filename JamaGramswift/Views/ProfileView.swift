@@ -128,11 +128,11 @@ struct ProfileView: View {
                         .foregroundColor(.primary)
                         .multilineTextAlignment(.center)
                         .lineLimit(4)
-                        .padding(.vertical)
+                        .padding(.vertical, 8)
                         .padding(.horizontal, 50)
                     
                     NavigationLink(destination: {
-                        Text("streaming platform")
+                        EditProfileView()
                     }, label: {
                         HStack {
                             Spacer()

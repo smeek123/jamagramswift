@@ -23,6 +23,7 @@
 		D65C42CD2A63160800D2DAA8 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C42CC2A63160800D2DAA8 /* SearchView.swift */; };
 		D65C42CF2A63161500D2DAA8 /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C42CE2A63161500D2DAA8 /* CreateView.swift */; };
 		D65C42D12A63162100D2DAA8 /* TrendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C42D02A63162100D2DAA8 /* TrendingView.swift */; };
+		D65C42D32A68A91400D2DAA8 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C42D22A68A91400D2DAA8 /* EditProfileView.swift */; };
 		D6AE40542A0EE09E000748D2 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AE40532A0EE09E000748D2 /* ProfileView.swift */; };
 		D6AE40572A0EE670000748D2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D6AE40562A0EE670000748D2 /* SDWebImageSwiftUI */; };
 		D6AE40592A0F1470000748D2 /* SpotifyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AE40582A0F1470000748D2 /* SpotifyDataManager.swift */; };
@@ -48,6 +49,7 @@
 		D65C42CC2A63160800D2DAA8 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		D65C42CE2A63161500D2DAA8 /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
 		D65C42D02A63162100D2DAA8 /* TrendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingView.swift; sourceTree = "<group>"; };
+		D65C42D22A68A91400D2DAA8 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		D6AE40532A0EE09E000748D2 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		D6AE40582A0F1470000748D2 /* SpotifyDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyDataManager.swift; sourceTree = "<group>"; };
 		D6AE405A2A0F1521000748D2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				D65C42CC2A63160800D2DAA8 /* SearchView.swift */,
 				D65C42CE2A63161500D2DAA8 /* CreateView.swift */,
 				D65C42D02A63162100D2DAA8 /* TrendingView.swift */,
+				D65C42D22A68A91400D2DAA8 /* EditProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D65C42D32A68A91400D2DAA8 /* EditProfileView.swift in Sources */,
 				D65C42D12A63162100D2DAA8 /* TrendingView.swift in Sources */,
 				D64BF5CA2A0704580085ED18 /* Extensions.swift in Sources */,
 				D64BF5C82A06C6910085ED18 /* AuthViewModel.swift in Sources */,
