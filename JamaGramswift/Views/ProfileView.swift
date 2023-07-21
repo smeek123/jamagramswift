@@ -497,7 +497,7 @@ struct ProfileView: View {
             } label: {
                 Image(systemName: "music.note.list")
                     .font(.system(size: 100))
-                    .foregroundColor(.primary)
+                    .foregroundColor(.secondary)
             }
 
             
@@ -514,7 +514,7 @@ struct ProfileView: View {
             
             Image(systemName: "bookmark")
                 .font(.system(size: 100))
-                .foregroundColor(.primary)
+                .foregroundColor(.secondary)
 
             
             Text("Nothing saved yet.")
