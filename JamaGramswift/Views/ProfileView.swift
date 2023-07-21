@@ -261,8 +261,14 @@ struct ProfileView: View {
                     .clipShape(Capsule())
                     .padding()
                     
-                    if selection == 1 {
+                    if selection == 0 {
+                        posts
+                            .transition(.slide)
+                    } else if selection == 1 {
                         favorites
+                            .transition(.slide)
+                    } else if selection == 2 {
+                        saves
                             .transition(.slide)
                     } else if selection == 3 {
                         settings
@@ -479,6 +485,42 @@ struct ProfileView: View {
                 
                 topTrack = try? await spotifyData.getTopTrack()
             }
+        }
+    }
+    
+    var posts: some View {
+        VStack(spacing: 20) {
+            Spacer()
+            
+            NavigationLink {
+                CreateView()
+            } label: {
+                Image(systemName: "music.note.list")
+                    .font(.system(size: 100))
+                    .foregroundColor(.primary)
+            }
+
+            
+            Text("No posts yet.")
+                .foregroundColor(.primary)
+            
+            Spacer()
+        }
+    }
+    
+    var saves: some View {
+        VStack(spacing: 20) {
+            Spacer()
+            
+            Image(systemName: "bookmark")
+                .font(.system(size: 100))
+                .foregroundColor(.primary)
+
+            
+            Text("Nothing saved yet.")
+                .foregroundColor(.primary)
+            
+            Spacer()
         }
     }
 }
