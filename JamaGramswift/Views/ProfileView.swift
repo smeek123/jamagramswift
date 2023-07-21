@@ -11,11 +11,11 @@ import SDWebImageSwiftUI
 
 //this shows the spotify image and username of the person signed in. It also allows for signing out.
 struct ProfileView: View {
-    //holds the value of issignedin in the device storage
     @AppStorage("signedIn") var isSignedIn: Bool = false
     @StateObject var SpotifyAM = SpotifyAuthManager()
     @StateObject var spotifyData = SpotifyDataManager()
     @State var currentUser: User? = nil
+    @State var topArtist: topArtistModel? = nil
     @State var showDelete: Bool = false;
     @State private var selection: Int = 0
     @Namespace private var pickerTabs
@@ -260,7 +260,10 @@ struct ProfileView: View {
                     .clipShape(Capsule())
                     .padding()
                     
-                    if selection == 3 {
+                    if selection == 1 {
+                        favorites
+                            .transition(.slide)
+                    } else if selection == 3 {
                         settings
                             .transition(.slide)
                     }
@@ -385,6 +388,49 @@ struct ProfileView: View {
             .clipShape(Capsule())
             .buttonStyle(.bordered)
             .padding(10)
+        }
+    }
+    
+    var favorites: some View {
+        VStack {
+            if spotifyData.isRetrievingData {
+                Image(systemName: "person.circle")
+                    .font(.system(size: 100))
+                    .foregroundColor(Color(UIColor.secondarySystemBackground))
+                    .padding()
+            } else {
+                if let artist = topArtist {
+                    if let image = artist.items.first?.images?.first?.url {
+                        VStack {
+                            WebImage(url: URL(string: image) ?? URL(string: "")!)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 150, height: 150)
+                                .clipShape(Circle())
+                                .padding()
+                        }
+                    } else {
+                        Circle()
+                            .frame(width: 150, height: 150)
+                            .foregroundColor(Color(UIColor.secondarySystemBackground))
+                    }
+                    
+                    if !spotifyData.isRetrievingData {
+                        Text(artist.items.first?.name ?? "artist")
+                            .foregroundColor(.primary)
+                            .font(.headline)
+                    } else {
+                        Capsule()
+                            .frame(width: 100)
+                            .foregroundColor(Color(UIColor.secondarySystemBackground))
+                    }
+                }
+            }
+        }
+        .task {
+            if isSignedIn {
+                topArtist = try? await spotifyData.getTopArtist()
+            }
         }
     }
 }
