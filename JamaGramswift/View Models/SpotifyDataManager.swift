@@ -80,7 +80,6 @@ class SpotifyDataManager: ObservableObject {
         }
     }
     
-    //this func gets the users favorite artists and is used while getting recommendations
     func getTopArtist() async throws -> topArtistModel? {
         do {
             await MainActor.run {
@@ -116,7 +115,33 @@ class SpotifyDataManager: ObservableObject {
         }
     }
     
-    //this functions returns a list of 50 recommended tracks
+    func getTopTrack() async throws -> topTrackModel? {
+        do {
+            await MainActor.run {
+                isRetrievingData = true
+            }
+            
+            let trackRequest = try await createRequest(url: URL(string: Constants.baseURL + "/me/top/tracks?limit=10&time_range=short_term"), type: .GET)
+            
+            let (data, response) = try await URLSession.shared.data(for: trackRequest)
+            
+            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+                fatalError("error with fetching data")
+            }
+            
+            let topTrack = try JSONDecoder().decode(topTrackModel.self, from: data)
+            
+            await MainActor.run {
+                isRetrievingData = false
+            }
+            
+            return topTrack
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
     func getRecomended() async -> recommendation? {
         do {
             await MainActor.run {

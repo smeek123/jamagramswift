@@ -16,6 +16,7 @@ struct ProfileView: View {
     @StateObject var spotifyData = SpotifyDataManager()
     @State var currentUser: User? = nil
     @State var topArtist: topArtistModel? = nil
+    @State var topTrack: topTrackModel? = nil
     @State var showDelete: Bool = false;
     @State private var selection: Int = 0
     @Namespace private var pickerTabs
@@ -392,44 +393,91 @@ struct ProfileView: View {
     }
     
     var favorites: some View {
-        VStack {
-            if spotifyData.isRetrievingData {
-                Image(systemName: "person.circle")
-                    .font(.system(size: 100))
-                    .foregroundColor(Color(UIColor.secondarySystemBackground))
-                    .padding()
-            } else {
-                if let artist = topArtist {
-                    if let image = artist.items.first?.images?.first?.url {
-                        VStack {
-                            WebImage(url: URL(string: image) ?? URL(string: "")!)
-                                .resizable()
-                                .scaledToFit()
+        HStack {
+            Spacer()
+            
+            VStack {
+                if spotifyData.isRetrievingData {
+                    Circle()
+                        .frame(width: 150, height: 150)
+                        .foregroundColor(Color(UIColor.secondarySystemBackground))
+                } else {
+                    if let artist = topArtist {
+                        if let image = artist.items.first?.images?.first?.url {
+                            VStack {
+                                Link(destination: URL(string: artist.items.first?.uri ?? "spotify:") ?? URL(string: "")!) {
+                                    WebImage(url: URL(string: image) ?? URL(string: "")!)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 150, height: 150)
+                                        .clipShape(Circle())
+                                        .padding()
+                                }
+                            }
+                        } else {
+                            Circle()
                                 .frame(width: 150, height: 150)
-                                .clipShape(Circle())
-                                .padding()
+                                .foregroundColor(Color(UIColor.secondarySystemBackground))
                         }
-                    } else {
-                        Circle()
-                            .frame(width: 150, height: 150)
-                            .foregroundColor(Color(UIColor.secondarySystemBackground))
-                    }
-                    
-                    if !spotifyData.isRetrievingData {
-                        Text(artist.items.first?.name ?? "artist")
-                            .foregroundColor(.primary)
-                            .font(.headline)
-                    } else {
-                        Capsule()
-                            .frame(width: 100)
-                            .foregroundColor(Color(UIColor.secondarySystemBackground))
+                        
+                        if !spotifyData.isRetrievingData {
+                            Text(artist.items.first?.name ?? "artist")
+                                .foregroundColor(.primary)
+                                .font(.headline)
+                        } else {
+                            Capsule()
+                                .frame(width: 100)
+                                .foregroundColor(Color(UIColor.secondarySystemBackground))
+                        }
                     }
                 }
             }
+            
+            Spacer()
+            
+            VStack {
+                if spotifyData.isRetrievingData {
+                    Rectangle()
+                        .frame(width: 150, height: 150)
+                        .foregroundColor(Color(UIColor.secondarySystemBackground))
+                } else {
+                    if let track = topTrack {
+                        if let image = track.items.first?.album.images.first?.url {
+                            VStack {
+                                Link(destination: URL(string: track.items.first?.uri ?? "") ?? URL(string: "spotify:")!) {
+                                    WebImage(url: URL(string: image) ?? URL(string: "")!)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 150, height: 150)
+                                        .padding()
+                                }
+                            }
+                        } else {
+                            Rectangle()
+                                .frame(width: 150, height: 150)
+                                .foregroundColor(Color(UIColor.secondarySystemBackground))
+                        }
+                        
+                        if !spotifyData.isRetrievingData {
+                            Text(track.items.first?.name ?? "Track")
+                                .foregroundColor(.primary)
+                                .font(.headline)
+                        } else {
+                            Capsule()
+                                .frame(width: 100)
+                                .foregroundColor(Color(UIColor.secondarySystemBackground))
+                        }
+                    }
+                }
+            }
+            
+            Spacer()
         }
         .task {
             if isSignedIn {
                 topArtist = try? await spotifyData.getTopArtist()
+                
+                topTrack = try? await spotifyData.getTopTrack()
             }
         }
     }

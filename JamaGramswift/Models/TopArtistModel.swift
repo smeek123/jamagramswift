@@ -19,3 +19,7 @@ struct artistItem: Codable {
     let uri: String
     let id: String
 }
+
+struct topTrackModel: Codable {
+    let items: [track]
+}
