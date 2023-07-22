@@ -352,6 +352,28 @@ struct ProfileView: View {
             .buttonStyle(.bordered)
             .padding(10)
             
+            NavigationLink(destination: {
+                Text("privacy")
+            }, label: {
+                HStack {
+                    Image(systemName: "lock")
+                        .foregroundColor(.primary)
+                        .font(.largeTitle)
+                    
+                    Text("Privacy0")
+                        .foregroundColor(.primary)
+                        .font(.title3)
+                        .padding(.horizontal, 15)
+                    
+                    Spacer()
+                }
+                .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
+                .padding(.horizontal, 15)
+            })
+            .clipShape(Capsule())
+            .buttonStyle(.bordered)
+            .padding(10)
+            
             Button {
                 showDelete = true
             } label: {
@@ -499,7 +521,6 @@ struct ProfileView: View {
                     .font(.system(size: 100))
                     .foregroundColor(.secondary)
             }
-
             
             Text("No posts yet.")
                 .foregroundColor(.primary)
