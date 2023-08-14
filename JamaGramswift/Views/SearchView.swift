@@ -8,36 +8,51 @@
 import SwiftUI
 
 struct SearchView: View {
+    @State private var search: String = ""
+    
     var body: some View {
         NavigationStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Text("JamaGram")
+            ScrollView(showsIndicators: false) {
+                List {
+                    Text("10000")
+                    Text("10000")
+                    Text("10000")
+                    Text("10000")
+                    Text("10000")
+                    Text("10000")
+                    Text("10000")
+                    Text("10000")
+                    Text("10000")
+                }
+                .searchable(text: $search, prompt: "Search for friends or tracks")
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text("JamaGram")
+                        .foregroundColor(.primary)
+                        .font(.system(size: 25))
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        Text("Notifications")
+                    } label: {
+                        Image(systemName: "bell")
                             .foregroundColor(.primary)
-                            .font(.system(size: 25))
-                    }
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        NavigationLink {
-                            Text("Notifications")
-                        } label: {
-                            Image(systemName: "bell")
-                                .foregroundColor(.primary)
-                                .font(.system(size: 20))
-                        }
-                    }
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        NavigationLink {
-                            Text("Messages")
-                        } label: {
-                            Image(systemName: "message")
-                                .foregroundColor(.primary)
-                                .font(.system(size: 20))
-                        }
+                            .font(.system(size: 20))
                     }
                 }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        Text("Messages")
+                    } label: {
+                        Image(systemName: "message")
+                            .foregroundColor(.primary)
+                            .font(.system(size: 20))
+                    }
+                }
+            }
         }
     }
 }
