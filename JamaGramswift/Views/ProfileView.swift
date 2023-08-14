@@ -173,7 +173,7 @@ struct ProfileView: View {
                                 
                                 Image(systemName: "headphones")
                                     .foregroundColor(.primary)
-                                    .font(.title3)
+                                    .font(.system(size: 22))
                                     .padding(10)
                                     .padding(.horizontal, 10)
                             }
@@ -198,7 +198,7 @@ struct ProfileView: View {
                                 
                                 Image(systemName: "star.fill")
                                     .foregroundColor(.primary)
-                                    .font(.title3)
+                                    .font(.system(size: 22))
                                     .padding(10)
                                     .padding(.horizontal, 10)
                             }
@@ -223,7 +223,7 @@ struct ProfileView: View {
                                 
                                 Image(systemName: "bookmark.fill")
                                     .foregroundColor(.primary)
-                                    .font(.title3)
+                                    .font(.system(size: 22))
                                     .padding(10)
                                     .padding(.horizontal, 10)
                             }
@@ -248,7 +248,7 @@ struct ProfileView: View {
                                 
                                 Image(systemName: "gearshape.fill")
                                     .foregroundColor(.primary)
-                                    .font(.title3)
+                                    .font(.system(size: 22))
                                     .padding(10)
                                     .padding(.horizontal, 10)
                             }
