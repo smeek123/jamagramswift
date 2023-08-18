@@ -67,6 +67,9 @@ struct PostView: View {
                 Image(systemName: "opticaldisc")
                     .font(.system(size: 23))
                 
+                Image(systemName: "bookmark")
+                    .font(.system(size: 23))
+                
                 Spacer()
             }
             .padding(.horizontal)
