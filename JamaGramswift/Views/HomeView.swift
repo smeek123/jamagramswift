@@ -24,6 +24,7 @@ struct HomeView: View {
                         PostView()
                     }
                 }
+                .padding(.vertical, 10)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

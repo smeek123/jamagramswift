@@ -83,8 +83,11 @@ struct PostView: View {
             .lineLimit(3)
             .font(.system(size: 15))
             .padding(5)
+            
+            Divider()
+                .overlay(Color("MainColor"))
+                .padding(.vertical, 10)
         }
-        .padding(.vertical)
     }
 }
 
