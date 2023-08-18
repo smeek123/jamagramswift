@@ -18,8 +18,12 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                PostView()
+            ScrollView(showsIndicators: false) {
+                LazyVStack {
+                    ForEach(0..<10) { post in
+                        PostView()
+                    }
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

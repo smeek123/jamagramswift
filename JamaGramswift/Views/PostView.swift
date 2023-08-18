@@ -12,9 +12,26 @@ struct PostView: View {
     
     var body: some View {
         VStack {
-            Rectangle()
-                .foregroundColor(.white)
-                .frame(width: UIScreen.main.bounds.width * 0.95, height: UIScreen.main.bounds.width * 0.95)
+            HStack {
+                Image("profile-image")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 40, height: 40)
+                    .clipShape(Circle())
+                
+                Text("Wendy")
+                    .foregroundColor(.primary)
+                    .font(.system(size: 15))
+                
+                Spacer()
+            }
+            .padding(.leading)
+            
+            Image("post-image")
+                .resizable()
+                .scaledToFill()
+                .frame(width: UIScreen.main.bounds.width * 0.95)
+                .clipShape(Rectangle())
             
             HStack(spacing: 15) {
                 Button {
@@ -54,16 +71,20 @@ struct PostView: View {
             }
             .padding(.horizontal)
             
-            HStack {
-                Text("username, this is where a caption shows up.")
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(3)
-                    .font(.system(size: 15))
+            HStack(alignment: .center) {
+                Text("Wendy ")
+                    .fontWeight(.bold) +
+                Text("This song makes me want to run into the waves!!!")
                 
                 Spacer()
             }
-            .padding(.horizontal)
+            .padding(.leading, 10)
+            .multilineTextAlignment(.leading)
+            .lineLimit(3)
+            .font(.system(size: 15))
+            .padding(5)
         }
+        .padding(.vertical)
     }
 }
 
