@@ -19,7 +19,7 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Home")
+                PostView()
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
