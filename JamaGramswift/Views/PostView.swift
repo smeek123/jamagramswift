@@ -24,8 +24,14 @@ struct PostView: View {
                     .font(.system(size: 15))
                 
                 Spacer()
+                
+                Text("6h ago")
+                    .font(.footnote)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.secondary)
             }
-            .padding(.leading)
+            .padding(.horizontal, 18)
+            .padding(.bottom, 8)
             
             Image("post-image")
                 .resizable()
