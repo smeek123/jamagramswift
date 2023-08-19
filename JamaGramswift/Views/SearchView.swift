@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchView: View {
     @State private var search: String = ""
     @State private var tab: Int = 0
+    @State private var searchPrompt: String = "Search for friends"
     
     var body: some View {
         NavigationStack {
@@ -20,6 +21,7 @@ struct SearchView: View {
                     Button {
                         withAnimation(.linear) {
                             tab = 0
+                            searchPrompt = "Search for friends"
                         }
                     } label: {
                         Text("Users")
@@ -34,6 +36,7 @@ struct SearchView: View {
                     Button {
                         withAnimation(.linear) {
                             tab = 1
+                            searchPrompt = "Search by track name"
                         }
                     } label: {
                         Text("Tracks")
@@ -76,7 +79,7 @@ struct SearchView: View {
                         .padding(.horizontal, 18)
                     }
                 }
-                .searchable(text: $search, prompt: "Search for friends or tracks")
+                .searchable(text: $search, prompt: searchPrompt)
                 .padding(.vertical, 10)
             }
             .toolbar {
