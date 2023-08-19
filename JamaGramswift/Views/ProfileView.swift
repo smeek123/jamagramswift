@@ -135,23 +135,9 @@ struct ProfileView: View {
                     NavigationLink(destination: {
                         EditProfileView()
                     }, label: {
-                        HStack {
-                            Spacer()
-                            
-                            Text("Customize")
-                                .foregroundColor(.primary)
-                                .font(.title3)
-                                .padding(.horizontal, 15)
-                            
-                            Spacer()
-                        }
-                        .frame(width: UIScreen.main.bounds.width * 0.8, height: 25)
-                        .padding(.horizontal, 15)
+                        LargeButtonView(title: "Customize")
+                            .padding(.vertical, 8)
                     })
-                    .background(Color("MainColor"))
-                    .clipShape(Capsule())
-                    .buttonStyle(.bordered)
-                    .padding(10)
                     
                     HStack {
                         Spacer()
@@ -360,7 +346,7 @@ struct ProfileView: View {
                         .foregroundColor(.primary)
                         .font(.largeTitle)
                     
-                    Text("Privacy0")
+                    Text("Privacy")
                         .foregroundColor(.primary)
                         .font(.title3)
                         .padding(.horizontal, 15)

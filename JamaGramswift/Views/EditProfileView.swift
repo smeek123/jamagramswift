@@ -51,10 +51,7 @@ struct EditProfileView: View {
                         Spacer()
                     }) {
                         TextField("Username", text: $username)
-                            .padding()
-                            .frame(width: UIScreen.main.bounds.width * 0.95, height: 40)
-                            .background(Color(uiColor: .secondarySystemBackground))
-                            .clipShape(Capsule())
+                            .modifier(TextFieldModifier())
                     }
                     
                     Section(header: HStack {
@@ -63,10 +60,7 @@ struct EditProfileView: View {
                         Spacer()
                     }) {
                         TextField("Name", text: $name)
-                            .padding()
-                            .frame(width: UIScreen.main.bounds.width * 0.95, height: 40)
-                            .background(Color(uiColor: .secondarySystemBackground))
-                            .clipShape(Capsule())
+                            .modifier(TextFieldModifier())
                     }
                     
                     Section(header: HStack {
@@ -75,10 +69,7 @@ struct EditProfileView: View {
                         Spacer()
                     }) {
                         TextField("Bio", text: $bio)
-                            .padding()
-                            .frame(width: UIScreen.main.bounds.width * 0.95, height: 40)
-                            .background(Color(uiColor: .secondarySystemBackground))
-                            .clipShape(Capsule())
+                            .modifier(TextFieldModifier())
                     }
                     
                     Section(header: HStack {
@@ -100,24 +91,8 @@ struct EditProfileView: View {
                 Button {
                     
                 } label: {
-                    HStack {
-                        Spacer()
-                        
-                        Text("Save")
-                            .foregroundColor(.primary)
-                            .font(.title3)
-                            .padding(.horizontal, 15)
-                        
-                        Spacer()
-                    }
-                    .frame(width: UIScreen.main.bounds.width * 0.8, height: 25)
-                    .padding(.horizontal, 15)
+                    LargeButtonView(title: "Save")
                 }
-                .background(Color("MainColor"))
-                .clipShape(Capsule())
-                .buttonStyle(.bordered)
-                .padding(10)
-                .padding(.vertical)
             }
         }
         .navigationTitle("Customize")

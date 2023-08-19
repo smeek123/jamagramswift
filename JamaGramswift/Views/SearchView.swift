@@ -26,10 +26,10 @@ struct SearchView: View {
                     } label: {
                         Text("Users")
                             .foregroundColor(.primary)
+                            .frame(width: UIScreen.main.bounds.width * 0.45, height: 45)
+                            .background(tab == 0 ? Color("MainColor") : Color(uiColor: .secondarySystemBackground))
+                            .clipShape(Capsule())
                     }
-                    .frame(width: UIScreen.main.bounds.width * 0.45, height: 40)
-                    .background(tab == 0 ? Color("MainColor") : Color(uiColor: .secondarySystemBackground))
-                    .clipShape(Capsule())
                     
                     Spacer()
                     
@@ -41,10 +41,10 @@ struct SearchView: View {
                     } label: {
                         Text("Tracks")
                             .foregroundColor(.primary)
+                            .frame(width: UIScreen.main.bounds.width * 0.45, height: 45)
+                            .background(tab == 1 ? Color("MainColor") : Color(uiColor: .secondarySystemBackground))
+                            .clipShape(Capsule())
                     }
-                    .frame(width: UIScreen.main.bounds.width * 0.45, height: 40)
-                    .background(tab == 1 ? Color("MainColor") : Color(uiColor: .secondarySystemBackground))
-                    .clipShape(Capsule())
                     
                     Spacer()
                 }

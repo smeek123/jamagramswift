@@ -18,3 +18,34 @@ extension Date: RawRepresentable {
         self = Date(timeIntervalSinceReferenceDate: Double(rawValue) ?? 0.0)
     }
 }
+
+struct TextFieldModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding()
+            .frame(width: UIScreen.main.bounds.width * 0.95, height: 40)
+            .background(Color(uiColor: .secondarySystemBackground))
+            .clipShape(Capsule())
+    }
+}
+
+struct LargeButtonView: View {
+    let title: String
+    
+    var body: some View {
+        HStack {
+            Spacer()
+            
+            Text(title)
+                .foregroundColor(.primary)
+                .font(.title3)
+                .padding(.horizontal, 15)
+            
+            Spacer()
+        }
+        .frame(width: UIScreen.main.bounds.width * 0.85, height: 35)
+        .padding(.horizontal, 15)
+        .background(Color("MainColor"))
+        .clipShape(Capsule())
+    }
+}
