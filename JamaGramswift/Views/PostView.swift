@@ -48,7 +48,7 @@ struct PostView: View {
                     } icon: {
                         if like {
                             Image(systemName: "hands.clap.fill")
-                                .font(.system(size: 23))
+                                .font(.system(size: 25))
                                 .foregroundColor(Color("MainColor"))
                         } else {
                             Image(systemName: "hands.clap")
@@ -63,12 +63,10 @@ struct PostView: View {
                     Text("10")
                 } icon: {
                     Image(systemName: "mic")
+                        .font(.system(size: 23))
                 }
                 .font(.system(size: 20))
                 .foregroundColor(.primary)
-                
-                Image(systemName: "headphones")
-                    .font(.system(size: 23))
                 
                 Image(systemName: "opticaldisc")
                     .font(.system(size: 23))
@@ -79,6 +77,29 @@ struct PostView: View {
                 Spacer()
             }
             .padding(.horizontal)
+            
+            HStack(alignment: .center) {
+                Image(systemName: "headphones")
+                    .font(.system(size: 23))
+                
+                Text("2 Grown")
+                    .lineLimit(1)
+                    .foregroundColor(.primary)
+                    .font(.system(size: 15))
+                
+                Spacer()
+                
+                Button {
+                    
+                } label: {
+                    Text("Listen")
+                        .font(.system(size: 15))
+                }
+                .buttonBorderShape(.capsule)
+                .buttonStyle(.bordered)
+            }
+            .padding(.horizontal, 18)
+            .padding(.vertical, 8)
             
             HStack(alignment: .center) {
                 Text("Wendy ")
