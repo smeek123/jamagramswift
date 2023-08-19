@@ -9,10 +9,44 @@ import SwiftUI
 
 struct SearchView: View {
     @State private var search: String = ""
+    @State private var tab: Int = 0
     
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
+                HStack {
+                    Spacer()
+                    
+                    Button {
+                        withAnimation(.linear) {
+                            tab = 0
+                        }
+                    } label: {
+                        Text("Users")
+                            .foregroundColor(.primary)
+                    }
+                    .frame(width: UIScreen.main.bounds.width * 0.45, height: 40)
+                    .background(tab == 0 ? Color("MainColor") : Color(uiColor: .secondarySystemBackground))
+                    .clipShape(Capsule())
+                    
+                    Spacer()
+                    
+                    Button {
+                        withAnimation(.linear) {
+                            tab = 1
+                        }
+                    } label: {
+                        Text("Tracks")
+                            .foregroundColor(.primary)
+                    }
+                    .frame(width: UIScreen.main.bounds.width * 0.45, height: 40)
+                    .background(tab == 1 ? Color("MainColor") : Color(uiColor: .secondarySystemBackground))
+                    .clipShape(Capsule())
+                    
+                    Spacer()
+                }
+                .padding(.horizontal, 18)
+                
                 LazyVStack(spacing: 24) {
                     ForEach(0..<100) { user in
                         HStack {
