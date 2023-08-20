@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>866569839375-ddn0vje5fkc0ccsceauid006hi7odbu8.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.866569839375-ddn0vje5fkc0ccsceauid006hi7odbu8</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAle44JtZLqCtlAIm4CyM7_His0zfw2D08</string>
+	<key>GCM_SENDER_ID</key>
+	<string>866569839375</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.SeanMeek.JamaGramswift</string>
+	<key>PROJECT_ID</key>
+	<string>jamagram-a3e30</string>
+	<key>STORAGE_BUCKET</key>
+	<string>jamagram-a3e30.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:866569839375:ios:0b9355b8bf132e2d02947a</string>
+</dict>
+</plist>
