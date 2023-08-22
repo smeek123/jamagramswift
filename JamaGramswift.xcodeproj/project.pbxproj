@@ -24,6 +24,8 @@
 		D63098092A928F6700F59472 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D63098082A928F6700F59472 /* FirebaseFirestoreSwift */; };
 		D630980B2A928F6700F59472 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = D630980A2A928F6700F59472 /* FirebasePerformance */; };
 		D630980D2A928F6700F59472 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D630980C2A928F6700F59472 /* FirebaseStorage */; };
+		D630980F2A952AA200F59472 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D630980E2A952AA200F59472 /* UserModel.swift */; };
+		D63098112A952E5100F59472 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63098102A952E5100F59472 /* PostModel.swift */; };
 		D635859F2A26C6BA0010FD74 /* PlaylistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635859E2A26C6BA0010FD74 /* PlaylistModel.swift */; };
 		D64BF5B62A05A1460085ED18 /* JamaGramswiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BF5B52A05A1460085ED18 /* JamaGramswiftApp.swift */; };
 		D64BF5B82A05A1460085ED18 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BF5B72A05A1460085ED18 /* ContentView.swift */; };
@@ -51,6 +53,8 @@
 		D63097F22A8FC66B00F59472 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		D63097F52A91768800F59472 /* SignInOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInOptions.swift; sourceTree = "<group>"; };
 		D63097F72A928C2500F59472 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D630980E2A952AA200F59472 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		D63098102A952E5100F59472 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		D635859E2A26C6BA0010FD74 /* PlaylistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistModel.swift; sourceTree = "<group>"; };
 		D64BF5B22A05A1460085ED18 /* JamaGramswift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JamaGramswift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D64BF5B52A05A1460085ED18 /* JamaGramswiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JamaGramswiftApp.swift; sourceTree = "<group>"; };
@@ -168,6 +172,8 @@
 				D61A221E2A1D48E30021C3AF /* TopArtistModel.swift */,
 				D61A22202A1D4A7A0021C3AF /* RecommendationModel.swift */,
 				D635859E2A26C6BA0010FD74 /* PlaylistModel.swift */,
+				D630980E2A952AA200F59472 /* UserModel.swift */,
+				D63098102A952E5100F59472 /* PostModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -270,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D65C42D32A68A91400D2DAA8 /* EditProfileView.swift in Sources */,
+				D630980F2A952AA200F59472 /* UserModel.swift in Sources */,
 				D65C42D12A63162100D2DAA8 /* TrendingView.swift in Sources */,
 				D64BF5CA2A0704580085ED18 /* Extensions.swift in Sources */,
 				D64BF5C82A06C6910085ED18 /* AuthViewModel.swift in Sources */,
@@ -289,6 +296,7 @@
 				D61A221F2A1D48E30021C3AF /* TopArtistModel.swift in Sources */,
 				D63097F62A91768900F59472 /* SignInOptions.swift in Sources */,
 				D64BF5B62A05A1460085ED18 /* JamaGramswiftApp.swift in Sources */,
+				D63098112A952E5100F59472 /* PostModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
