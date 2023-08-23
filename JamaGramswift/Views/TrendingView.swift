@@ -116,16 +116,6 @@ struct TrendingView: View {
                             .font(.system(size: 20))
                     }
                 }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        Text("Messages")
-                    } label: {
-                        Image(systemName: "message")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 20))
-                    }
-                }
             }
         }
     }

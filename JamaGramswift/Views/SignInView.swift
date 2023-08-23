@@ -8,38 +8,41 @@
 import SwiftUI
 
 struct SignInView: View {
+    @Environment(\.dismiss) var dismiss
     @State private var email: String = ""
     @State private var password: String = ""
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 25) {
-                Spacer()
+        VStack(spacing: 25) {
+            Spacer()
+            
+            Text("Sign in with email")
+                .foregroundColor(.primary)
+                .font(.title)
+                .multilineTextAlignment(.center)
+            
+            TextField("Enter your email address", text: $email)
+                .modifier(TextFieldModifier())
+            
+            SecureField("Enter your password", text: $password)
+                .modifier(TextFieldModifier())
+            
+            Button {
                 
-                Text("JamaGram")
-                    .foregroundColor(.primary)
-                    .font(.system(size: 35))
-                
-                TextField("Enter your email address", text: $email)
-                    .modifier(TextFieldModifier())
-                
-                SecureField("Enter your password", text: $password)
-                    .modifier(TextFieldModifier())
-                
+            } label: {
+                LargeButtonView(title: "Log In")
+            }
+            
+            Spacer()
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    
+                    dismiss()
                 } label: {
-                    LargeButtonView(title: "Log In")
-                }
-                
-                Spacer()
-                
-                NavigationLink {
-                    Text("")
-                } label: {
-                    Text("Don't have an account? Sign up now.")
-                        .foregroundColor(Color("MainColor"))
-                        .padding(.vertical)
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(.primary)
+                        .font(.system(size: 20))
                 }
             }
         }

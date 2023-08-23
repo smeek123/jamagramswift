@@ -26,7 +26,7 @@ struct SearchView: View {
                     } label: {
                         Text("Users")
                             .foregroundColor(.primary)
-                            .frame(width: UIScreen.main.bounds.width * 0.45, height: 45)
+                            .frame(width: UIScreen.main.bounds.width * 0.5, height: 45)
                             .background(tab == 0 ? Color("MainColor") : Color(uiColor: .secondarySystemBackground))
                             .clipShape(Capsule())
                     }
@@ -41,7 +41,7 @@ struct SearchView: View {
                     } label: {
                         Text("Tracks")
                             .foregroundColor(.primary)
-                            .frame(width: UIScreen.main.bounds.width * 0.45, height: 45)
+                            .frame(width: UIScreen.main.bounds.width * 0.5, height: 45)
                             .background(tab == 1 ? Color("MainColor") : Color(uiColor: .secondarySystemBackground))
                             .clipShape(Capsule())
                     }
@@ -80,7 +80,7 @@ struct SearchView: View {
                     }
                 }
                 .searchable(text: $search, prompt: searchPrompt)
-                .padding(.vertical, 10)
+                .padding(.vertical, 25)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
