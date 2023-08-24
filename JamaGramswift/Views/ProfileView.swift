@@ -301,7 +301,7 @@ struct ProfileView: View {
                 
                 //calls the logout method and deletes the access token and account.
                 Button(role: .destructive) {
-                    UserAuthService.shared.signout()
+                    
                 } label: {
                     Text("Remove")
                 }

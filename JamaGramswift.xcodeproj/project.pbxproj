@@ -50,6 +50,7 @@
 		D6E414B22A97BD8E008ECD2D /* UserAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414B12A97BD8D008ECD2D /* UserAuthService.swift */; };
 		D6E414B42A97BFC5008ECD2D /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414B32A97BFC5008ECD2D /* ContentViewModel.swift */; };
 		D6E414B62A97C3D6008ECD2D /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414B52A97C3D6008ECD2D /* RegistrationViewModel.swift */; };
+		D6E414B82A97D5A5008ECD2D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414B72A97D5A5008ECD2D /* LoginViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		D6E414B12A97BD8D008ECD2D /* UserAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthService.swift; sourceTree = "<group>"; };
 		D6E414B32A97BFC5008ECD2D /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		D6E414B52A97C3D6008ECD2D /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		D6E414B72A97D5A5008ECD2D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 				D6E414B12A97BD8D008ECD2D /* UserAuthService.swift */,
 				D6E414B32A97BFC5008ECD2D /* ContentViewModel.swift */,
 				D6E414B52A97C3D6008ECD2D /* RegistrationViewModel.swift */,
+				D6E414B72A97D5A5008ECD2D /* LoginViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				D64BF5C82A06C6910085ED18 /* AuthViewModel.swift in Sources */,
 				D64BF5C52A06C4950085ED18 /* SignInView.swift in Sources */,
 				D61A22212A1D4A7A0021C3AF /* RecommendationModel.swift in Sources */,
+				D6E414B82A97D5A5008ECD2D /* LoginViewModel.swift in Sources */,
 				D61A221B2A144FC30021C3AF /* HomeView.swift in Sources */,
 				D64BF5B82A05A1460085ED18 /* ContentView.swift in Sources */,
 				D6E414B02A96A3F9008ECD2D /* AddStreamingView.swift in Sources */,

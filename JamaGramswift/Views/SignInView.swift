@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct SignInView: View {
+    @StateObject var viewModel = LoginViewModel()
     @Environment(\.dismiss) var dismiss
-    @State private var email: String = ""
-    @State private var password: String = ""
     
     var body: some View {
         VStack(spacing: 25) {
@@ -21,15 +20,18 @@ struct SignInView: View {
                 .font(.title)
                 .multilineTextAlignment(.center)
             
-            TextField("Enter your email address", text: $email)
+            TextField("Enter your email address", text: $viewModel.email)
                 .modifier(TextFieldModifier())
                 .autocapitalization(.none)
+                .keyboardType(.emailAddress)
             
-            SecureField("Enter your password", text: $password)
+            SecureField("Enter your password", text: $viewModel.password)
                 .modifier(TextFieldModifier())
             
             Button {
-                
+                Task {
+                    try await viewModel.signIn()
+                }
             } label: {
                 LargeButtonView(title: "Log In")
             }
