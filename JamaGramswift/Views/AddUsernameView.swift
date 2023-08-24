@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddUsernameView: View {
     @Environment(\.dismiss) var dismiss
-    @State private var username: String = ""
+    @EnvironmentObject var viewModel: RegistrationViewModel
     
     var body: some View {
         VStack(spacing: 25) {
@@ -25,7 +25,7 @@ struct AddUsernameView: View {
                 .foregroundColor(.secondary)
                 .font(.headline)
             
-            TextField("Enter username", text: $username)
+            TextField("Enter username", text: $viewModel.username)
                 .modifier(TextFieldModifier())
                 .autocapitalization(.none)
             

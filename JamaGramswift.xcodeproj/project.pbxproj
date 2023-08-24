@@ -49,6 +49,7 @@
 		D6E414B02A96A3F9008ECD2D /* AddStreamingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414AF2A96A3F9008ECD2D /* AddStreamingView.swift */; };
 		D6E414B22A97BD8E008ECD2D /* UserAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414B12A97BD8D008ECD2D /* UserAuthService.swift */; };
 		D6E414B42A97BFC5008ECD2D /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414B32A97BFC5008ECD2D /* ContentViewModel.swift */; };
+		D6E414B62A97C3D6008ECD2D /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414B52A97C3D6008ECD2D /* RegistrationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 		D6E414AF2A96A3F9008ECD2D /* AddStreamingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStreamingView.swift; sourceTree = "<group>"; };
 		D6E414B12A97BD8D008ECD2D /* UserAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthService.swift; sourceTree = "<group>"; };
 		D6E414B32A97BFC5008ECD2D /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		D6E414B52A97C3D6008ECD2D /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				D6AE40582A0F1470000748D2 /* SpotifyDataManager.swift */,
 				D6E414B12A97BD8D008ECD2D /* UserAuthService.swift */,
 				D6E414B32A97BFC5008ECD2D /* ContentViewModel.swift */,
+				D6E414B52A97C3D6008ECD2D /* RegistrationViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				D65C42D32A68A91400D2DAA8 /* EditProfileView.swift in Sources */,
 				D630980F2A952AA200F59472 /* UserModel.swift in Sources */,
 				D65C42D12A63162100D2DAA8 /* TrendingView.swift in Sources */,
+				D6E414B62A97C3D6008ECD2D /* RegistrationViewModel.swift in Sources */,
 				D64BF5CA2A0704580085ED18 /* Extensions.swift in Sources */,
 				D64BF5C82A06C6910085ED18 /* AuthViewModel.swift in Sources */,
 				D64BF5C52A06C4950085ED18 /* SignInView.swift in Sources */,

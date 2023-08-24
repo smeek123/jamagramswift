@@ -9,8 +9,8 @@ import SwiftUI
 
 struct AddPasswordView: View {
     @Environment(\.dismiss) var dismiss
-    @State private var password: String = ""
     @State private var confirm: String = ""
+    @EnvironmentObject var viewModel: RegistrationViewModel
     
     var body: some View {
         VStack(spacing: 25) {
@@ -26,7 +26,7 @@ struct AddPasswordView: View {
                 .foregroundColor(.secondary)
                 .font(.headline)
             
-            SecureField("Enter password", text: $password)
+            SecureField("Enter password", text: $viewModel.password)
                 .modifier(TextFieldModifier())
             
             SecureField("Confirm password", text: $confirm)

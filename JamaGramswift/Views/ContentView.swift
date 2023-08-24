@@ -13,11 +13,13 @@ struct ContentView: View {
     @AppStorage("signedIn") var isSignedIn: Bool = false
     @State private var selection: Int = 0
     @StateObject var viewModel = ContentViewModel()
+    @StateObject var regViewModel = RegistrationViewModel()
     
     var body: some View {
         Group {
             if viewModel.userSession == nil {
                 SignInOptionsView()
+                    .environmentObject(regViewModel)
             } else {
                 VStack {
                     //If the user is signed, the tab view is shown

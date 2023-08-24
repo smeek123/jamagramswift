@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddStreamingView: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var viewModel: RegistrationViewModel
     let spotifyGradient = LinearGradient(
         gradient: Gradient(
             colors: [Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), Color(#colorLiteral(red: 0.1903857588, green: 0.8321116255, blue: 0.4365008013, alpha: 1))]
@@ -52,9 +53,11 @@ struct AddStreamingView: View {
             Spacer()
             
             Button {
-                
+                Task {
+                    try await viewModel.createUser()
+                }
             } label: {
-                LargeButtonView(title: "Skip")
+                LargeButtonView(title: "Complete")
             }
             .padding(.vertical)
             

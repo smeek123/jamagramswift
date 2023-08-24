@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddEmailView: View {
     @Environment(\.dismiss) var dismiss
-    @State private var email: String = ""
+    @EnvironmentObject var viewModel: RegistrationViewModel
     
     var body: some View {
         VStack(spacing: 25) {
@@ -26,9 +26,10 @@ struct AddEmailView: View {
                 .font(.headline)
                 .padding(.horizontal, 18)
             
-            TextField("Email address", text: $email)
+            TextField("Email address", text: $viewModel.email)
                 .modifier(TextFieldModifier())
                 .autocapitalization(.none)
+                .keyboardType(.emailAddress)
             
             NavigationLink {
                 AddPasswordView()
