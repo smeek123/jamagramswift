@@ -47,6 +47,8 @@
 		D6E414AC2A96A008008ECD2D /* AddPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414AB2A96A008008ECD2D /* AddPasswordView.swift */; };
 		D6E414AE2A96A28D008ECD2D /* AddUsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414AD2A96A28D008ECD2D /* AddUsernameView.swift */; };
 		D6E414B02A96A3F9008ECD2D /* AddStreamingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414AF2A96A3F9008ECD2D /* AddStreamingView.swift */; };
+		D6E414B22A97BD8E008ECD2D /* UserAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414B12A97BD8D008ECD2D /* UserAuthService.swift */; };
+		D6E414B42A97BFC5008ECD2D /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414B32A97BFC5008ECD2D /* ContentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +83,8 @@
 		D6E414AB2A96A008008ECD2D /* AddPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPasswordView.swift; sourceTree = "<group>"; };
 		D6E414AD2A96A28D008ECD2D /* AddUsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUsernameView.swift; sourceTree = "<group>"; };
 		D6E414AF2A96A3F9008ECD2D /* AddStreamingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStreamingView.swift; sourceTree = "<group>"; };
+		D6E414B12A97BD8D008ECD2D /* UserAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthService.swift; sourceTree = "<group>"; };
+		D6E414B32A97BFC5008ECD2D /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +176,8 @@
 			children = (
 				D64BF5C72A06C6910085ED18 /* AuthViewModel.swift */,
 				D6AE40582A0F1470000748D2 /* SpotifyDataManager.swift */,
+				D6E414B12A97BD8D008ECD2D /* UserAuthService.swift */,
+				D6E414B32A97BFC5008ECD2D /* ContentViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -311,6 +317,8 @@
 				D61A221F2A1D48E30021C3AF /* TopArtistModel.swift in Sources */,
 				D63097F62A91768900F59472 /* SignInOptions.swift in Sources */,
 				D64BF5B62A05A1460085ED18 /* JamaGramswiftApp.swift in Sources */,
+				D6E414B42A97BFC5008ECD2D /* ContentViewModel.swift in Sources */,
+				D6E414B22A97BD8E008ECD2D /* UserAuthService.swift in Sources */,
 				D63098112A952E5100F59472 /* PostModel.swift in Sources */,
 				D6E414AC2A96A008008ECD2D /* AddPasswordView.swift in Sources */,
 			);
