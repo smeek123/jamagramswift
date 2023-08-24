@@ -28,6 +28,7 @@ struct AddEmailView: View {
             
             TextField("Email address", text: $email)
                 .modifier(TextFieldModifier())
+                .autocapitalization(.none)
             
             NavigationLink {
                 AddPasswordView()

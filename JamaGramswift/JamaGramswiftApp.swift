@@ -39,7 +39,7 @@ struct JamaGramswiftApp: App {
     //this is the first screen shown when the app loads
     var body: some Scene {
         WindowGroup {
-            SignInOptionsView()
+            ContentView()
         }
     }
 }

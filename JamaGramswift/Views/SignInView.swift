@@ -23,6 +23,7 @@ struct SignInView: View {
             
             TextField("Enter your email address", text: $email)
                 .modifier(TextFieldModifier())
+                .autocapitalization(.none)
             
             SecureField("Enter your password", text: $password)
                 .modifier(TextFieldModifier())
