@@ -17,12 +17,13 @@ struct ProfileView: View {
     @State var currentUser: User? = nil
     @State var topArtist: topArtistModel? = nil
     @State var topTrack: topTrackModel? = nil
-    @State var showDelete: Bool = false;
+    @State var showDelete: Bool = false
+    @State var showSignOut: Bool = false
     @State private var selection: Int = 0
     @Namespace private var pickerTabs
     
     //This removes the tokens when logging out
-    func logOut() {
+    func logOutSpotify() {
         Task {
             do {
                 //any func that can throw and error has try in front
@@ -300,7 +301,7 @@ struct ProfileView: View {
                 
                 //calls the logout method and deletes the access token and account.
                 Button(role: .destructive) {
-                    logOut()
+                    UserAuthService.shared.signout()
                 } label: {
                     Text("Remove")
                 }
@@ -361,14 +362,14 @@ struct ProfileView: View {
             .padding(10)
             
             Button {
-                showDelete = true
+                showSignOut = true
             } label: {
                 HStack {
                     Image(systemName: "arrowshape.backward")
                         .foregroundColor(.primary)
                         .font(.largeTitle)
                     
-                    Text("Log Out")
+                    Text("Sign Out")
                         .foregroundColor(.primary)
                         .font(.title3)
                         .padding(.horizontal, 15)
@@ -381,6 +382,21 @@ struct ProfileView: View {
             .clipShape(Capsule())
             .buttonStyle(.bordered)
             .padding(10)
+            .confirmationDialog("Sign Out?", isPresented: $showSignOut, titleVisibility: .visible) {
+                //cancels the action
+                Button(role: .cancel) {
+                    print("canceled")
+                } label: {
+                    Text("cancel")
+                }
+                
+                //calls the logout method and deletes the access token and account.
+                Button(role: .destructive) {
+                    UserAuthService.shared.signout()
+                } label: {
+                    Text("Sign out")
+                }
+            }
             
             Button {
                 showDelete = true
