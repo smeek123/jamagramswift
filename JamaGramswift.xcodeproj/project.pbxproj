@@ -43,6 +43,10 @@
 		D6AE40572A0EE670000748D2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D6AE40562A0EE670000748D2 /* SDWebImageSwiftUI */; };
 		D6AE40592A0F1470000748D2 /* SpotifyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AE40582A0F1470000748D2 /* SpotifyDataManager.swift */; };
 		D6AE405B2A0F1521000748D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AE405A2A0F1521000748D2 /* User.swift */; };
+		D6E414AA2A969D8D008ECD2D /* AddEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414A92A969D8D008ECD2D /* AddEmailView.swift */; };
+		D6E414AC2A96A008008ECD2D /* AddPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414AB2A96A008008ECD2D /* AddPasswordView.swift */; };
+		D6E414AE2A96A28D008ECD2D /* AddUsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414AD2A96A28D008ECD2D /* AddUsernameView.swift */; };
+		D6E414B02A96A3F9008ECD2D /* AddStreamingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414AF2A96A3F9008ECD2D /* AddStreamingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +77,10 @@
 		D6AE40532A0EE09E000748D2 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		D6AE40582A0F1470000748D2 /* SpotifyDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyDataManager.swift; sourceTree = "<group>"; };
 		D6AE405A2A0F1521000748D2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D6E414A92A969D8D008ECD2D /* AddEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEmailView.swift; sourceTree = "<group>"; };
+		D6E414AB2A96A008008ECD2D /* AddPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPasswordView.swift; sourceTree = "<group>"; };
+		D6E414AD2A96A28D008ECD2D /* AddUsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUsernameView.swift; sourceTree = "<group>"; };
+		D6E414AF2A96A3F9008ECD2D /* AddStreamingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStreamingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +151,10 @@
 				D64BF5B72A05A1460085ED18 /* ContentView.swift */,
 				D63097F52A91768800F59472 /* SignInOptions.swift */,
 				D64BF5C42A06C4950085ED18 /* SignInView.swift */,
+				D6E414A92A969D8D008ECD2D /* AddEmailView.swift */,
+				D6E414AB2A96A008008ECD2D /* AddPasswordView.swift */,
+				D6E414AD2A96A28D008ECD2D /* AddUsernameView.swift */,
+				D6E414AF2A96A3F9008ECD2D /* AddStreamingView.swift */,
 				D6AE40532A0EE09E000748D2 /* ProfileView.swift */,
 				D61A221A2A144FC30021C3AF /* HomeView.swift */,
 				D61A221C2A1C2FFC0021C3AF /* CardView.swift */,
@@ -284,6 +296,7 @@
 				D61A22212A1D4A7A0021C3AF /* RecommendationModel.swift in Sources */,
 				D61A221B2A144FC30021C3AF /* HomeView.swift in Sources */,
 				D64BF5B82A05A1460085ED18 /* ContentView.swift in Sources */,
+				D6E414B02A96A3F9008ECD2D /* AddStreamingView.swift in Sources */,
 				D64BF5CD2A07388A0085ED18 /* AuthResponse.swift in Sources */,
 				D63097F32A8FC66B00F59472 /* PostView.swift in Sources */,
 				D6AE405B2A0F1521000748D2 /* User.swift in Sources */,
@@ -291,12 +304,15 @@
 				D635859F2A26C6BA0010FD74 /* PlaylistModel.swift in Sources */,
 				D65C42CF2A63161500D2DAA8 /* CreateView.swift in Sources */,
 				D65C42CD2A63160800D2DAA8 /* SearchView.swift in Sources */,
+				D6E414AA2A969D8D008ECD2D /* AddEmailView.swift in Sources */,
 				D6AE40592A0F1470000748D2 /* SpotifyDataManager.swift in Sources */,
 				D61A221D2A1C2FFD0021C3AF /* CardView.swift in Sources */,
+				D6E414AE2A96A28D008ECD2D /* AddUsernameView.swift in Sources */,
 				D61A221F2A1D48E30021C3AF /* TopArtistModel.swift in Sources */,
 				D63097F62A91768900F59472 /* SignInOptions.swift in Sources */,
 				D64BF5B62A05A1460085ED18 /* JamaGramswiftApp.swift in Sources */,
 				D63098112A952E5100F59472 /* PostModel.swift in Sources */,
+				D6E414AC2A96A008008ECD2D /* AddPasswordView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

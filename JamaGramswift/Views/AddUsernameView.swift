@@ -1,49 +1,47 @@
 //
-//  SignInView.swift
+//  AddUsernameView.swift
 //  JamaGramswift
 //
-//  Created by Sean P. Meek on 5/6/23.
+//  Created by Sean P. Meek on 8/23/23.
 //
 
 import SwiftUI
 
-struct SignInView: View {
+struct AddUsernameView: View {
     @Environment(\.dismiss) var dismiss
-    @State private var email: String = ""
-    @State private var password: String = ""
+    @State private var username: String = ""
     
     var body: some View {
         VStack(spacing: 25) {
             Spacer()
             
-            Text("Sign in with email")
+            Text("Create a username")
                 .foregroundColor(.primary)
                 .font(.title)
                 .multilineTextAlignment(.center)
             
-            TextField("Enter your email address", text: $email)
+            Text("Your username must be at least 3 characters long.")
+                .multilineTextAlignment(.center)
+                .foregroundColor(.secondary)
+                .font(.headline)
+            
+            TextField("Enter username", text: $username)
                 .modifier(TextFieldModifier())
-            
-            SecureField("Enter your password", text: $password)
-                .modifier(TextFieldModifier())
-            
-            Button {
-                
-            } label: {
-                LargeButtonView(title: "Log In")
-            }
-            
-            Spacer()
             
             NavigationLink {
-                Text("Reset")
+                AddStreamingView()
                     .navigationBarBackButtonHidden()
             } label: {
-                Text("Forgot password")
-                    .foregroundColor(Color("MainColor"))
-                    .padding(.vertical)
-                    .font(.footnote)
+                LargeButtonView(title: "Next")
             }
+
+            Spacer()
+            
+            Text("3/4")
+                .foregroundColor(.secondary)
+                .font(.footnote)
+                .fontWeight(.semibold)
+                .padding(.vertical)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -59,4 +57,8 @@ struct SignInView: View {
     }
 }
 
-
+struct AddUsernameView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddUsernameView()
+    }
+}

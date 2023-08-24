@@ -40,6 +40,8 @@ struct LargeButtonView: View {
                 .foregroundColor(.primary)
                 .font(.title3)
                 .padding(.horizontal, 15)
+                .lineLimit(2)
+                .minimumScaleFactor(0.8)
             
             Spacer()
         }

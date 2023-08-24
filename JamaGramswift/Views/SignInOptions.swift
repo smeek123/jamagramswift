@@ -48,7 +48,7 @@ struct SignInOptionsView: View {
                 Spacer()
                 
                 NavigationLink {
-                    Text("")
+                    AddEmailView()
                         .navigationBarBackButtonHidden()
                 } label: {
                     Text("Don't have an account? Sign up now!")
