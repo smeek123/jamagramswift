@@ -45,13 +45,23 @@ struct HomeView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        Text("Messages")
+                        CreateView()
                     } label: {
-                        Image(systemName: "message")
+                        Image(systemName: "plus.app")
                             .foregroundColor(.primary)
                             .font(.system(size: 20))
                     }
                 }
+                
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    NavigationLink {
+//                        Text("Messages")
+//                    } label: {
+//                        Image(systemName: "message")
+//                            .foregroundColor(.primary)
+//                            .font(.system(size: 20))
+//                    }
+//                }
             }
             .task {
                 _ = try? await spotifyData.getTopArtist()

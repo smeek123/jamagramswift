@@ -39,7 +39,7 @@ struct SearchView: View {
                             searchPrompt = "Search by track name"
                         }
                     } label: {
-                        Text("Tracks")
+                        Text("Posts")
                             .foregroundColor(.primary)
                             .frame(width: UIScreen.main.bounds.width * 0.45, height: 45)
                             .background(tab == 1 ? Color("MainColor") : Color(uiColor: .secondarySystemBackground))
@@ -102,13 +102,23 @@ struct SearchView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        Text("Messages")
+                        CreateView()
                     } label: {
-                        Image(systemName: "message")
+                        Image(systemName: "plus.app")
                             .foregroundColor(.primary)
                             .font(.system(size: 20))
                     }
                 }
+                
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    NavigationLink {
+//                        Text("Messages")
+//                    } label: {
+//                        Image(systemName: "message")
+//                            .foregroundColor(.primary)
+//                            .font(.system(size: 20))
+//                    }
+//                }
             }
         }
     }

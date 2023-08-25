@@ -40,20 +40,20 @@ struct ContentView: View {
                                     Image(systemName: "magnifyingglass")
                                 }.tag(1)
                             
-                            CreateView()
-                                .tabItem {
-                                    if selection == 2 {
-                                        Image(systemName: "plus.app.fill")
-                                    } else {
-                                        Image(systemName: "plus.app")
-                                            .environment(\.symbolVariants, .none)
-                                    }
-                                }.tag(2)
+//                            CreateView()
+//                                .tabItem {
+//                                    if selection == 2 {
+//                                        Image(systemName: "plus.app.fill")
+//                                    } else {
+//                                        Image(systemName: "plus.app")
+//                                            .environment(\.symbolVariants, .none)
+//                                    }
+//                                }.tag(2)
                             
-                            TrendingView()
-                                .tabItem {
-                                    Image(systemName: "chart.line.uptrend.xyaxis")
-                                }.tag(3)
+//                            TrendingView()
+//                                .tabItem {
+//                                    Image(systemName: "chart.line.uptrend.xyaxis")
+//                                }.tag(3)
                             
                             ProfileView()
                                 .tabItem {
@@ -63,7 +63,7 @@ struct ContentView: View {
                                         Image(systemName: "person.circle")
                                             .environment(\.symbolVariants, .none)
                                     }
-                                }.tag(4)
+                                }.tag(2)
                         }
                     } else {
                         //shows the signin view if the user is not signed in

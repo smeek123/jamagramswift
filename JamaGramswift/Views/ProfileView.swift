@@ -282,13 +282,23 @@ struct ProfileView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        Text("Messages")
+                        CreateView()
                     } label: {
-                        Image(systemName: "message")
+                        Image(systemName: "plus.app")
                             .foregroundColor(.primary)
                             .font(.system(size: 20))
                     }
                 }
+                
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    NavigationLink {
+//                        Text("Messages")
+//                    } label: {
+//                        Image(systemName: "message")
+//                            .foregroundColor(.primary)
+//                            .font(.system(size: 20))
+//                    }
+//                }
             }
             //presents a message to confirm the log out
             .confirmationDialog("Remove Account?", isPresented: $showDelete, titleVisibility: .visible) {
