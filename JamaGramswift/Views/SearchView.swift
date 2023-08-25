@@ -83,43 +83,7 @@ struct SearchView: View {
                 .padding(.vertical, 25)
                 .padding(.horizontal)
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Text("JamaGram")
-                        .foregroundColor(.primary)
-                        .font(.system(size: 25))
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        Text("Notifications")
-                    } label: {
-                        Image(systemName: "bell")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 20))
-                    }
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        CreateView()
-                    } label: {
-                        Image(systemName: "plus.app")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 20))
-                    }
-                }
-                
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    NavigationLink {
-//                        Text("Messages")
-//                    } label: {
-//                        Image(systemName: "message")
-//                            .foregroundColor(.primary)
-//                            .font(.system(size: 20))
-//                    }
-//                }
-            }
+            .padding(.vertical)
         }
     }
 }
