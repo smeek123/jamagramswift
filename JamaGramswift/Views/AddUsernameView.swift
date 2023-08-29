@@ -58,8 +58,3 @@ struct AddUsernameView: View {
     }
 }
 
-struct AddUsernameView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddUsernameView()
-    }
-}

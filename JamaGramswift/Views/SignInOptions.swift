@@ -63,8 +63,3 @@ struct SignInOptionsView: View {
     }
 }
 
-struct SignInOptions_Previews: PreviewProvider {
-    static var previews: some View {
-        SignInOptionsView()
-    }
-}

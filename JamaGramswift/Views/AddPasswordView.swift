@@ -61,8 +61,4 @@ struct AddPasswordView: View {
     }
 }
 
-struct AddPasswordView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddPasswordView()
-    }
-}
+

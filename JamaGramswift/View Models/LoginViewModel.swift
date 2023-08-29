@@ -13,5 +13,10 @@ class LoginViewModel: ObservableObject {
     
     func signIn() async throws {
         try await UserAuthService.shared.loginWithEmail(with: email, password: password)
+        
+        await MainActor.run {
+            email = ""
+            password = ""
+        }
     }
 }
