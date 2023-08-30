@@ -45,6 +45,8 @@
 		D6AE405B2A0F1521000748D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AE405A2A0F1521000748D2 /* User.swift */; };
 		D6C2BDCE2A9E6AF500BCDE19 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2BDCD2A9E6AF400BCDE19 /* UserService.swift */; };
 		D6C2BDD02A9E6F8600BCDE19 /* MainTbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2BDCF2A9E6F8600BCDE19 /* MainTbView.swift */; };
+		D6C2BDD22A9FA3A200BCDE19 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2BDD12A9FA3A200BCDE19 /* SearchViewModel.swift */; };
+		D6C2BDD42A9FB33F00BCDE19 /* CurrentProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2BDD32A9FB33F00BCDE19 /* CurrentProfileView.swift */; };
 		D6E414AA2A969D8D008ECD2D /* AddEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414A92A969D8D008ECD2D /* AddEmailView.swift */; };
 		D6E414AC2A96A008008ECD2D /* AddPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414AB2A96A008008ECD2D /* AddPasswordView.swift */; };
 		D6E414AE2A96A28D008ECD2D /* AddUsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414AD2A96A28D008ECD2D /* AddUsernameView.swift */; };
@@ -85,6 +87,8 @@
 		D6AE405A2A0F1521000748D2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D6C2BDCD2A9E6AF400BCDE19 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		D6C2BDCF2A9E6F8600BCDE19 /* MainTbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTbView.swift; sourceTree = "<group>"; };
+		D6C2BDD12A9FA3A200BCDE19 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		D6C2BDD32A9FB33F00BCDE19 /* CurrentProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentProfileView.swift; sourceTree = "<group>"; };
 		D6E414A92A969D8D008ECD2D /* AddEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEmailView.swift; sourceTree = "<group>"; };
 		D6E414AB2A96A008008ECD2D /* AddPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPasswordView.swift; sourceTree = "<group>"; };
 		D6E414AD2A96A28D008ECD2D /* AddUsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUsernameView.swift; sourceTree = "<group>"; };
@@ -169,6 +173,7 @@
 				D6E414AD2A96A28D008ECD2D /* AddUsernameView.swift */,
 				D6E414AF2A96A3F9008ECD2D /* AddStreamingView.swift */,
 				D6AE40532A0EE09E000748D2 /* ProfileView.swift */,
+				D6C2BDD32A9FB33F00BCDE19 /* CurrentProfileView.swift */,
 				D61A221A2A144FC30021C3AF /* HomeView.swift */,
 				D61A221C2A1C2FFC0021C3AF /* CardView.swift */,
 				D65C42CC2A63160800D2DAA8 /* SearchView.swift */,
@@ -190,6 +195,7 @@
 				D6E414B52A97C3D6008ECD2D /* RegistrationViewModel.swift */,
 				D6E414B72A97D5A5008ECD2D /* LoginViewModel.swift */,
 				D6C2BDCD2A9E6AF400BCDE19 /* UserService.swift */,
+				D6C2BDD12A9FA3A200BCDE19 /* SearchViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -305,7 +311,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6C2BDD22A9FA3A200BCDE19 /* SearchViewModel.swift in Sources */,
 				D65C42D32A68A91400D2DAA8 /* EditProfileView.swift in Sources */,
+				D6C2BDD42A9FB33F00BCDE19 /* CurrentProfileView.swift in Sources */,
 				D6C2BDD02A9E6F8600BCDE19 /* MainTbView.swift in Sources */,
 				D630980F2A952AA200F59472 /* UserModel.swift in Sources */,
 				D65C42D12A63162100D2DAA8 /* TrendingView.swift in Sources */,

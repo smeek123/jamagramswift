@@ -11,6 +11,7 @@ struct SearchView: View {
     @State private var search: String = ""
     @State private var tab: Int = 0
     @State private var searchPrompt: String = "Search for friends"
+    @StateObject var viewModel = SearchViewModel()
     
     var body: some View {
         NavigationStack {
@@ -51,34 +52,41 @@ struct SearchView: View {
                 .padding(.horizontal, 18)
                 
                 LazyVStack(spacing: 24) {
-                    ForEach(0..<100) { user in
-                        HStack {
-                            Image("profile-image")
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 40, height: 40)
-                                .clipShape(Circle())
-                            
-                            Text("Wendy")
-                                .foregroundColor(.primary)
-                                .font(.system(size: 15))
-                            
-                            Spacer()
-                            
-                            Button {
+                    ForEach(viewModel.users) { user in
+                        NavigationLink(value: user) {
+                            HStack {
+                                Image(systemName: "person.circle")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 40, height: 40)
+                                    .foregroundColor(.secondary)
                                 
-                            } label: {
-                                Text("Follow")
-                                    .font(.system(size: 15))
+                                Text(user.username)
                                     .foregroundColor(.primary)
+                                    .font(.system(size: 15))
+                                
+                                Spacer()
+                                
+                                Button {
+                                    print("followed")
+                                } label: {
+                                    Text("Follow")
+                                        .font(.system(size: 15))
+                                        .foregroundColor(.primary)
+                                }
+                                .buttonBorderShape(.capsule)
+                                .buttonStyle(.borderedProminent)
+                                .tint(Color("MainColor"))
                             }
-                            .buttonBorderShape(.capsule)
-                            .buttonStyle(.borderedProminent)
-                            .tint(Color("MainColor"))
+                            .padding(.horizontal, 18)
                         }
-                        .padding(.horizontal, 18)
+
                     }
                 }
+                .navigationDestination(for: FireUser.self, destination: { user in
+                    ProfileView(user: user)
+                        .navigationBarBackButtonHidden()
+                })
                 .searchable(text: $search, prompt: searchPrompt)
                 .padding(.vertical, 25)
                 .padding(.horizontal)

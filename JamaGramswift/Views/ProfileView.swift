@@ -22,6 +22,7 @@ struct ProfileView: View {
     @State private var selection: Int = 0
     @Namespace private var pickerTabs
     let user: FireUser
+    @Environment(\.dismiss) var dismiss
     
     //This removes the tokens when logging out
     func logOutSpotify() {
@@ -39,366 +40,160 @@ struct ProfileView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            ScrollView(showsIndicators: false) {
-                VStack {
-                    HStack {
-                        Spacer()
+        ScrollView(showsIndicators: false) {
+            VStack {
+                HStack {
+                    Spacer()
+                    
+                    ZStack {
+                        Circle()
+                            .stroke(Color("MainColor"), lineWidth: 3)
+                            .frame(width: 100, height: 100)
                         
-                        ZStack {
-                            Circle()
-                                .stroke(Color("MainColor"), lineWidth: 3)
-                                .frame(width: 100, height: 100)
-                            
-                            VStack(spacing: 7) {
-                                Text("12.3M")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 18))
-                                
-                                Text("Followers")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 17))
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        VStack {
-                            Image(systemName: "person.circle")
-                                .font(.system(size: 100))
+                        VStack(spacing: 7) {
+                            Text("12.3M")
                                 .foregroundColor(.primary)
-                                .padding()
+                                .font(.system(size: 18))
                             
-                            Text(user.username)
+                            Text("Followers")
                                 .foregroundColor(.primary)
-                                .font(.title)
+                                .font(.system(size: 17))
                         }
-                        
-                        Spacer()
-                        
-                        ZStack {
-                            Circle()
-                                .stroke(Color("MainColor"), lineWidth: 3)
-                                .frame(width: 100, height: 100)
-                            
-                            VStack(spacing: 7) {
-                                Text("1.3K")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 18))
-                                
-                                Text("Following")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 17))
-                            }
-                        }
-                        
-                        Spacer()
                     }
                     
-                    Text("Hi, my name is sean. I like music and this is my bio. My favorite artist atm is prob The Kid Laroi.")
-                        .foregroundColor(.primary)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(4)
+                    Spacer()
+                    
+                    VStack {
+                        Image(systemName: "person.circle")
+                            .font(.system(size: 100))
+                            .foregroundColor(.primary)
+                            .padding()
+                        
+                        Text(user.username)
+                            .foregroundColor(.primary)
+                            .font(.title)
+                    }
+                    
+                    Spacer()
+                    
+                    ZStack {
+                        Circle()
+                            .stroke(Color("MainColor"), lineWidth: 3)
+                            .frame(width: 100, height: 100)
+                        
+                        VStack(spacing: 7) {
+                            Text("1.3K")
+                                .foregroundColor(.primary)
+                                .font(.system(size: 18))
+                            
+                            Text("Following")
+                                .foregroundColor(.primary)
+                                .font(.system(size: 17))
+                        }
+                    }
+                    
+                    Spacer()
+                }
+                
+                Text(user.bio ?? "")
+                    .foregroundColor(.primary)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(4)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 50)
+                
+                Button {
+                    
+                } label: {
+                    LargeButtonView(title: "Follow")
                         .padding(.vertical, 8)
-                        .padding(.horizontal, 50)
-                    
-                    NavigationLink(destination: {
-                        EditProfileView()
-                            .navigationBarBackButtonHidden()
-                    }, label: {
-                        LargeButtonView(title: "Customize")
-                            .padding(.vertical, 8)
-                    })
-                    
-                    HStack {
-                        Spacer()
-                        
-                        Button {
-                            withAnimation(.linear) {
-                                selection = 0
-                            }
-                        } label: {
-                            ZStack {
-                                if selection == 0 {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color("MainColor"))
-                                        .matchedGeometryEffect(id: "tabs", in: pickerTabs)
-                                } else {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                }
-                                
-                                Image(systemName: "headphones")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 22))
-                                    .padding(10)
-                                    .padding(.horizontal, 10)
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        Button {
-                            withAnimation(.linear) {
-                                selection = 1
-                            }
-                        } label: {
-                            ZStack {
-                                if selection == 1 {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color("MainColor"))
-                                        .matchedGeometryEffect(id: "tabs", in: pickerTabs)
-                                } else {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                }
-                                
-                                Image(systemName: "star.fill")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 22))
-                                    .padding(10)
-                                    .padding(.horizontal, 10)
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        Button {
-                            withAnimation(.linear) {
-                                selection = 2
-                            }
-                        } label: {
-                            ZStack {
-                                if selection == 2 {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color("MainColor"))
-                                        .matchedGeometryEffect(id: "tabs", in: pickerTabs)
-                                } else {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                }
-                                
-                                Image(systemName: "bookmark.fill")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 22))
-                                    .padding(10)
-                                    .padding(.horizontal, 10)
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        Button {
-                            withAnimation(.linear) {
-                                selection = 3
-                            }
-                        } label: {
-                            ZStack {
-                                if selection == 3 {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color("MainColor"))
-                                        .matchedGeometryEffect(id: "tabs", in: pickerTabs)
-                                } else {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                }
-                                
-                                Image(systemName: "gearshape.fill")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 22))
-                                    .padding(10)
-                                    .padding(.horizontal, 10)
-                            }
-                        }
-                        
-                        Spacer()
-                    }
-                    .padding()
-                    .background(Color(UIColor.secondarySystemBackground))
-                    .clipShape(Capsule())
-                    .padding()
-                    
-                    if selection == 0 {
-                        posts
-                            .transition(.slide)
-                    } else if selection == 1 {
-                        favorites
-                            .transition(.slide)
-                    } else if selection == 2 {
-                        saves
-                            .transition(.slide)
-                    } else if selection == 3 {
-                        settings
-                            .transition(.slide)
-                    }
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Text("JamaGram")
-                        .foregroundColor(.primary)
-                        .font(.system(size: 25))
                 }
                 
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        Text("Notifications")
+                HStack {
+                    Spacer()
+                    
+                    Button {
+                        withAnimation(.linear) {
+                            selection = 0
+                        }
                     } label: {
-                        Image(systemName: "bell")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 20))
+                        ZStack {
+                            if selection == 0 {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .foregroundColor(Color("MainColor"))
+                                    .matchedGeometryEffect(id: "tabs", in: pickerTabs)
+                            } else {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .foregroundColor(Color(UIColor.secondarySystemBackground))
+                            }
+                            
+                            Image(systemName: "headphones")
+                                .foregroundColor(.primary)
+                                .font(.system(size: 22))
+                                .padding(10)
+                                .padding(.horizontal, 10)
+                        }
                     }
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        CreateView()
-                    } label: {
-                        Image(systemName: "plus.app")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 20))
-                    }
-                }
-                
-                //                ToolbarItem(placement: .navigationBarTrailing) {
-                //                    NavigationLink {
-                //                        Text("Messages")
-                //                    } label: {
-                //                        Image(systemName: "message")
-                //                            .foregroundColor(.primary)
-                //                            .font(.system(size: 20))
-                //                    }
-                //                }
-            }
-            //presents a message to confirm the log out
-            .confirmationDialog("Remove Account?", isPresented: $showDelete, titleVisibility: .visible) {
-                //cancels the action
-                Button(role: .cancel) {
-                    print("canceled")
-                } label: {
-                    Text("cancel")
-                }
-                
-                //calls the logout method and deletes the access token and account.
-                Button(role: .destructive) {
                     
-                } label: {
-                    Text("Remove")
+                    Spacer()
+                    
+                    Button {
+                        withAnimation(.linear) {
+                            selection = 1
+                        }
+                    } label: {
+                        ZStack {
+                            if selection == 1 {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .foregroundColor(Color("MainColor"))
+                                    .matchedGeometryEffect(id: "tabs", in: pickerTabs)
+                            } else {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .foregroundColor(Color(UIColor.secondarySystemBackground))
+                            }
+                            
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.primary)
+                                .font(.system(size: 22))
+                                .padding(10)
+                                .padding(.horizontal, 10)
+                        }
+                    }
+                    
+                    Spacer()
                 }
-            }
-            //sets the current user = to the result of the get profile func
-            .task {
-                if isSignedIn {
-                    currentUser = try? await spotifyData.getProfile()
+                .padding()
+                .background(Color(UIColor.secondarySystemBackground))
+                .clipShape(Capsule())
+                .padding()
+                
+                if selection == 0 {
+                    posts
+                        .transition(.slide)
+                } else if selection == 1 {
+                    favorites
+                        .transition(.slide)
                 }
             }
         }
-    }
-    
-    var settings: some View {
-        VStack {
-            NavigationLink(destination: {
-                Text("streaming platform")
-            }, label: {
-                HStack {
-                    Image(systemName: "headphones")
-                        .foregroundColor(.primary)
-                        .font(.largeTitle)
-                    
-                    Text("Streaming Platform")
-                        .foregroundColor(.primary)
-                        .font(.title3)
-                        .padding(.horizontal, 15)
-                    
-                    Spacer()
-                }
-                .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
-                .padding(.horizontal, 15)
-            })
-            .clipShape(Capsule())
-            .buttonStyle(.bordered)
-            .padding(10)
-            
-            NavigationLink(destination: {
-                Text("privacy")
-            }, label: {
-                HStack {
-                    Image(systemName: "lock")
-                        .foregroundColor(.primary)
-                        .font(.largeTitle)
-                    
-                    Text("Privacy")
-                        .foregroundColor(.primary)
-                        .font(.title3)
-                        .padding(.horizontal, 15)
-                    
-                    Spacer()
-                }
-                .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
-                .padding(.horizontal, 15)
-            })
-            .clipShape(Capsule())
-            .buttonStyle(.bordered)
-            .padding(10)
-            
-            Button {
-                showSignOut = true
-            } label: {
-                HStack {
-                    Image(systemName: "arrowshape.backward")
-                        .foregroundColor(.primary)
-                        .font(.largeTitle)
-                    
-                    Text("Sign Out")
-                        .foregroundColor(.primary)
-                        .font(.title3)
-                        .padding(.horizontal, 15)
-                    
-                    Spacer()
-                }
-                .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
-                .padding(.horizontal, 15)
-            }
-            .clipShape(Capsule())
-            .buttonStyle(.bordered)
-            .padding(10)
-            .confirmationDialog("Sign Out?", isPresented: $showSignOut, titleVisibility: .visible) {
-                //cancels the action
-                Button(role: .cancel) {
-                    print("canceled")
+        .navigationBarTitle(user.name ?? "JamaGram")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    dismiss()
                 } label: {
-                    Text("cancel")
-                }
-                
-                //calls the logout method and deletes the access token and account.
-                Button(role: .destructive) {
-                    UserAuthService.shared.signout()
-                } label: {
-                    Text("Sign out")
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(.primary)
+                        .font(.system(size: 20))
                 }
             }
-            
-            Button {
-                showDelete = true
-            } label: {
-                HStack {
-                    Image(systemName: "trash")
-                        .foregroundColor(.primary)
-                        .font(.largeTitle)
-                    
-                    Text("Delete Account")
-                        .foregroundColor(.primary)
-                        .font(.title3)
-                        .padding(.horizontal, 15)
-                    
-                    Spacer()
-                }
-                .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
-                .padding(.horizontal, 15)
+        }
+        //sets the current user = to the result of the get profile func
+        .task {
+            if isSignedIn {
+                currentUser = try? await spotifyData.getProfile()
             }
-            .clipShape(Capsule())
-            .buttonStyle(.bordered)
-            .padding(10)
         }
     }
     
@@ -505,22 +300,6 @@ struct ProfileView: View {
             }
             
             Text("No posts yet.")
-                .foregroundColor(.primary)
-            
-            Spacer()
-        }
-    }
-    
-    var saves: some View {
-        VStack(spacing: 20) {
-            Spacer()
-            
-            Image(systemName: "bookmark")
-                .font(.system(size: 100))
-                .foregroundColor(.secondary)
-
-            
-            Text("Nothing saved yet.")
                 .foregroundColor(.primary)
             
             Spacer()
