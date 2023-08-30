@@ -23,6 +23,7 @@ struct ProfileView: View {
     @Namespace private var pickerTabs
     let user: FireUser
     @Environment(\.dismiss) var dismiss
+    @State private var showEditView: Bool = false
     
     //This removes the tokens when logging out
     func logOutSpotify() {
@@ -103,9 +104,13 @@ struct ProfileView: View {
                     .padding(.horizontal, 50)
                 
                 Button {
-                    
+                    if user.isCurrentUser {
+                        showEditView.toggle()
+                    } else {
+                        print("followed")
+                    }
                 } label: {
-                    LargeButtonView(title: "Follow")
+                    LargeButtonView(title: user.isCurrentUser ? "CustomIze" : "Follow")
                         .padding(.vertical, 8)
                 }
                 
@@ -174,6 +179,9 @@ struct ProfileView: View {
                     favorites
                         .transition(.slide)
                 }
+            }
+            .fullScreenCover(isPresented: $showEditView) {
+                EditProfileView()
             }
         }
         .navigationBarTitle(user.name ?? "JamaGram")
