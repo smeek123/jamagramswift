@@ -17,6 +17,7 @@ struct EditProfileView: View {
     @State private var imageSelection: PhotosPickerItem? = nil
     @State private var startingDate: Date = Date().addingTimeInterval(-3564259200)
     @State private var endDate: Date = Date().addingTimeInterval(-410228000)
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -92,6 +93,17 @@ struct EditProfileView: View {
                     
                 } label: {
                     LargeButtonView(title: "Save")
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(.primary)
+                            .font(.system(size: 20))
+                    }
                 }
             }
         }

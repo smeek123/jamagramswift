@@ -12,10 +12,13 @@ import Firebase
 
 class UserAuthService {
     @Published var userSession: FirebaseAuth.User?
+    @Published var currentUser: FireUser?
     static let shared = UserAuthService()
     
     init() {
-        self.userSession = Auth.auth().currentUser
+        Task {
+            try await loadUserDate()
+        }
     }
     
     @MainActor
@@ -23,6 +26,7 @@ class UserAuthService {
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
+            try await loadUserDate()
         } catch {
             print("failed to log user in with error \(error.localizedDescription)")
         }
@@ -39,12 +43,19 @@ class UserAuthService {
         }
     }
     
+    @MainActor
     func loadUserDate() async throws {
-        
+        self.userSession = Auth.auth().currentUser
+        guard let currentUid = userSession?.uid else {
+            return
+        }
+        let snapshot = try await Firestore.firestore().collection("users").document(currentUid).getDocument()
+        self.currentUser = try? snapshot.data(as: FireUser.self)
     }
     
     private func uploadUserData(uid: String, username: String, email: String) async {
         let user = FireUser(id: uid, username: username, email: email)
+        self.currentUser = user
         guard let encodedUser = try? Firestore.Encoder().encode(user) else {
             return
         }
@@ -55,5 +66,6 @@ class UserAuthService {
     func signout() {
         try? Auth.auth().signOut()
         self.userSession = nil
+        self.currentUser = nil
     }
 }

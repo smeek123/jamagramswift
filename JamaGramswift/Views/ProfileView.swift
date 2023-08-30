@@ -21,6 +21,7 @@ struct ProfileView: View {
     @State var showSignOut: Bool = false
     @State private var selection: Int = 0
     @Namespace private var pickerTabs
+    let user: FireUser
     
     //This removes the tokens when logging out
     func logOutSpotify() {
@@ -63,46 +64,14 @@ struct ProfileView: View {
                         Spacer()
                         
                         VStack {
-                            if isSignedIn {
-                                if spotifyData.isRetrievingData {
-                                    Image(systemName: "person.circle")
-                                        .font(.system(size: 100))
-                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                        .padding()
-                                } else {
-                                    //checks to make sure no values are nil
-                                    if let user = currentUser {
-                                        //checks that the url is not nil
-                                        if let image = user.images?.first?.url {
-                                            //takes the url and use the image package to show a circular image
-                                            VStack {
-                                                WebImage(url: URL(string: image) ?? URL(string: "")!)
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .frame(width: 100, height: 100)
-                                                    .clipShape(Circle())
-                                                    .padding()
-                                            }
-                                        } else {
-                                            //if image is nil, place holder is shown
-                                            Image(systemName: "person.circle")
-                                                .font(.system(size: 75))
-                                                .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                        }
-                                        
-                                        if !spotifyData.isRetrievingData {
-                                            //when data loads, username is shown
-                                            Text(user.display_name)
-                                                .foregroundColor(.primary)
-                                                .font(.title)
-                                        } else {
-                                            Text("username")
-                                                .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                                .font(.title)
-                                        }
-                                    }
-                                }
-                            }
+                            Image(systemName: "person.circle")
+                                .font(.system(size: 100))
+                                .foregroundColor(.primary)
+                                .padding()
+                            
+                            Text(user.username)
+                                .foregroundColor(.primary)
+                                .font(.title)
                         }
                         
                         Spacer()
@@ -135,6 +104,7 @@ struct ProfileView: View {
                     
                     NavigationLink(destination: {
                         EditProfileView()
+                            .navigationBarBackButtonHidden()
                     }, label: {
                         LargeButtonView(title: "Customize")
                             .padding(.vertical, 8)

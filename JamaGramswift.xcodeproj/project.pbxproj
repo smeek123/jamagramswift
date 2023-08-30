@@ -43,6 +43,8 @@
 		D6AE40572A0EE670000748D2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D6AE40562A0EE670000748D2 /* SDWebImageSwiftUI */; };
 		D6AE40592A0F1470000748D2 /* SpotifyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AE40582A0F1470000748D2 /* SpotifyDataManager.swift */; };
 		D6AE405B2A0F1521000748D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AE405A2A0F1521000748D2 /* User.swift */; };
+		D6C2BDCE2A9E6AF500BCDE19 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2BDCD2A9E6AF400BCDE19 /* UserService.swift */; };
+		D6C2BDD02A9E6F8600BCDE19 /* MainTbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2BDCF2A9E6F8600BCDE19 /* MainTbView.swift */; };
 		D6E414AA2A969D8D008ECD2D /* AddEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414A92A969D8D008ECD2D /* AddEmailView.swift */; };
 		D6E414AC2A96A008008ECD2D /* AddPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414AB2A96A008008ECD2D /* AddPasswordView.swift */; };
 		D6E414AE2A96A28D008ECD2D /* AddUsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E414AD2A96A28D008ECD2D /* AddUsernameView.swift */; };
@@ -81,6 +83,8 @@
 		D6AE40532A0EE09E000748D2 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		D6AE40582A0F1470000748D2 /* SpotifyDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyDataManager.swift; sourceTree = "<group>"; };
 		D6AE405A2A0F1521000748D2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D6C2BDCD2A9E6AF400BCDE19 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		D6C2BDCF2A9E6F8600BCDE19 /* MainTbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTbView.swift; sourceTree = "<group>"; };
 		D6E414A92A969D8D008ECD2D /* AddEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEmailView.swift; sourceTree = "<group>"; };
 		D6E414AB2A96A008008ECD2D /* AddPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPasswordView.swift; sourceTree = "<group>"; };
 		D6E414AD2A96A28D008ECD2D /* AddUsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUsernameView.swift; sourceTree = "<group>"; };
@@ -157,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				D64BF5B72A05A1460085ED18 /* ContentView.swift */,
+				D6C2BDCF2A9E6F8600BCDE19 /* MainTbView.swift */,
 				D63097F52A91768800F59472 /* SignInOptions.swift */,
 				D64BF5C42A06C4950085ED18 /* SignInView.swift */,
 				D6E414A92A969D8D008ECD2D /* AddEmailView.swift */,
@@ -184,6 +189,7 @@
 				D6E414B32A97BFC5008ECD2D /* ContentViewModel.swift */,
 				D6E414B52A97C3D6008ECD2D /* RegistrationViewModel.swift */,
 				D6E414B72A97D5A5008ECD2D /* LoginViewModel.swift */,
+				D6C2BDCD2A9E6AF400BCDE19 /* UserService.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -300,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D65C42D32A68A91400D2DAA8 /* EditProfileView.swift in Sources */,
+				D6C2BDD02A9E6F8600BCDE19 /* MainTbView.swift in Sources */,
 				D630980F2A952AA200F59472 /* UserModel.swift in Sources */,
 				D65C42D12A63162100D2DAA8 /* TrendingView.swift in Sources */,
 				D6E414B62A97C3D6008ECD2D /* RegistrationViewModel.swift in Sources */,
@@ -312,6 +319,7 @@
 				D64BF5B82A05A1460085ED18 /* ContentView.swift in Sources */,
 				D6E414B02A96A3F9008ECD2D /* AddStreamingView.swift in Sources */,
 				D64BF5CD2A07388A0085ED18 /* AuthResponse.swift in Sources */,
+				D6C2BDCE2A9E6AF500BCDE19 /* UserService.swift in Sources */,
 				D63097F32A8FC66B00F59472 /* PostView.swift in Sources */,
 				D6AE405B2A0F1521000748D2 /* User.swift in Sources */,
 				D6AE40542A0EE09E000748D2 /* ProfileView.swift in Sources */,
