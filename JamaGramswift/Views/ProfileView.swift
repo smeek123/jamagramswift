@@ -181,7 +181,7 @@ struct ProfileView: View {
                 }
             }
             .fullScreenCover(isPresented: $showEditView) {
-                EditProfileView()
+                EditProfileView(user: user)
             }
         }
         .navigationBarTitle(user.name ?? "JamaGram")

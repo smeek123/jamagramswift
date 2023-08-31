@@ -10,7 +10,11 @@ import PhotosUI
 
 struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel = EditProfileViewModel()
+    @StateObject var viewModel: EditProfileViewModel
+    
+    init(user: FireUser) {
+        self._viewModel = StateObject(wrappedValue: EditProfileViewModel(user: user))
+    }
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -33,7 +37,11 @@ struct EditProfileView: View {
                     Spacer()
                     
                     Button {
+                        Task {
+                            try await viewModel.updateUserData()
+                        }
                         
+                        dismiss()
                     } label: {
                         Image(systemName: "checkmark")
                             .foregroundColor(.primary)

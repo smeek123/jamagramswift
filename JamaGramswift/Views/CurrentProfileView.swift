@@ -101,7 +101,7 @@ struct CurrentProfileView: View {
                         .padding(.horizontal, 50)
                     
                     NavigationLink(destination: {
-                        EditProfileView()
+                        EditProfileView(user: user)
                             .navigationBarBackButtonHidden()
                     }, label: {
                         LargeButtonView(title: "Customize")
