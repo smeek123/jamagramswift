@@ -55,15 +55,17 @@ struct SearchView: View {
                     ForEach(viewModel.users) { user in
                         NavigationLink(value: user) {
                             HStack {
-                                Image(systemName: "person.circle")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 40, height: 40)
-                                    .foregroundColor(.secondary)
+                                ProfileImageView(user: user, size: 40)
                                 
-                                Text(user.username)
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 15))
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text(user.username)
+                                        .foregroundColor(.primary)
+                                        .font(.subheadline)
+                                    
+                                    Text(user.name ?? "")
+                                        .foregroundColor(.secondary)
+                                        .font(.subheadline)
+                                }
                                 
                                 Spacer()
                                 
