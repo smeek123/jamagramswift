@@ -11,6 +11,8 @@ import PhotosUI
 struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: EditProfileViewModel
+    @State private var isLoading: Bool = false
+    @State private var showError: Bool = false
     
     init(user: FireUser) {
         self._viewModel = StateObject(wrappedValue: EditProfileViewModel(user: user))
@@ -37,11 +39,19 @@ struct EditProfileView: View {
                     Spacer()
                     
                     Button {
-                        Task {
-                            try await viewModel.updateUserData()
+                        if viewModel.bio.count <= 200 {
+                            isLoading = true
+                            
+                            Task {
+                                try await viewModel.updateUserData()
+                            }
+                            
+                            isLoading = false
+                            
+                            dismiss()
+                        } else {
+                            showError = true
                         }
-                        
-                        dismiss()
                     } label: {
                         Image(systemName: "checkmark")
                             .foregroundColor(.primary)
@@ -50,6 +60,11 @@ struct EditProfileView: View {
                 }
                 .padding(.horizontal)
                 .padding()
+                .alert("Your bio must be 200 characters or less.", isPresented: $showError) {
+                    Button("OK", role: .cancel) {
+                        
+                    }
+                }
                 
                 Divider()
                     .overlay(Color("MainColor"))
@@ -63,10 +78,7 @@ struct EditProfileView: View {
                                 .frame(width: 100, height: 100)
                                 .clipShape(Circle())
                         } else {
-                            Image(systemName: "person.circle")
-                                .resizable()
-                                .frame(width: 100, height: 100)
-                                .foregroundColor(.primary)
+                            ProfileImageView(user: viewModel.user, size: 100)
                         }
                     }
                     
@@ -87,14 +99,26 @@ struct EditProfileView: View {
                             .foregroundColor(.secondary)
                         
                         Spacer()
+                        
+                        Text("\(viewModel.bio.count)/200")
+                            .padding(.horizontal)
+                            .foregroundColor(viewModel.bio.count > 200 ? .red : .secondary)
+                            .font(.footnote)
                     }) {
-                        TextField("Add a Bio", text: $viewModel.bio)
+                        TextField("Add a Bio", text: $viewModel.bio, axis: .vertical)
                             .modifier(TextFieldModifier())
+                            .lineLimit(5)
                     }
                 }
                 .padding()
                 
                 Spacer()
+            }
+            .overlay {
+                if isLoading {
+                    ProgressView()
+                        .foregroundColor(Color("MainColor"))
+                }
             }
         }
     }

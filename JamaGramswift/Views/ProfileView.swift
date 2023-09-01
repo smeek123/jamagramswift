@@ -6,8 +6,7 @@
 //
 
 import SwiftUI
-//this package helps show an image given by a url
-import SDWebImageSwiftUI
+import Kingfisher
 
 //this shows the spotify image and username of the person signed in. It also allows for signing out.
 struct ProfileView: View {
@@ -65,10 +64,7 @@ struct ProfileView: View {
                     Spacer()
                     
                     VStack {
-                        Image(systemName: "person.circle")
-                            .font(.system(size: 100))
-                            .foregroundColor(.primary)
-                            .padding()
+                        ProfileImageView(user: user, size: 100)
                         
                         Text(user.username)
                             .foregroundColor(.primary)
@@ -100,7 +96,7 @@ struct ProfileView: View {
                     .foregroundColor(.primary)
                     .multilineTextAlignment(.center)
                     .lineLimit(4)
-                    .padding(.vertical, 8)
+                    .padding(.bottom, 8)
                     .padding(.horizontal, 50)
                 
                 Button {
@@ -219,7 +215,7 @@ struct ProfileView: View {
                         if let image = artist.items.first?.images?.first?.url {
                             VStack {
                                 Link(destination: URL(string: artist.items.first?.uri ?? "spotify:") ?? URL(string: "")!) {
-                                    WebImage(url: URL(string: image) ?? URL(string: "")!)
+                                    KFImage(URL(string: image))
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 150, height: 150)
@@ -258,7 +254,7 @@ struct ProfileView: View {
                         if let image = track.items.first?.album.images.first?.url {
                             VStack {
                                 Link(destination: URL(string: track.items.first?.uri ?? "") ?? URL(string: "spotify:")!) {
-                                    WebImage(url: URL(string: image) ?? URL(string: "")!)
+                                    KFImage(URL(string: image))
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 150, height: 150)

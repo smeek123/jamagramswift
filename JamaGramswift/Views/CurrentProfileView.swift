@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import Kingfisher
 
 struct CurrentProfileView: View {
     @AppStorage("signedIn") var isSignedIn: Bool = false
@@ -62,10 +62,7 @@ struct CurrentProfileView: View {
                         Spacer()
                         
                         VStack {
-                            Image(systemName: "person.circle")
-                                .font(.system(size: 100))
-                                .foregroundColor(.primary)
-                                .padding()
+                            ProfileImageView(user: user, size: 100)
                             
                             Text(user.username)
                                 .foregroundColor(.primary)
@@ -97,7 +94,7 @@ struct CurrentProfileView: View {
                         .foregroundColor(.primary)
                         .multilineTextAlignment(.center)
                         .lineLimit(4)
-                        .padding(.vertical, 8)
+                        .padding(.bottom, 8)
                         .padding(.horizontal, 50)
                     
                     NavigationLink(destination: {
@@ -414,7 +411,7 @@ struct CurrentProfileView: View {
                         if let image = artist.items.first?.images?.first?.url {
                             VStack {
                                 Link(destination: URL(string: artist.items.first?.uri ?? "spotify:") ?? URL(string: "")!) {
-                                    WebImage(url: URL(string: image) ?? URL(string: "")!)
+                                    KFImage(URL(string: image))
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 150, height: 150)
@@ -453,7 +450,7 @@ struct CurrentProfileView: View {
                         if let image = track.items.first?.album.images.first?.url {
                             VStack {
                                 Link(destination: URL(string: track.items.first?.uri ?? "") ?? URL(string: "spotify:")!) {
-                                    WebImage(url: URL(string: image) ?? URL(string: "")!)
+                                    KFImage(URL(string: image))
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 150, height: 150)

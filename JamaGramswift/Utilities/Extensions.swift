@@ -23,7 +23,7 @@ struct TextFieldModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding()
-            .frame(width: UIScreen.main.bounds.width * 0.95, height: 40)
+            .frame(width: UIScreen.main.bounds.width * 0.95)
             .background(Color(uiColor: .secondarySystemBackground))
             .clipShape(Capsule())
     }
