@@ -23,180 +23,179 @@ struct ProfileView: View {
     let user: FireUser
     @Environment(\.dismiss) var dismiss
     @State private var showEditView: Bool = false
-    
-    //This removes the tokens when logging out
-    func logOutSpotify() {
-        Task {
-            do {
-                //any func that can throw and error has try in front
-                try await SpotifyAuthManager.deleteToken(service: "spotify.com", accounr: "accessToken")
-                
-                try await SpotifyAuthManager.deleteToken(service: "spotify.com", accounr: "refreshToken")
-            } catch {
-                //prints any error that happens.
-                print(error.localizedDescription)
-            }
-        }
-    }
+    @Namespace var profileAnimation
+    @State private var showExpanded: Bool = false
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack {
-                HStack {
-                    Spacer()
-                    
-                    ZStack {
-                        Circle()
-                            .stroke(Color("MainColor"), lineWidth: 3)
-                            .frame(width: 100, height: 100)
+        if showExpanded {
+            expandedProfile
+        } else {
+            ScrollView(showsIndicators: false) {
+                VStack {
+                    HStack {
+                        Spacer()
                         
-                        VStack(spacing: 7) {
-                            Text("12.3M")
-                                .foregroundColor(.primary)
-                                .font(.system(size: 18))
-                            
-                            Text("Followers")
-                                .foregroundColor(.primary)
-                                .font(.system(size: 17))
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    VStack {
-                        ProfileImageView(user: user, size: 100)
-                        
-                        Text(user.username)
-                            .foregroundColor(.primary)
-                            .font(.title)
-                    }
-                    
-                    Spacer()
-                    
-                    ZStack {
-                        Circle()
-                            .stroke(Color("MainColor"), lineWidth: 3)
-                            .frame(width: 100, height: 100)
-                        
-                        VStack(spacing: 7) {
-                            Text("1.3K")
-                                .foregroundColor(.primary)
-                                .font(.system(size: 18))
-                            
-                            Text("Following")
-                                .foregroundColor(.primary)
-                                .font(.system(size: 17))
-                        }
-                    }
-                    
-                    Spacer()
-                }
-                
-                Text(user.bio ?? "")
-                    .foregroundColor(.primary)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(4)
-                    .padding(.bottom, 8)
-                    .padding(.horizontal, 50)
-                
-                Button {
-                    if user.isCurrentUser {
-                        showEditView.toggle()
-                    } else {
-                        print("followed")
-                    }
-                } label: {
-                    LargeButtonView(title: user.isCurrentUser ? "CustomIze" : "Follow")
-                        .padding(.vertical, 8)
-                }
-                
-                HStack {
-                    Spacer()
-                    
-                    Button {
-                        withAnimation(.linear) {
-                            selection = 0
-                        }
-                    } label: {
                         ZStack {
-                            if selection == 0 {
-                                RoundedRectangle(cornerRadius: 15)
-                                    .foregroundColor(Color("MainColor"))
-                                    .matchedGeometryEffect(id: "tabs", in: pickerTabs)
-                            } else {
-                                RoundedRectangle(cornerRadius: 15)
-                                    .foregroundColor(Color(UIColor.secondarySystemBackground))
-                            }
+                            Circle()
+                                .stroke(Color("MainColor"), lineWidth: 3)
+                                .frame(width: 100, height: 100)
                             
-                            Image(systemName: "headphones")
+                            VStack(spacing: 7) {
+                                Text("12.3M")
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 18))
+                                
+                                Text("Followers")
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 17))
+                            }
+                        }
+                        
+                        Spacer()
+                        
+                        VStack {
+                            ProfileImageView(user: user, size: 100)
+                                .matchedGeometryEffect(id: "image", in: profileAnimation)
+                                .onTapGesture {
+                                    withAnimation(.spring()) {
+                                        showExpanded.toggle()
+                                    }
+                                }
+                            
+                            Text(user.username)
                                 .foregroundColor(.primary)
-                                .font(.system(size: 22))
-                                .padding(10)
-                                .padding(.horizontal, 10)
+                                .font(.title)
+                                .matchedGeometryEffect(id: "username", in: profileAnimation)
                         }
-                    }
-                    
-                    Spacer()
-                    
-                    Button {
-                        withAnimation(.linear) {
-                            selection = 1
-                        }
-                    } label: {
+                        
+                        Spacer()
+                        
                         ZStack {
-                            if selection == 1 {
-                                RoundedRectangle(cornerRadius: 15)
-                                    .foregroundColor(Color("MainColor"))
-                                    .matchedGeometryEffect(id: "tabs", in: pickerTabs)
-                            } else {
-                                RoundedRectangle(cornerRadius: 15)
-                                    .foregroundColor(Color(UIColor.secondarySystemBackground))
-                            }
+                            Circle()
+                                .stroke(Color("MainColor"), lineWidth: 3)
+                                .frame(width: 100, height: 100)
                             
-                            Image(systemName: "star.fill")
-                                .foregroundColor(.primary)
-                                .font(.system(size: 22))
-                                .padding(10)
-                                .padding(.horizontal, 10)
+                            VStack(spacing: 7) {
+                                Text("1.3K")
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 18))
+                                
+                                Text("Following")
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 17))
+                            }
                         }
+                        
+                        Spacer()
                     }
                     
-                    Spacer()
-                }
-                .padding()
-                .background(Color(UIColor.secondarySystemBackground))
-                .clipShape(Capsule())
-                .padding()
-                
-                if selection == 0 {
-                    posts
-                        .transition(.slide)
-                } else if selection == 1 {
-                    favorites
-                        .transition(.slide)
-                }
-            }
-            .fullScreenCover(isPresented: $showEditView) {
-                EditProfileView(user: user)
-            }
-        }
-        .navigationBarTitle(user.name ?? "JamaGram")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
+                    Text(user.bio ?? "")
                         .foregroundColor(.primary)
-                        .font(.system(size: 20))
+                        .multilineTextAlignment(.center)
+                        .lineLimit(4)
+                        .padding(.bottom, 8)
+                        .padding(.horizontal, 50)
+                    
+                    Button {
+                        if user.isCurrentUser {
+                            showEditView.toggle()
+                        } else {
+                            print("followed")
+                        }
+                    } label: {
+                        LargeButtonView(title: user.isCurrentUser ? "CustomIze" : "Follow")
+                            .padding(.vertical, 8)
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        
+                        Button {
+                            withAnimation(.linear) {
+                                selection = 0
+                            }
+                        } label: {
+                            ZStack {
+                                if selection == 0 {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .foregroundColor(Color("MainColor"))
+                                        .matchedGeometryEffect(id: "tabs", in: pickerTabs)
+                                } else {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                }
+                                
+                                Image(systemName: "headphones")
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 22))
+                                    .padding(10)
+                                    .padding(.horizontal, 10)
+                            }
+                        }
+                        
+                        Spacer()
+                        
+                        Button {
+                            withAnimation(.linear) {
+                                selection = 1
+                            }
+                        } label: {
+                            ZStack {
+                                if selection == 1 {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .foregroundColor(Color("MainColor"))
+                                        .matchedGeometryEffect(id: "tabs", in: pickerTabs)
+                                } else {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                }
+                                
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 22))
+                                    .padding(10)
+                                    .padding(.horizontal, 10)
+                            }
+                        }
+                        
+                        Spacer()
+                    }
+                    .padding()
+                    .background(Color(UIColor.secondarySystemBackground))
+                    .clipShape(Capsule())
+                    .padding()
+                    
+                    if selection == 0 {
+                        posts
+                            .transition(.slide)
+                    } else if selection == 1 {
+                        favorites
+                            .transition(.slide)
+                    }
+                }
+                .padding(.vertical)
+                .fullScreenCover(isPresented: $showEditView) {
+                    EditProfileView(user: user)
                 }
             }
-        }
-        //sets the current user = to the result of the get profile func
-        .task {
-            if isSignedIn {
-                currentUser = try? await spotifyData.getProfile()
+            .navigationBarTitle(user.name ?? "JamaGram")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(.primary)
+                            .font(.system(size: 20))
+                    }
+                }
+            }
+            //sets the current user = to the result of the get profile func
+            .task {
+                if isSignedIn {
+                    currentUser = try? await spotifyData.getProfile()
+                }
             }
         }
     }
@@ -305,6 +304,38 @@ struct ProfileView: View {
             
             Text("No posts yet.")
                 .foregroundColor(.primary)
+            
+            Spacer()
+        }
+    }
+    
+    var expandedProfile: some View {
+        VStack(spacing: 10) {
+            Spacer()
+            
+            ProfileImageView(user: user, size: 200)
+                .matchedGeometryEffect(id: "image", in: profileAnimation)
+                .padding(.vertical)
+                .onTapGesture {
+                    withAnimation(.spring()) {
+                        showExpanded.toggle()
+                    }
+                }
+            
+            Text(user.username)
+                .foregroundColor(.primary)
+                .font(.title)
+                .matchedGeometryEffect(id: "username", in: profileAnimation)
+            
+            if user.name != nil {
+                Text(user.name ?? "")
+                    .foregroundColor(.secondary)
+                    .font(.title)
+            }
+            
+            Spacer()
+            
+            LargeButtonView(title: "Share")
             
             Spacer()
         }

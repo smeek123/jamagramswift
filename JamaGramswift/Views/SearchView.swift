@@ -11,6 +11,7 @@ struct SearchView: View {
     @State private var search: String = ""
     @State private var tab: Int = 0
     @State private var searchPrompt: String = "Search for friends"
+    @Namespace private var pickerTabs
     @StateObject var viewModel = SearchViewModel()
     
     var body: some View {
@@ -25,11 +26,22 @@ struct SearchView: View {
                             searchPrompt = "Search for friends"
                         }
                     } label: {
-                        Text("Users")
-                            .foregroundColor(.primary)
-                            .frame(width: UIScreen.main.bounds.width * 0.45, height: 45)
-                            .background(tab == 0 ? Color("MainColor") : Color(uiColor: .secondarySystemBackground))
-                            .clipShape(Capsule())
+                        ZStack {
+                            if tab == 0 {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .foregroundColor(Color("MainColor"))
+                                    .matchedGeometryEffect(id: "tabs", in: pickerTabs)
+                            } else {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .foregroundColor(Color(UIColor.secondarySystemBackground))
+                            }
+                            
+                            Text("Users")
+                                .foregroundColor(.primary)
+                                .font(.system(size: 20))
+                                .padding(10)
+                                .padding(.horizontal, 10)
+                        }
                     }
                     
                     Spacer()
@@ -40,31 +52,44 @@ struct SearchView: View {
                             searchPrompt = "Search by track name"
                         }
                     } label: {
-                        Text("Posts")
-                            .foregroundColor(.primary)
-                            .frame(width: UIScreen.main.bounds.width * 0.45, height: 45)
-                            .background(tab == 1 ? Color("MainColor") : Color(uiColor: .secondarySystemBackground))
-                            .clipShape(Capsule())
+                        ZStack {
+                            if tab == 1 {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .foregroundColor(Color("MainColor"))
+                                    .matchedGeometryEffect(id: "tabs", in: pickerTabs)
+                            } else {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .foregroundColor(Color(UIColor.secondarySystemBackground))
+                            }
+                            
+                            Text("Posts")
+                                .foregroundColor(.primary)
+                                .font(.system(size: 20))
+                                .padding(10)
+                                .padding(.horizontal, 10)
+                        }
                     }
                     
                     Spacer()
                 }
-                .padding(.horizontal, 18)
+                .padding(.horizontal, 10)
                 
                 LazyVStack(spacing: 24) {
                     ForEach(viewModel.users) { user in
                         NavigationLink(value: user) {
                             HStack {
-                                ProfileImageView(user: user, size: 40)
+                                ProfileImageView(user: user, size: 60)
                                 
                                 VStack(alignment: .leading, spacing: 3) {
                                     Text(user.username)
                                         .foregroundColor(.primary)
                                         .font(.subheadline)
                                     
-                                    Text(user.name ?? "")
-                                        .foregroundColor(.secondary)
-                                        .font(.subheadline)
+                                    if user.name != nil {
+                                        Text(user.name ?? "")
+                                            .foregroundColor(.secondary)
+                                            .font(.subheadline)
+                                    }
                                 }
                                 
                                 Spacer()

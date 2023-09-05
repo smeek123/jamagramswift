@@ -20,6 +20,8 @@ struct CurrentProfileView: View {
     @State private var selection: Int = 0
     @Namespace private var pickerTabs
     let user: FireUser
+    @Namespace var profileAnimation
+    @State private var showExpanded: Bool = false
     
     //This removes the tokens when logging out
     func logOutSpotify() {
@@ -38,253 +40,265 @@ struct CurrentProfileView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView(showsIndicators: false) {
-                VStack {
-                    HStack {
-                        Spacer()
-                        
-                        ZStack {
-                            Circle()
-                                .stroke(Color("MainColor"), lineWidth: 3)
-                                .frame(width: 100, height: 100)
+            if showExpanded {
+                expandedProfile
+            } else {
+                ScrollView(showsIndicators: false) {
+                    VStack {
+                        HStack {
+                            Spacer()
                             
-                            VStack(spacing: 7) {
-                                Text("12.3M")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 18))
+                            ZStack {
+                                Circle()
+                                    .stroke(Color("MainColor"), lineWidth: 3)
+                                    .frame(width: 100, height: 100)
                                 
-                                Text("Followers")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 17))
+                                VStack(spacing: 7) {
+                                    Text("12.3M")
+                                        .foregroundColor(.primary)
+                                        .font(.system(size: 18))
+                                    
+                                    Text("Followers")
+                                        .foregroundColor(.primary)
+                                        .font(.system(size: 17))
+                                }
                             }
+                            
+                            Spacer()
+                            
+                            VStack {
+                                ProfileImageView(user: user, size: 100)
+                                    .matchedGeometryEffect(id: "image", in: profileAnimation)
+                                    .onTapGesture {
+                                        withAnimation(.spring()) {
+                                            showExpanded.toggle()
+                                        }
+                                    }
+                                
+                                Text(user.username)
+                                    .foregroundColor(.primary)
+                                    .font(.title)
+                                    .matchedGeometryEffect(id: "username", in: profileAnimation)
+                            }
+                            
+                            Spacer()
+                            
+                            ZStack {
+                                Circle()
+                                    .stroke(Color("MainColor"), lineWidth: 3)
+                                    .frame(width: 100, height: 100)
+                                
+                                VStack(spacing: 7) {
+                                    Text("1.3K")
+                                        .foregroundColor(.primary)
+                                        .font(.system(size: 18))
+                                    
+                                    Text("Following")
+                                        .foregroundColor(.primary)
+                                        .font(.system(size: 17))
+                                }
+                            }
+                            
+                            Spacer()
                         }
                         
-                        Spacer()
+                        Text(user.bio ?? "")
+                            .foregroundColor(.primary)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(4)
+                            .padding(.bottom, 8)
+                            .padding(.horizontal, 50)
                         
-                        VStack {
-                            ProfileImageView(user: user, size: 100)
+                        NavigationLink(destination: {
+                            EditProfileView(user: user)
+                                .navigationBarBackButtonHidden()
+                        }, label: {
+                            LargeButtonView(title: "Customize")
+                                .padding(.vertical, 8)
+                        })
+                        
+                        HStack {
+                            Spacer()
                             
-                            Text(user.username)
+                            Button {
+                                withAnimation(.linear) {
+                                    selection = 0
+                                }
+                            } label: {
+                                ZStack {
+                                    if selection == 0 {
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .foregroundColor(Color("MainColor"))
+                                            .matchedGeometryEffect(id: "tabs", in: pickerTabs)
+                                    } else {
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                    }
+                                    
+                                    Image(systemName: "headphones")
+                                        .foregroundColor(.primary)
+                                        .font(.system(size: 22))
+                                        .padding(10)
+                                        .padding(.horizontal, 10)
+                                }
+                            }
+                            
+                            Spacer()
+                            
+                            Button {
+                                withAnimation(.linear) {
+                                    selection = 1
+                                }
+                            } label: {
+                                ZStack {
+                                    if selection == 1 {
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .foregroundColor(Color("MainColor"))
+                                            .matchedGeometryEffect(id: "tabs", in: pickerTabs)
+                                    } else {
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                    }
+                                    
+                                    Image(systemName: "star.fill")
+                                        .foregroundColor(.primary)
+                                        .font(.system(size: 22))
+                                        .padding(10)
+                                        .padding(.horizontal, 10)
+                                }
+                            }
+                            
+                            Spacer()
+                            
+                            Button {
+                                withAnimation(.linear) {
+                                    selection = 2
+                                }
+                            } label: {
+                                ZStack {
+                                    if selection == 2 {
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .foregroundColor(Color("MainColor"))
+                                            .matchedGeometryEffect(id: "tabs", in: pickerTabs)
+                                    } else {
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                    }
+                                    
+                                    Image(systemName: "bookmark.fill")
+                                        .foregroundColor(.primary)
+                                        .font(.system(size: 22))
+                                        .padding(10)
+                                        .padding(.horizontal, 10)
+                                }
+                            }
+                            
+                            Spacer()
+                            
+                            Button {
+                                withAnimation(.linear) {
+                                    selection = 3
+                                }
+                            } label: {
+                                ZStack {
+                                    if selection == 3 {
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .foregroundColor(Color("MainColor"))
+                                            .matchedGeometryEffect(id: "tabs", in: pickerTabs)
+                                    } else {
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .foregroundColor(Color(UIColor.secondarySystemBackground))
+                                    }
+                                    
+                                    Image(systemName: "gearshape.fill")
+                                        .foregroundColor(.primary)
+                                        .font(.system(size: 22))
+                                        .padding(10)
+                                        .padding(.horizontal, 10)
+                                }
+                            }
+                            
+                            Spacer()
+                        }
+                        .padding()
+                        .background(Color(UIColor.secondarySystemBackground))
+                        .clipShape(Capsule())
+                        .padding()
+                        
+                        if selection == 0 {
+                            posts
+                                .transition(.slide)
+                        } else if selection == 1 {
+                            favorites
+                                .transition(.slide)
+                        } else if selection == 2 {
+                            saves
+                                .transition(.slide)
+                        } else if selection == 3 {
+                            settings
+                                .transition(.slide)
+                        }
+                    }
+                }
+                .padding(.vertical)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Text(user.name ?? "JamaGram")
+                            .foregroundColor(.primary)
+                            .font(.system(size: 25))
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        NavigationLink {
+                            Text("Notifications")
+                        } label: {
+                            Image(systemName: "bell")
                                 .foregroundColor(.primary)
-                                .font(.title)
+                                .font(.system(size: 20))
                         }
-                        
-                        Spacer()
-                        
-                        ZStack {
-                            Circle()
-                                .stroke(Color("MainColor"), lineWidth: 3)
-                                .frame(width: 100, height: 100)
-                            
-                            VStack(spacing: 7) {
-                                Text("1.3K")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 18))
-                                
-                                Text("Following")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 17))
-                            }
-                        }
-                        
-                        Spacer()
                     }
                     
-                    Text(user.bio ?? "")
-                        .foregroundColor(.primary)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(4)
-                        .padding(.bottom, 8)
-                        .padding(.horizontal, 50)
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        NavigationLink {
+                            CreateView()
+                        } label: {
+                            Image(systemName: "plus.app")
+                                .foregroundColor(.primary)
+                                .font(.system(size: 20))
+                        }
+                    }
                     
-                    NavigationLink(destination: {
-                        EditProfileView(user: user)
-                            .navigationBarBackButtonHidden()
-                    }, label: {
-                        LargeButtonView(title: "Customize")
-                            .padding(.vertical, 8)
-                    })
-                    
-                    HStack {
-                        Spacer()
-                        
-                        Button {
-                            withAnimation(.linear) {
-                                selection = 0
-                            }
-                        } label: {
-                            ZStack {
-                                if selection == 0 {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color("MainColor"))
-                                        .matchedGeometryEffect(id: "tabs", in: pickerTabs)
-                                } else {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                }
-                                
-                                Image(systemName: "headphones")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 22))
-                                    .padding(10)
-                                    .padding(.horizontal, 10)
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        Button {
-                            withAnimation(.linear) {
-                                selection = 1
-                            }
-                        } label: {
-                            ZStack {
-                                if selection == 1 {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color("MainColor"))
-                                        .matchedGeometryEffect(id: "tabs", in: pickerTabs)
-                                } else {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                }
-                                
-                                Image(systemName: "star.fill")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 22))
-                                    .padding(10)
-                                    .padding(.horizontal, 10)
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        Button {
-                            withAnimation(.linear) {
-                                selection = 2
-                            }
-                        } label: {
-                            ZStack {
-                                if selection == 2 {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color("MainColor"))
-                                        .matchedGeometryEffect(id: "tabs", in: pickerTabs)
-                                } else {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                }
-                                
-                                Image(systemName: "bookmark.fill")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 22))
-                                    .padding(10)
-                                    .padding(.horizontal, 10)
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        Button {
-                            withAnimation(.linear) {
-                                selection = 3
-                            }
-                        } label: {
-                            ZStack {
-                                if selection == 3 {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color("MainColor"))
-                                        .matchedGeometryEffect(id: "tabs", in: pickerTabs)
-                                } else {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                }
-                                
-                                Image(systemName: "gearshape.fill")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: 22))
-                                    .padding(10)
-                                    .padding(.horizontal, 10)
-                            }
-                        }
-                        
-                        Spacer()
-                    }
-                    .padding()
-                    .background(Color(UIColor.secondarySystemBackground))
-                    .clipShape(Capsule())
-                    .padding()
-                    
-                    if selection == 0 {
-                        posts
-                            .transition(.slide)
-                    } else if selection == 1 {
-                        favorites
-                            .transition(.slide)
-                    } else if selection == 2 {
-                        saves
-                            .transition(.slide)
-                    } else if selection == 3 {
-                        settings
-                            .transition(.slide)
-                    }
+                    //                ToolbarItem(placement: .navigationBarTrailing) {
+                    //                    NavigationLink {
+                    //                        Text("Messages")
+                    //                    } label: {
+                    //                        Image(systemName: "message")
+                    //                            .foregroundColor(.primary)
+                    //                            .font(.system(size: 20))
+                    //                    }
+                    //                }
                 }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Text(user.name ?? "JamaGram")
-                        .foregroundColor(.primary)
-                        .font(.system(size: 25))
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        Text("Notifications")
-                    } label: {
-                        Image(systemName: "bell")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 20))
-                    }
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        CreateView()
-                    } label: {
-                        Image(systemName: "plus.app")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 20))
-                    }
-                }
-                
-                //                ToolbarItem(placement: .navigationBarTrailing) {
-                //                    NavigationLink {
-                //                        Text("Messages")
-                //                    } label: {
-                //                        Image(systemName: "message")
-                //                            .foregroundColor(.primary)
-                //                            .font(.system(size: 20))
-                //                    }
-                //                }
-            }
             //presents a message to confirm the log out
-            .confirmationDialog("Remove Account?", isPresented: $showDelete, titleVisibility: .visible) {
-                //cancels the action
-                Button(role: .cancel) {
-                    print("canceled")
-                } label: {
-                    Text("cancel")
-                }
-                
-                //calls the logout method and deletes the access token and account.
-                Button(role: .destructive) {
+                .confirmationDialog("Remove Account?", isPresented: $showDelete, titleVisibility: .visible) {
+                    //cancels the action
+                    Button(role: .cancel) {
+                        print("canceled")
+                    } label: {
+                        Text("cancel")
+                    }
                     
-                } label: {
-                    Text("Remove")
+                    //calls the logout method and deletes the access token and account.
+                    Button(role: .destructive) {
+                        
+                    } label: {
+                        Text("Remove")
+                    }
                 }
-            }
             //sets the current user = to the result of the get profile func
-            .task {
-                if isSignedIn {
-                    currentUser = try? await spotifyData.getProfile()
+                .task {
+                    if isSignedIn {
+                        currentUser = try? await spotifyData.getProfile()
+                    }
                 }
             }
         }
@@ -516,6 +530,38 @@ struct CurrentProfileView: View {
             
             Text("Nothing saved yet.")
                 .foregroundColor(.primary)
+            
+            Spacer()
+        }
+    }
+    
+    var expandedProfile: some View {
+        VStack(spacing: 10) {
+            Spacer()
+            
+            ProfileImageView(user: user, size: 200)
+                .matchedGeometryEffect(id: "image", in: profileAnimation)
+                .padding(.vertical)
+                .onTapGesture {
+                    withAnimation(.spring()) {
+                        showExpanded.toggle()
+                    }
+                }
+            
+            Text(user.username)
+                .foregroundColor(.primary)
+                .font(.title)
+                .matchedGeometryEffect(id: "username", in: profileAnimation)
+            
+            if user.name != nil {
+                Text(user.name ?? "")
+                    .foregroundColor(.secondary)
+                    .font(.title)
+            }
+            
+            Spacer()
+            
+            LargeButtonView(title: "Share")
             
             Spacer()
         }
