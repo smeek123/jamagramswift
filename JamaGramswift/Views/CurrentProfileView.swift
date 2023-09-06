@@ -354,6 +354,28 @@ struct CurrentProfileView: View {
             .buttonStyle(.bordered)
             .padding(10)
             
+            NavigationLink(destination: {
+                Text("Request a feature")
+            }, label: {
+                HStack {
+                    Image(systemName: "plus")
+                        .foregroundColor(.primary)
+                        .font(.largeTitle)
+                    
+                    Text("Request a feature")
+                        .foregroundColor(.primary)
+                        .font(.title3)
+                        .padding(.horizontal, 15)
+                    
+                    Spacer()
+                }
+                .frame(width: UIScreen.main.bounds.width * 0.8, height: 75)
+                .padding(.horizontal, 15)
+            })
+            .clipShape(Capsule())
+            .buttonStyle(.bordered)
+            .padding(10)
+            
             Button {
                 showSignOut = true
             } label: {
