@@ -22,6 +22,7 @@ struct CurrentProfileView: View {
     let user: FireUser
     @Namespace var profileAnimation
     @State private var showExpanded: Bool = false
+    @State private var showCreate: Bool = false
     
     //This removes the tokens when logging out
     func logOutSpotify() {
@@ -239,6 +240,9 @@ struct CurrentProfileView: View {
                                 .transition(.slide)
                         }
                     }
+                    .fullScreenCover(isPresented: $showCreate) {
+                        CreateView()
+                    }
                 }
                 .padding(.vertical)
                 .toolbar {
@@ -259,8 +263,8 @@ struct CurrentProfileView: View {
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        NavigationLink {
-                            CreateView()
+                        Button {
+                            showCreate.toggle()
                         } label: {
                             Image(systemName: "plus.app")
                                 .foregroundColor(.primary)

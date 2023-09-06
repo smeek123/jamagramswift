@@ -13,6 +13,7 @@ struct SearchView: View {
     @State private var searchPrompt: String = "Search for friends"
     @Namespace private var pickerTabs
     @StateObject var viewModel = SearchViewModel()
+    @State private var showCreate: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -118,6 +119,9 @@ struct SearchView: View {
                 .searchable(text: $search, prompt: searchPrompt)
                 .padding(.vertical, 25)
                 .padding(.horizontal)
+                .fullScreenCover(isPresented: $showCreate) {
+                    CreateView()
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -137,8 +141,8 @@ struct SearchView: View {
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        CreateView()
+                    Button {
+                        showCreate.toggle()
                     } label: {
                         Image(systemName: "plus.app")
                             .foregroundColor(.primary)

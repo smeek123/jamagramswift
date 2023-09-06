@@ -15,6 +15,7 @@ struct HomeView: View {
     @State var tracks: [track] = []
     //this is used to pass in a list of artists that the recommendation function bases its suggestions off of.
     @AppStorage("favArtists") static var favArtists: String = ""
+    @State private var showCreate: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -25,6 +26,9 @@ struct HomeView: View {
                     }
                 }
                 .padding(.vertical, 10)
+                .fullScreenCover(isPresented: $showCreate) {
+                    CreateView()
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -44,8 +48,8 @@ struct HomeView: View {
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        CreateView()
+                    Button {
+                        showCreate.toggle()
                     } label: {
                         Image(systemName: "plus.app")
                             .foregroundColor(.primary)
