@@ -13,7 +13,6 @@
 		D61A22212A1D4A7A0021C3AF /* RecommendationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61A22202A1D4A7A0021C3AF /* RecommendationModel.swift */; };
 		D63097F32A8FC66B00F59472 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63097F22A8FC66B00F59472 /* PostView.swift */; };
 		D63097F62A91768900F59472 /* SignInOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63097F52A91768800F59472 /* SignInOptions.swift */; };
-		D63097F82A928C2600F59472 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D63097F72A928C2500F59472 /* GoogleService-Info.plist */; };
 		D63097FB2A928F6700F59472 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D63097FA2A928F6700F59472 /* FirebaseAnalytics */; };
 		D63097FD2A928F6700F59472 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = D63097FC2A928F6700F59472 /* FirebaseAnalyticsOnDeviceConversion */; };
 		D63097FF2A928F6700F59472 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D63097FE2A928F6700F59472 /* FirebaseAnalyticsSwift */; };
@@ -43,6 +42,7 @@
 		D66F937E2AA0DD8E002BDFE7 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66F937D2AA0DD8E002BDFE7 /* ImageUploader.swift */; };
 		D66F93812AA2324A002BDFE7 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D66F93802AA2324A002BDFE7 /* Kingfisher */; };
 		D66F93832AA232AE002BDFE7 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66F93822AA232AE002BDFE7 /* ProfileImageView.swift */; };
+		D6A96A912AA8B836001E5879 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6A96A902AA8B835001E5879 /* GoogleService-Info.plist */; };
 		D6AE40542A0EE09E000748D2 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AE40532A0EE09E000748D2 /* ProfileView.swift */; };
 		D6AE40592A0F1470000748D2 /* SpotifyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AE40582A0F1470000748D2 /* SpotifyDataManager.swift */; };
 		D6AE405B2A0F1521000748D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AE405A2A0F1521000748D2 /* User.swift */; };
@@ -67,7 +67,6 @@
 		D61A22202A1D4A7A0021C3AF /* RecommendationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationModel.swift; sourceTree = "<group>"; };
 		D63097F22A8FC66B00F59472 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		D63097F52A91768800F59472 /* SignInOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInOptions.swift; sourceTree = "<group>"; };
-		D63097F72A928C2500F59472 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D630980E2A952AA200F59472 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		D63098102A952E5100F59472 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		D635859E2A26C6BA0010FD74 /* PlaylistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistModel.swift; sourceTree = "<group>"; };
@@ -88,6 +87,7 @@
 		D66F937B2AA00509002BDFE7 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		D66F937D2AA0DD8E002BDFE7 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		D66F93822AA232AE002BDFE7 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		D6A96A902AA8B835001E5879 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D6AE40532A0EE09E000748D2 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		D6AE40582A0F1470000748D2 /* SpotifyDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyDataManager.swift; sourceTree = "<group>"; };
 		D6AE405A2A0F1521000748D2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -147,12 +147,12 @@
 			isa = PBXGroup;
 			children = (
 				D64BF5CF2A0744720085ED18 /* Info.plist */,
+				D6A96A902AA8B835001E5879 /* GoogleService-Info.plist */,
 				D64BF5CE2A0740300085ED18 /* Utilities */,
 				D64BF5CB2A07386D0085ED18 /* Models */,
 				D64BF5C62A06C6500085ED18 /* View Models */,
 				D64BF5C32A06C43C0085ED18 /* Views */,
 				D64BF5B52A05A1460085ED18 /* JamaGramswiftApp.swift */,
-				D63097F72A928C2500F59472 /* GoogleService-Info.plist */,
 				D64BF5B92A05A1900085ED18 /* Assets.xcassets */,
 				D64BF5BB2A05A1900085ED18 /* Preview Content */,
 			);
@@ -308,8 +308,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D64BF5BD2A05A1900085ED18 /* Preview Assets.xcassets in Resources */,
+				D6A96A912AA8B836001E5879 /* GoogleService-Info.plist in Resources */,
 				D64BF5BA2A05A1900085ED18 /* Assets.xcassets in Resources */,
-				D63097F82A928C2600F59472 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

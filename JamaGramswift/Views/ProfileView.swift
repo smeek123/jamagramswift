@@ -192,11 +192,11 @@ struct ProfileView: View {
                 }
             }
             //sets the current user = to the result of the get profile func
-            .task {
-                if isSignedIn {
-                    currentUser = try? await spotifyData.getProfile()
-                }
-            }
+//            .task {
+//                if isSignedIn {
+//                    currentUser = try? await spotifyData.getProfile()
+//                }
+//            }
         }
     }
     
@@ -281,13 +281,13 @@ struct ProfileView: View {
             
             Spacer()
         }
-        .task {
-            if isSignedIn {
-                topArtist = try? await spotifyData.getTopArtist()
-                
-                topTrack = try? await spotifyData.getTopTrack()
-            }
-        }
+//        .task {
+//            if isSignedIn {
+//                topArtist = try? await spotifyData.getTopArtist()
+//
+//                topTrack = try? await spotifyData.getTopTrack()
+//            }
+//        }
     }
     
     var posts: some View {
@@ -316,11 +316,6 @@ struct ProfileView: View {
             ProfileImageView(user: user, size: 200)
                 .matchedGeometryEffect(id: "image", in: profileAnimation)
                 .padding(.vertical)
-                .onTapGesture {
-                    withAnimation(.spring()) {
-                        showExpanded.toggle()
-                    }
-                }
             
             Text(user.username)
                 .foregroundColor(.primary)
@@ -338,6 +333,12 @@ struct ProfileView: View {
             LargeButtonView(title: "Share")
             
             Spacer()
+        }
+        .background(Color(uiColor: .secondarySystemBackground))
+        .onTapGesture {
+            withAnimation(.spring()) {
+                showExpanded.toggle()
+            }
         }
     }
 }

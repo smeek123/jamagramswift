@@ -13,7 +13,7 @@ struct ProfileImageView: View {
     let size: CGFloat
     
     var body: some View {
-        if let imageUrl = user.profileImageURL {
+        if let imageUrl = user.profileImageUrl {
             KFImage(URL(string: imageUrl))
                 .resizable()
                 .scaledToFill()

@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>866569839375-ddn0vje5fkc0ccsceauid006hi7odbu8.apps.googleusercontent.com</string>
+	<string>995199976175-jbi5henm2ubvbiojtoh0oma5mk9sib43.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.866569839375-ddn0vje5fkc0ccsceauid006hi7odbu8</string>
+	<string>com.googleusercontent.apps.995199976175-jbi5henm2ubvbiojtoh0oma5mk9sib43</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAle44JtZLqCtlAIm4CyM7_His0zfw2D08</string>
+	<string>AIzaSyCBn-iGAe8KE6N5HWfrkPIjs3Yb34um_Is</string>
 	<key>GCM_SENDER_ID</key>
-	<string>866569839375</string>
+	<string>995199976175</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.SeanMeek.JamaGramswift</string>
 	<key>PROJECT_ID</key>
-	<string>jamagram-a3e30</string>
+	<string>music-with-friends-314a6</string>
 	<key>STORAGE_BUCKET</key>
-	<string>jamagram-a3e30.appspot.com</string>
+	<string>music-with-friends-314a6.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:866569839375:ios:0b9355b8bf132e2d02947a</string>
+	<string>1:995199976175:ios:b666319d1128060d0d111a</string>
 </dict>
 </plist>

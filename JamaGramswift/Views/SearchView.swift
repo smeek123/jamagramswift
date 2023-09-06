@@ -105,7 +105,7 @@ struct SearchView: View {
                                 .buttonStyle(.borderedProminent)
                                 .tint(Color("MainColor"))
                             }
-                            .padding(.horizontal, 18)
+                            .padding(.horizontal, 5)
                         }
 
                     }
