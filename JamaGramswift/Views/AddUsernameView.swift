@@ -28,6 +28,7 @@ struct AddUsernameView: View {
             TextField("Enter username", text: $viewModel.username)
                 .modifier(TextFieldModifier())
                 .autocapitalization(.none)
+                .autocorrectionDisabled()
             
             NavigationLink {
                 AddStreamingView()

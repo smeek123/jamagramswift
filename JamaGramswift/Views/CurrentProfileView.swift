@@ -560,7 +560,7 @@ struct CurrentProfileView: View {
             
             Spacer()
         }
-        .background(Color(uiColor: .secondarySystemBackground))
+        .background(Color(uiColor: .secondarySystemBackground).ignoresSafeArea())
         .onTapGesture {
             withAnimation(.spring()) {
                 showExpanded.toggle()

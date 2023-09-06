@@ -59,15 +59,6 @@ struct PostView: View {
                     .foregroundColor(.primary)
                 }
                 
-                Label {
-                    Text("10")
-                } icon: {
-                    Image(systemName: "mic")
-                        .font(.system(size: 23))
-                }
-                .font(.system(size: 20))
-                .foregroundColor(.primary)
-                
                 Image(systemName: "opticaldisc")
                     .font(.system(size: 23))
                 

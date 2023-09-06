@@ -32,6 +32,8 @@ class EditProfileViewModel: ObservableObject {
             self.name = name
         }
         
+        self.username = user.username
+        
         if let bio = user.bio {
             self.bio = bio
         }
@@ -61,6 +63,10 @@ class EditProfileViewModel: ObservableObject {
         
         if !name.isEmpty && user.name != name {
             data["name"] = name
+        }
+        
+        if username.count >= 3 && user.username != username {
+            data["username"] = username
         }
         
         if !bio.isEmpty && user.bio != bio {

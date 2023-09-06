@@ -80,7 +80,7 @@ struct SearchView: View {
                             HStack {
                                 ProfileImageView(user: user, size: 60)
                                 
-                                VStack(alignment: .leading, spacing: 3) {
+                                VStack(alignment: .leading, spacing: 2) {
                                     Text(user.username)
                                         .foregroundColor(.primary)
                                         .font(.subheadline)
@@ -91,6 +91,7 @@ struct SearchView: View {
                                             .font(.subheadline)
                                     }
                                 }
+                                .padding(.leading, 5)
                                 
                                 Spacer()
                                 

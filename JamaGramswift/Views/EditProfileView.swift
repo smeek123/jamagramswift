@@ -39,7 +39,7 @@ struct EditProfileView: View {
                     Spacer()
                     
                     Button {
-                        if viewModel.bio.count <= 200 {
+                        if viewModel.bio.count <= 200 && viewModel.username.count >= 3 {
                             isLoading = true
                             
                             Task {
@@ -60,7 +60,7 @@ struct EditProfileView: View {
                 }
                 .padding(.horizontal)
                 .padding()
-                .alert("Your bio must be 200 characters or less.", isPresented: $showError) {
+                .alert("Check to make sure your bio and username are the right length.", isPresented: $showError) {
                     Button("OK", role: .cancel) {
                         
                     }
@@ -91,6 +91,25 @@ struct EditProfileView: View {
                     }) {
                         TextField("Enter your name", text: $viewModel.name)
                             .modifier(TextFieldModifier())
+                    }
+                    
+                    Section(header: HStack {
+                        Text("Username")
+                            .padding(.horizontal)
+                            .foregroundColor(.secondary)
+                        
+                        Spacer()
+                    }, footer: HStack {
+                        Text("Username must be at least 3 characters")
+                            .padding(.horizontal)
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                        
+                        Spacer()
+                    }) {
+                        TextField("Change your username", text: $viewModel.username)
+                            .modifier(TextFieldModifier())
+                            .autocorrectionDisabled()
                     }
                     
                     Section(header: HStack {
