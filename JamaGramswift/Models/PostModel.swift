@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseFirestoreSwift
 
 struct Post: Identifiable, Codable, Hashable {
     let id: String
@@ -13,7 +15,7 @@ struct Post: Identifiable, Codable, Hashable {
     let ownerUid: String
     let caption: String
     var numLikes: Int
-    let imageURL: String
-    let timeStamp: Date
+    let imageUrl: String
+    let timeStamp: Timestamp
     var user: FireUser?
 }
