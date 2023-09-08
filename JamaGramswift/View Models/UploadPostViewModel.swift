@@ -8,7 +8,6 @@
 import SwiftUI
 import PhotosUI
 import Firebase
-import FirebaseFirestoreSwift
 
 @MainActor
 class UploadPostViewModel: ObservableObject {
@@ -47,12 +46,13 @@ class UploadPostViewModel: ObservableObject {
             return
         }
         
+        let postRef = Firestore.firestore().collection("posts").document()
+        
         guard let imageUrl = try await ImageUploader.uploadImage(image: uiImage) else {
             return
         }
         
-        let postRef = Firestore.firestore().collection("posts").document()
-        let post = Post(id: postRef.documentID, songURI: song, ownerUid: uid, caption: caption, numLikes: 0, imageUrl: imageUrl, timeStamp: Firestore.firestore().timestamp)
+        let post = Post(id: postRef.documentID, songURI: song, ownerUid: uid, caption: caption, numLikes: 0, imageUrl: imageUrl, timeStamp: Timestamp())
         guard let encodedPost = try? Firestore.Encoder().encode(post) else {
             return
         }
