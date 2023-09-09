@@ -6,22 +6,22 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct PostView: View {
     @State private var like: Bool = false
+    let post: Post
     
     var body: some View {
         VStack {
             HStack {
-                Image("profile-image")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 40, height: 40)
-                    .clipShape(Circle())
-                
-                Text("Wendy")
-                    .foregroundColor(.primary)
-                    .font(.system(size: 15))
+                if let user = post.user {
+                    ProfileImageView(user: user, size: 40)
+                    
+                    Text(user.username)
+                        .foregroundColor(.primary)
+                        .font(.system(size: 15))
+                }
                 
                 Spacer()
                 
@@ -33,7 +33,7 @@ struct PostView: View {
             .padding(.horizontal, 18)
             .padding(.bottom, 8)
             
-            Image("post-image")
+            KFImage(URL(string: post.imageUrl))
                 .resizable()
                 .scaledToFill()
                 .frame(width: UIScreen.main.bounds.width * 0.95)
@@ -44,7 +44,7 @@ struct PostView: View {
                     like.toggle()
                 } label: {
                     Label {
-                        Text("300")
+                        Text(String(post.numLikes))
                     } icon: {
                         if like {
                             Image(systemName: "hands.clap.fill")
@@ -93,12 +93,13 @@ struct PostView: View {
             .padding(.vertical, 8)
             
             HStack(alignment: .center) {
-                Text("Wendy ")
+                Text("\(post.user?.username ?? "") ")
                     .fontWeight(.bold) +
-                Text("This song makes me want to run into the waves!!!")
+                Text(post.caption)
                 
                 Spacer()
             }
+            .foregroundColor(.primary)
             .padding(.leading, 10)
             .multilineTextAlignment(.leading)
             .lineLimit(3)
@@ -109,11 +110,5 @@ struct PostView: View {
                 .overlay(Color("MainColor"))
                 .padding(.vertical, 10)
         }
-    }
-}
-
-struct PostView_Previews: PreviewProvider {
-    static var previews: some View {
-        PostView()
     }
 }

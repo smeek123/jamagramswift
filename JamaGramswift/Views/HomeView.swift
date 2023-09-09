@@ -16,13 +16,14 @@ struct HomeView: View {
     //this is used to pass in a list of artists that the recommendation function bases its suggestions off of.
     @AppStorage("favArtists") static var favArtists: String = ""
     @State private var showCreate: Bool = false
+    @StateObject var viewModel = FeedViewModel()
     
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 LazyVStack {
-                    ForEach(0..<10) { post in
-                        PostView()
+                    ForEach(viewModel.posts) { post in
+                        PostView(post: post)
                     }
                 }
                 .padding(.vertical, 10)

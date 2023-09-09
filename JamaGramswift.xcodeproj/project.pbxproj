@@ -26,6 +26,7 @@
 		D630980F2A952AA200F59472 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D630980E2A952AA200F59472 /* UserModel.swift */; };
 		D63098112A952E5100F59472 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63098102A952E5100F59472 /* PostModel.swift */; };
 		D635859F2A26C6BA0010FD74 /* PlaylistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D635859E2A26C6BA0010FD74 /* PlaylistModel.swift */; };
+		D63D42D42AABE3880060ED9D /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63D42D32AABE3880060ED9D /* FeedViewModel.swift */; };
 		D64BF5B62A05A1460085ED18 /* JamaGramswiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BF5B52A05A1460085ED18 /* JamaGramswiftApp.swift */; };
 		D64BF5B82A05A1460085ED18 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64BF5B72A05A1460085ED18 /* ContentView.swift */; };
 		D64BF5BA2A05A1900085ED18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D64BF5B92A05A1900085ED18 /* Assets.xcassets */; };
@@ -71,6 +72,7 @@
 		D630980E2A952AA200F59472 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		D63098102A952E5100F59472 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		D635859E2A26C6BA0010FD74 /* PlaylistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistModel.swift; sourceTree = "<group>"; };
+		D63D42D32AABE3880060ED9D /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		D64BF5B22A05A1460085ED18 /* JamaGramswift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JamaGramswift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D64BF5B52A05A1460085ED18 /* JamaGramswiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JamaGramswiftApp.swift; sourceTree = "<group>"; };
 		D64BF5B72A05A1460085ED18 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				D66F937B2AA00509002BDFE7 /* EditProfileViewModel.swift */,
 				D66F937D2AA0DD8E002BDFE7 /* ImageUploader.swift */,
 				D6A96A922AA917E3001E5879 /* UploadPostViewModel.swift */,
+				D63D42D32AABE3880060ED9D /* FeedViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				D66F937C2AA00509002BDFE7 /* EditProfileViewModel.swift in Sources */,
 				D63098112A952E5100F59472 /* PostModel.swift in Sources */,
 				D6E414AC2A96A008008ECD2D /* AddPasswordView.swift in Sources */,
+				D63D42D42AABE3880060ED9D /* FeedViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
