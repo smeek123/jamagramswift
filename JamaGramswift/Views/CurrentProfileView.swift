@@ -23,6 +23,7 @@ struct CurrentProfileView: View {
     @Namespace var profileAnimation
     @State private var showExpanded: Bool = false
     @State private var showCreate: Bool = false
+    @StateObject var viewModel = FeedViewModel()
     
     //This removes the tokens when logging out
     func logOutSpotify() {
@@ -227,7 +228,7 @@ struct CurrentProfileView: View {
                         .padding()
                         
                         if selection == 0 {
-                            posts
+                            UserPostsView(user: user)
                                 .transition(.slide)
                         } else if selection == 1 {
                             favorites
@@ -525,25 +526,6 @@ struct CurrentProfileView: View {
 //                topTrack = try? await spotifyData.getTopTrack()
 //            }
 //        }
-    }
-    
-    var posts: some View {
-        VStack(spacing: 20) {
-            Spacer()
-            
-            NavigationLink {
-                CreateView()
-            } label: {
-                Image(systemName: "music.note.list")
-                    .font(.system(size: 100))
-                    .foregroundColor(.secondary)
-            }
-            
-            Text("No posts yet.")
-                .foregroundColor(.primary)
-            
-            Spacer()
-        }
     }
     
     var saves: some View {

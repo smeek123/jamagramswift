@@ -166,7 +166,7 @@ struct ProfileView: View {
                     .padding()
                     
                     if selection == 0 {
-                        posts
+                        UserPostsView(user: user)
                             .transition(.slide)
                     } else if selection == 1 {
                         favorites
@@ -288,25 +288,6 @@ struct ProfileView: View {
 //                topTrack = try? await spotifyData.getTopTrack()
 //            }
 //        }
-    }
-    
-    var posts: some View {
-        VStack(spacing: 20) {
-            Spacer()
-            
-            NavigationLink {
-                CreateView()
-            } label: {
-                Image(systemName: "music.note.list")
-                    .font(.system(size: 100))
-                    .foregroundColor(.secondary)
-            }
-            
-            Text("No posts yet.")
-                .foregroundColor(.primary)
-            
-            Spacer()
-        }
     }
     
     var expandedProfile: some View {
