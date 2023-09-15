@@ -9,8 +9,9 @@ import SwiftUI
 
 struct CreateView: View {
     @Environment(\.dismiss) var dismiss
-    @State private var song: String = ""
-    @State private var caption: String = ""
+    @State var song: String = ""
+    @State var caption: String = ""
+    @State private var isLoading: Bool = false
     @State private var showPhotoPicker: Bool = false
     @StateObject var viewModel = UploadPostViewModel()
     
@@ -44,14 +45,30 @@ struct CreateView: View {
                     
                     Button {
                         Task {
+                            await MainActor.run {
+                                isLoading = true
+                            }
+                            
                             try await viewModel.uploadPost(caption: caption, song: song)
+                            
+                            await MainActor.run {
+                                isLoading = false
+                            }
+                            
+                            dismissView()
                         }
-                        dismissView()
                     } label: {
-                        Image(systemName: "checkmark")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 20))
+                        if isLoading {
+                            ProgressView()
+                                .foregroundColor(.primary)
+                                .font(.system(size: 20))
+                        } else {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.primary)
+                                .font(.system(size: 20))
+                        }
                     }
+                    .allowsHitTesting(!isLoading)
                 }
                 .padding(.horizontal)
                 .padding()
@@ -76,7 +93,7 @@ struct CreateView: View {
                             .resizable()
                             .scaledToFill()
                             .foregroundColor(.secondary)
-                            .frame(width: 250, height: 350)
+                            .frame(width: 250, height: 250)
                             .padding()
                     }
                     
@@ -95,7 +112,7 @@ struct CreateView: View {
                 
                 Spacer()
             }
-            .photosPicker(isPresented: $showPhotoPicker, selection: $viewModel.selectedImage)
+            .photosPicker(isPresented: $showPhotoPicker, selection: $viewModel.selectedImage, matching: .images)
         }
     }
 }
