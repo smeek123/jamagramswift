@@ -291,34 +291,38 @@ struct ProfileView: View {
     }
     
     var expandedProfile: some View {
-        VStack(spacing: 10) {
-            Spacer()
+        ZStack {
+            Color(UIColor.secondarySystemBackground).ignoresSafeArea()
             
-            ProfileImageView(user: user, size: 200)
-                .matchedGeometryEffect(id: "image", in: profileAnimation)
-                .padding(.vertical)
-            
-            Text(user.username)
-                .foregroundColor(.primary)
-                .font(.title)
-                .matchedGeometryEffect(id: "username", in: profileAnimation)
-            
-            if user.name != nil {
-                Text(user.name ?? "")
-                    .foregroundColor(.secondary)
+            VStack(spacing: 10) {
+                Spacer()
+                
+                ProfileImageView(user: user, size: 200)
+                    .matchedGeometryEffect(id: "image", in: profileAnimation)
+                    .padding(.vertical)
+                
+                Text(user.username)
+                    .foregroundColor(.primary)
                     .font(.title)
+                    .matchedGeometryEffect(id: "username", in: profileAnimation)
+                
+                if user.name != nil {
+                    Text(user.name ?? "")
+                        .foregroundColor(.secondary)
+                        .font(.title)
+                }
+                
+                Spacer()
+                
+                LargeButtonView(title: "Share")
+                
+                Spacer()
             }
-            
-            Spacer()
-            
-            LargeButtonView(title: "Share")
-            
-            Spacer()
-        }
-        .background(Color(uiColor: .secondarySystemBackground).ignoresSafeArea())
-        .onTapGesture {
-            withAnimation(.spring()) {
-                showExpanded.toggle()
+            .background(Color(uiColor: .secondarySystemBackground).ignoresSafeArea())
+            .onTapGesture {
+                withAnimation(.spring()) {
+                    showExpanded.toggle()
+                }
             }
         }
     }
