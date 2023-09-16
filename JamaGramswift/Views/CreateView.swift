@@ -60,7 +60,7 @@ struct CreateView: View {
                     } label: {
                         if isLoading {
                             ProgressView()
-                                .foregroundColor(.primary)
+                                .tint(Color("MainColor"))
                                 .font(.system(size: 20))
                         } else {
                             Image(systemName: "checkmark")

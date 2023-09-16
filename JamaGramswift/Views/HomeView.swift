@@ -20,59 +20,72 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView(showsIndicators: false) {
-                LazyVStack {
-                    ForEach(viewModel.posts) { post in
-                        PostView(post: post)
+            VStack {
+                if viewModel.posts.isEmpty {
+                    VStack {
+                        Spacer()
+                        
+                        ProgressView()
+                            .tint(Color("MainColor"))
+                        
+                        Spacer()
+                    }
+                } else {
+                    ScrollView(showsIndicators: false) {
+                        LazyVStack {
+                            ForEach(viewModel.posts) { post in
+                                PostView(post: post)
+                            }
+                        }
+                        .padding(.vertical, 10)
+                        .fullScreenCover(isPresented: $showCreate) {
+                            CreateView()
+                        }
+                    }
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Text("JamaGram")
+                                .foregroundColor(.primary)
+                                .font(.system(size: 25))
+                        }
+                        
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            NavigationLink {
+                                Text("Notifications")
+                            } label: {
+                                Image(systemName: "bell")
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 20))
+                            }
+                        }
+                        
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                showCreate.toggle()
+                            } label: {
+                                Image(systemName: "plus.app")
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 20))
+                            }
+                        }
+                        
+                        //                ToolbarItem(placement: .navigationBarTrailing) {
+                        //                    NavigationLink {
+                        //                        Text("Messages")
+                        //                    } label: {
+                        //                        Image(systemName: "message")
+                        //                            .foregroundColor(.primary)
+                        //                            .font(.system(size: 20))
+                        //                    }
+                        //                }
                     }
                 }
-                .padding(.vertical, 10)
-                .fullScreenCover(isPresented: $showCreate) {
-                    CreateView()
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Text("JamaGram")
-                        .foregroundColor(.primary)
-                        .font(.system(size: 25))
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        Text("Notifications")
-                    } label: {
-                        Image(systemName: "bell")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 20))
-                    }
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showCreate.toggle()
-                    } label: {
-                        Image(systemName: "plus.app")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 20))
-                    }
-                }
-                
-                //                ToolbarItem(placement: .navigationBarTrailing) {
-                //                    NavigationLink {
-                //                        Text("Messages")
-                //                    } label: {
-                //                        Image(systemName: "message")
-                //                            .foregroundColor(.primary)
-                //                            .font(.system(size: 20))
-                //                    }
-                //                }
             }
             .task {
                 try? await viewModel.fetchPosts()
                 
-                _ = try? await spotifyData.getTopArtist()
-                tracks = await spotifyData.getRecomended()?.tracks ?? []
+//                        _ = try? await spotifyData.getTopArtist()
+//                        tracks = await spotifyData.getRecomended()?.tracks ?? []
             }
         }
     }

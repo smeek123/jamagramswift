@@ -571,10 +571,10 @@ struct CurrentProfileView: View {
                 
                 Spacer()
             }
-            .onTapGesture {
-                withAnimation(.spring()) {
-                    showExpanded.toggle()
-                }
+        }
+        .onTapGesture {
+            withAnimation(.spring()) {
+                showExpanded.toggle()
             }
         }
     }

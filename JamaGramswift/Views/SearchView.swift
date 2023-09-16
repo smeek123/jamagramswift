@@ -169,7 +169,6 @@ struct SearchView: View {
                     }
                     .padding(.horizontal, 5)
                 }
-
             }
         }
         .navigationDestination(for: FireUser.self, destination: { user in
@@ -185,17 +184,26 @@ struct SearchView: View {
     }
     
     var posts: some View {
-        LazyVGrid(columns: gridItem, spacing: 1) {
-            ForEach(feedViewModel.posts) { post in
-                KFImage(URL(string: post.imageUrl))
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: imageSize, height: imageSize)
-                    .clipped()
+        VStack {
+            if feedViewModel.posts.isEmpty {
+                ProgressView()
+                    .tint(Color("MainColor"))
+            } else {
+                LazyVGrid(columns: gridItem, spacing: 1) {
+                    ForEach(feedViewModel.posts) { post in
+                        KFImage(URL(string: post.imageUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: imageSize, height: imageSize)
+                            .clipped()
+                    }
+                }
             }
         }
         .task {
-            try? await feedViewModel.fetchPosts()
+            if tab == 1 {
+                try? await feedViewModel.fetchPosts()
+            }
         }
     }
 }
