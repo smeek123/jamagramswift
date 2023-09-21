@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class UserPostsViewModel: ObservableObject {
     @Published var userPosts = [Post]()
@@ -26,5 +27,9 @@ class UserPostsViewModel: ObservableObject {
         for i in 0 ..< userPosts.count {
             userPosts[i].user = self.user
         }
+    }
+    
+    func deletePost(id: String) async throws {
+        try await Firestore.firestore().collection("posts").document(id).delete()
     }
 }

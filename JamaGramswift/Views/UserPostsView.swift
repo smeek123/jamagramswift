@@ -10,6 +10,7 @@ import Kingfisher
 
 struct UserPostsView: View {
     @StateObject var viewModel: UserPostsViewModel
+    @State private var showDeleteMessage: Bool = false
     
     init(user: FireUser) {
         self._viewModel = StateObject(wrappedValue: UserPostsViewModel(user: user))
@@ -41,6 +42,22 @@ struct UserPostsView: View {
                         .scaledToFill()
                         .frame(width: imageSize, height: imageSize)
                         .clipped()
+                        .onLongPressGesture {
+                            showDeleteMessage.toggle()
+                        }
+                }
+            }
+            .alert("Delete Post?", isPresented: $showDeleteMessage) {
+                Button(role: .destructive) {
+                    
+                } label: {
+                    Text("Delete")
+                }
+
+                Button(role: .cancel) {
+                    
+                } label: {
+                    Text("Cancel")
                 }
             }
         }

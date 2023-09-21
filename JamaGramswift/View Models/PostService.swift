@@ -33,8 +33,4 @@ struct PostService {
         
         return try snapshot.documents.compactMap({try $0.data(as: Post.self)})
     }
-    
-    static func deletePost(id: String) async throws {
-        try await postRef.document(id).delete()
-    }
 }
