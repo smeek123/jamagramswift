@@ -10,8 +10,8 @@ import Kingfisher
 
 struct CurrentProfileView: View {
     @AppStorage("signedIn") var isSignedIn: Bool = false
-    @StateObject var SpotifyAM = SpotifyAuthManager()
-    @StateObject var spotifyData = SpotifyDataManager()
+//    @StateObject var SpotifyAM = SpotifyAuthManager()
+//    @StateObject var spotifyData = SpotifyDataManager()
     @State var currentUser: User? = nil
     @State var topArtist: topArtistModel? = nil
     @State var topTrack: topTrackModel? = nil
@@ -26,19 +26,19 @@ struct CurrentProfileView: View {
     @StateObject var viewModel = FeedViewModel()
     
     //This removes the tokens when logging out
-    func logOutSpotify() {
-        Task {
-            do {
-                //any func that can throw and error has try in front
-                try await SpotifyAuthManager.deleteToken(service: "spotify.com", accounr: "accessToken")
-                
-                try await SpotifyAuthManager.deleteToken(service: "spotify.com", accounr: "refreshToken")
-            } catch {
-                //prints any error that happens.
-                print(error.localizedDescription)
-            }
-        }
-    }
+//    func logOutSpotify() {
+//        Task {
+//            do {
+//                //any func that can throw and error has try in front
+//                try await SpotifyAuthManager.deleteToken(service: "spotify.com", accounr: "accessToken")
+//                
+//                try await SpotifyAuthManager.deleteToken(service: "spotify.com", accounr: "refreshToken")
+//            } catch {
+//                //prints any error that happens.
+//                print(error.localizedDescription)
+//            }
+//        }
+//    }
     
     var body: some View {
         NavigationStack {
@@ -443,78 +443,78 @@ struct CurrentProfileView: View {
             Spacer()
             
             VStack {
-                if spotifyData.isRetrievingData {
-                    Circle()
-                        .frame(width: 150, height: 150)
-                        .foregroundColor(Color(UIColor.secondarySystemBackground))
-                } else {
-                    if let artist = topArtist {
-                        if let image = artist.items.first?.images?.first?.url {
-                            VStack {
-                                Link(destination: URL(string: artist.items.first?.uri ?? "spotify:") ?? URL(string: "")!) {
-                                    KFImage(URL(string: image))
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 150, height: 150)
-                                        .clipShape(Circle())
-                                        .padding()
-                                }
-                            }
-                        } else {
-                            Circle()
-                                .frame(width: 150, height: 150)
-                                .foregroundColor(Color(UIColor.secondarySystemBackground))
-                        }
-                        
-                        if !spotifyData.isRetrievingData {
-                            Text(artist.items.first?.name ?? "artist")
-                                .foregroundColor(.primary)
-                                .font(.headline)
-                        } else {
-                            Capsule()
-                                .frame(width: 100)
-                                .foregroundColor(Color(UIColor.secondarySystemBackground))
-                        }
-                    }
-                }
+//                if spotifyData.isRetrievingData {
+//                    Circle()
+//                        .frame(width: 150, height: 150)
+//                        .foregroundColor(Color(UIColor.secondarySystemBackground))
+//                } else {
+//                    if let artist = topArtist {
+//                        if let image = artist.items.first?.images?.first?.url {
+//                            VStack {
+//                                Link(destination: URL(string: artist.items.first?.uri ?? "spotify:") ?? URL(string: "")!) {
+//                                    KFImage(URL(string: image))
+//                                        .resizable()
+//                                        .scaledToFit()
+//                                        .frame(width: 150, height: 150)
+//                                        .clipShape(Circle())
+//                                        .padding()
+//                                }
+//                            }
+//                        } else {
+//                            Circle()
+//                                .frame(width: 150, height: 150)
+//                                .foregroundColor(Color(UIColor.secondarySystemBackground))
+//                        }
+//                        
+//                        if !spotifyData.isRetrievingData {
+//                            Text(artist.items.first?.name ?? "artist")
+//                                .foregroundColor(.primary)
+//                                .font(.headline)
+//                        } else {
+//                            Capsule()
+//                                .frame(width: 100)
+//                                .foregroundColor(Color(UIColor.secondarySystemBackground))
+//                        }
+//                    }
+//                }
             }
             
             Spacer()
             
             VStack {
-                if spotifyData.isRetrievingData {
-                    Rectangle()
-                        .frame(width: 150, height: 150)
-                        .foregroundColor(Color(UIColor.secondarySystemBackground))
-                } else {
-                    if let track = topTrack {
-                        if let image = track.items.first?.album.images.first?.url {
-                            VStack {
-                                Link(destination: URL(string: track.items.first?.uri ?? "") ?? URL(string: "spotify:")!) {
-                                    KFImage(URL(string: image))
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 150, height: 150)
-                                        .padding()
-                                }
-                            }
-                        } else {
-                            Rectangle()
-                                .frame(width: 150, height: 150)
-                                .foregroundColor(Color(UIColor.secondarySystemBackground))
-                        }
-                        
-                        if !spotifyData.isRetrievingData {
-                            Text(track.items.first?.name ?? "Track")
-                                .foregroundColor(.primary)
-                                .font(.headline)
-                        } else {
-                            Capsule()
-                                .frame(width: 100)
-                                .foregroundColor(Color(UIColor.secondarySystemBackground))
-                        }
-                    }
-                }
+//                if spotifyData.isRetrievingData {
+//                    Rectangle()
+//                        .frame(width: 150, height: 150)
+//                        .foregroundColor(Color(UIColor.secondarySystemBackground))
+//                } else {
+//                    if let track = topTrack {
+//                        if let image = track.items.first?.album.images.first?.url {
+//                            VStack {
+//                                Link(destination: URL(string: track.items.first?.uri ?? "") ?? URL(string: "spotify:")!) {
+//                                    KFImage(URL(string: image))
+//                                        .resizable()
+//                                        .scaledToFit()
+//                                        .frame(width: 150, height: 150)
+//                                        .padding()
+//                                }
+//                            }
+//                        } else {
+//                            Rectangle()
+//                                .frame(width: 150, height: 150)
+//                                .foregroundColor(Color(UIColor.secondarySystemBackground))
+//                        }
+//                        
+//                        if !spotifyData.isRetrievingData {
+//                            Text(track.items.first?.name ?? "Track")
+//                                .foregroundColor(.primary)
+//                                .font(.headline)
+//                        } else {
+//                            Capsule()
+//                                .frame(width: 100)
+//                                .foregroundColor(Color(UIColor.secondarySystemBackground))
+//                        }
+//                    }
+//                }
             }
             
             Spacer()

@@ -29,7 +29,10 @@ class UserPostsViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func deletePost(id: String) async throws {
         try await Firestore.firestore().collection("posts").document(id).delete()
+        
+        try await fetchUserPosts()
     }
 }

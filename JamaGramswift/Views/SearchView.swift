@@ -92,6 +92,7 @@ struct SearchView: View {
                         posts
                     }
                 }
+                .searchable(text: $search, prompt: searchPrompt)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -175,7 +176,6 @@ struct SearchView: View {
             ProfileView(user: user)
                 .navigationBarBackButtonHidden()
         })
-        .searchable(text: $search, prompt: searchPrompt)
         .padding(.vertical, 25)
         .padding(.horizontal)
         .fullScreenCover(isPresented: $showCreate) {
@@ -196,6 +196,16 @@ struct SearchView: View {
                             .scaledToFill()
                             .frame(width: imageSize, height: imageSize)
                             .clipped()
+                            .contextMenu {
+                                if let user = post.user {
+                                    if !user.isCurrentUser {
+                                        Button(role: .destructive) {
+                                        } label: {
+                                            Label("Report", systemImage: "exclamationmark.bubble")
+                                        }
+                                    }
+                                }
+                            }
                     }
                 }
             }

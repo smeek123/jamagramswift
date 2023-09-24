@@ -10,7 +10,7 @@ import SwiftUI
 //this is the view shown on the first tab item. It creates a stack of card views to be swiped.
 struct HomeView: View {
     //gives access to spotify data view model methods
-    @StateObject var spotifyData = SpotifyDataManager()
+//    @StateObject var spotifyData = SpotifyDataManager()
     //holds the result of the api request to the spotify recommendations
     @State var tracks: [track] = []
     //this is used to pass in a list of artists that the recommendation function bases its suggestions off of.

@@ -42,22 +42,39 @@ struct UserPostsView: View {
                         .scaledToFill()
                         .frame(width: imageSize, height: imageSize)
                         .clipped()
-                        .onLongPressGesture {
-                            showDeleteMessage.toggle()
+                        .contextMenu {
+                            if let user = post.user {
+                                if user.isCurrentUser {
+                                    Button(role: .destructive) {
+                                        showDeleteMessage.toggle()
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+                                    }
+                                } else {
+                                    Button(role: .destructive) {
+                                    } label: {
+                                        Label("Report", systemImage: "exclamationmark.bubble")
+                                    }
+                                }
+                            }
                         }
-                }
-            }
-            .alert("Delete Post?", isPresented: $showDeleteMessage) {
-                Button(role: .destructive) {
-                    
-                } label: {
-                    Text("Delete")
-                }
+                        .alert("Delete Post?", isPresented: $showDeleteMessage, actions: {
+                            Button(role: .destructive) {
+                                Task {
+                                    try? await viewModel.deletePost(id: post.id)
+                                }
+                            } label: {
+                                Text("Delete")
+                            }
 
-                Button(role: .cancel) {
-                    
-                } label: {
-                    Text("Cancel")
+                            Button(role: .cancel) {
+                                
+                            } label: {
+                                Text("Cancel")
+                            }
+                        }, message: {
+                            Text("This action cannot be undone.")
+                        })
                 }
             }
         }
