@@ -52,7 +52,7 @@ class UploadPostViewModel: ObservableObject {
             return
         }
         
-        let post = Post(id: postRef.documentID, songURI: song, ownerUid: uid, caption: caption, numLikes: 0, imageUrl: imageUrl, timeStamp: Timestamp())
+        let post = Post(id: postRef.documentID, songURI: song, ownerUid: uid, caption: caption, imageUrl: imageUrl, timeStamp: Timestamp(), likers: [])
         guard let encodedPost = try? Firestore.Encoder().encode(post) else {
             return
         }

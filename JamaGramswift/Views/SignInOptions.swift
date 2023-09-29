@@ -36,12 +36,6 @@ struct SignInOptionsView: View {
                     } label: {
                         LargeButtonView(title: "Sign in with Apple")
                     }
-                    
-                    NavigationLink {
-                        SignInView()
-                    } label: {
-                        LargeButtonView(title: "Sign in with Google")
-                    }
                 }
                 .padding(.vertical)
                 

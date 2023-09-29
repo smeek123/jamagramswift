@@ -49,7 +49,10 @@ class UserAuthService {
         guard let currentUid = userSession?.uid else {
             return
         }
-        self.currentUser = try await UserService.fetchUser(uid: currentUid)
+        
+        UserService.addUserListener(uid: currentUid) { [weak self] user in
+            self?.currentUser = user
+        }
     }
     
     private func uploadUserData(uid: String, username: String, email: String) async {

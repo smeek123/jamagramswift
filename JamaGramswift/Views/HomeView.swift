@@ -17,6 +17,7 @@ struct HomeView: View {
     @AppStorage("favArtists") static var favArtists: String = ""
     @State private var showCreate: Bool = false
     @StateObject var viewModel = FeedViewModel()
+    let user: FireUser
     
     var body: some View {
         NavigationStack {
@@ -34,7 +35,7 @@ struct HomeView: View {
                     ScrollView(showsIndicators: false) {
                         LazyVStack {
                             ForEach(viewModel.posts) { post in
-                                PostView(post: post)
+                                PostView(post: post, user: user)
                             }
                         }
                         .padding(.vertical, 10)

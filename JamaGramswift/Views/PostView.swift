@@ -11,8 +11,10 @@ import Kingfisher
 import Firebase
 
 struct PostView: View {
+    @StateObject var viewModel = FeedViewModel()
     @State private var like: Bool = false
     let post: Post
+    let user: FireUser
     
 //    func timeAgo(time: Timestamp) -> String {
 //        if let timestamp = post?.timeStamp {
@@ -49,10 +51,10 @@ struct PostView: View {
     var body: some View {
         VStack {
             HStack {
-                if let user = post.user {
-                    ProfileImageView(user: user, size: 40)
+                if let postUser = post.user {
+                    ProfileImageView(user: postUser, size: 40)
                     
-                    Text(user.username)
+                    Text(postUser.username)
                         .foregroundColor(.primary)
                         .font(.system(size: 15))
                 }
@@ -78,7 +80,7 @@ struct PostView: View {
                     like.toggle()
                 } label: {
                     Label {
-                        Text(String(post.numLikes))
+                        Text(String(post.likers.count))
                     } icon: {
                         if like {
                             Image(systemName: "hands.clap.fill")
@@ -96,8 +98,30 @@ struct PostView: View {
                 Image(systemName: "opticaldisc")
                     .font(.system(size: 23))
                 
-                Image(systemName: "bookmark")
-                    .font(.system(size: 23))
+                Button {
+                    Task {
+                        if let saves = user.saves {
+                            if saves.contains(post.id) {
+                                try? await viewModel.removeSavedPost(postId: post.id)
+                            } else {
+                                try? await viewModel.addSavedPost(postId: post.id)
+                            }
+                        }
+                    }
+                } label: {
+                    if let saves = user.saves {
+                        if saves.contains(post.id) {
+                            Image(systemName: "bookmark.fill")
+                                .font(.system(size: 23))
+                        } else {
+                            Image(systemName: "bookmark")
+                                .font(.system(size: 23))
+                        }
+                    } else {
+                        Image(systemName: "bookmark")
+                            .font(.system(size: 23))
+                    }
+                }
                 
                 Spacer()
             }

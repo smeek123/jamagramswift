@@ -13,8 +13,8 @@ struct Post: Identifiable, Codable, Hashable {
     let songURI: String?
     let ownerUid: String
     let caption: String
-    var numLikes: Int
     let imageUrl: String
     let timeStamp: Timestamp
     var user: FireUser?
+    var likers: [String]
 }

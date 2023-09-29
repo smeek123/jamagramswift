@@ -10,6 +10,7 @@ import Firebase
 
 class UserPostsViewModel: ObservableObject {
     @Published var userPosts = [Post]()
+    @Published var savedPosts = [Post]()
     private let user: FireUser
     
     init(user: FireUser) {
@@ -17,6 +18,7 @@ class UserPostsViewModel: ObservableObject {
         
         Task {
             try await fetchUserPosts()
+            try await fetchSavedPosts()
         }
     }
     
@@ -34,5 +36,18 @@ class UserPostsViewModel: ObservableObject {
         try await Firestore.firestore().collection("posts").document(id).delete()
         
         try await fetchUserPosts()
+    }
+    
+    @MainActor
+    func fetchSavedPosts() async throws {
+        guard let posts = user.saves else {
+            return
+        }
+        
+        for i in stride(from: posts.count-1, to: -1, by: -1) {
+            let snapshot = try await Firestore.firestore().collection("posts").document(posts[i]).getDocument()
+            let saved = try snapshot.data(as: Post.self)
+            self.savedPosts.append(saved)
+        }
     }
 }
