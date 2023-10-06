@@ -84,9 +84,6 @@ struct HomeView: View {
             }
             .task {
                 try? await viewModel.fetchPosts()
-                
-//                        _ = try? await spotifyData.getTopArtist()
-//                        tracks = await spotifyData.getRecomended()?.tracks ?? []
             }
         }
     }

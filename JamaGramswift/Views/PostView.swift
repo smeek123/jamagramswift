@@ -77,12 +77,18 @@ struct PostView: View {
             
             HStack(spacing: 15) {
                 Button {
-                    like.toggle()
+                    Task {
+                        if post.likers.contains(user.id) {
+                            try? await viewModel.unlikePost(postId: post.id)
+                        } else {
+                            try? await viewModel.likePost(postId: post.id)
+                        }
+                    }
                 } label: {
                     Label {
                         Text(String(post.likers.count))
                     } icon: {
-                        if like {
+                        if post.likers.contains(user.id) {
                             Image(systemName: "hands.clap.fill")
                                 .font(.system(size: 25))
                                 .foregroundColor(Color("MainColor"))
