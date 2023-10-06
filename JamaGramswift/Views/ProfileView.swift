@@ -41,7 +41,7 @@ struct ProfileView: View {
                                 .frame(width: 100, height: 100)
                             
                             VStack(spacing: 7) {
-                                Text("12.3M")
+                                Text(Int(120200).asFormattedString)
                                     .foregroundColor(.primary)
                                     .font(.system(size: 18))
                                 
@@ -76,7 +76,7 @@ struct ProfileView: View {
                                 .frame(width: 100, height: 100)
                             
                             VStack(spacing: 7) {
-                                Text("1.3K")
+                                Text(Int(5400).asFormattedString)
                                     .foregroundColor(.primary)
                                     .font(.system(size: 18))
                                 

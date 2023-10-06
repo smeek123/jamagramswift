@@ -61,7 +61,7 @@ struct PostView: View {
                 
                 Spacer()
                 
-                Text("6h ago")
+                Text(post.timeStamp.dateValue().timeAgo())
                     .font(.footnote)
                     .fontWeight(.semibold)
                     .foregroundColor(.secondary)
