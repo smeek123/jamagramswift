@@ -9,8 +9,9 @@ import SwiftUI
 
 struct AddPasswordView: View {
     @Environment(\.dismiss) var dismiss
-    @State private var confirm: String = ""
     @EnvironmentObject var viewModel: RegistrationViewModel
+    @State private var isActive: Bool = false
+    @State private var readyToNavigate: Bool = false
     
     var body: some View {
         VStack(spacing: 25) {
@@ -28,16 +29,22 @@ struct AddPasswordView: View {
             
             SecureField("Enter password", text: $viewModel.password)
                 .modifier(TextFieldModifier())
+                .onChange(of: viewModel.password, initial: true) {
+                    if viewModel.password.count >= 8 {
+                        isActive = true
+                    } else {
+                        isActive = false
+                    }
+                }
             
-            SecureField("Confirm password", text: $confirm)
-                .modifier(TextFieldModifier())
-            
-            NavigationLink {
-                AddUsernameView()
-                    .navigationBarBackButtonHidden()
+            Button {
+                if isActive {
+                    readyToNavigate.toggle()
+                }
             } label: {
-                LargeButtonView(title: "Next")
+                LargeButtonView(title: "Next", isActive: isActive)
             }
+            .disabled(!isActive)
 
             Spacer()
             
@@ -57,6 +64,10 @@ struct AddPasswordView: View {
                         .font(.system(size: 20))
                 }
             }
+        }
+        .navigationDestination(isPresented: $readyToNavigate) {
+            AddUsernameView()
+                .navigationBarBackButtonHidden()
         }
     }
 }

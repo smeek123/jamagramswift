@@ -28,13 +28,13 @@ struct SignInOptionsView: View {
                         SignInView()
                             .navigationBarBackButtonHidden()
                     } label: {
-                        LargeButtonView(title: "Sign in with Email")
+                        LargeButtonView(title: "Sign in with Email", isActive: true)
                     }
                     
                     NavigationLink {
                         SignInView()
                     } label: {
-                        LargeButtonView(title: "Sign in with Apple")
+                        LargeButtonView(title: "Sign in with Apple", isActive: true)
                     }
                 }
                 .padding(.vertical)

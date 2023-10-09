@@ -103,7 +103,7 @@ struct ProfileView: View {
                             print("followed")
                         }
                     } label: {
-                        LargeButtonView(title: user.isCurrentUser ? "CustomIze" : "Follow")
+                        LargeButtonView(title: user.isCurrentUser ? "CustomIze" : "Follow", isActive: true)
                             .padding(.vertical, 8)
                     }
                     
@@ -314,7 +314,7 @@ struct ProfileView: View {
                 
                 Spacer()
                 
-                LargeButtonView(title: "Share")
+                LargeButtonView(title: "Share", isActive: true)
                 
                 Spacer()
             }

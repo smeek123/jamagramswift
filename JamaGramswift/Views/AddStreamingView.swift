@@ -57,7 +57,7 @@ struct AddStreamingView: View {
                     try await viewModel.createUser()
                 }
             } label: {
-                LargeButtonView(title: "Complete")
+                LargeButtonView(title: "Complete", isActive: true)
             }
             .padding(.vertical)
             

@@ -130,7 +130,7 @@ struct CurrentProfileView: View {
                             EditProfileView(user: user)
                                 .navigationBarBackButtonHidden()
                         }, label: {
-                            LargeButtonView(title: "Customize")
+                            LargeButtonView(title: "Customize", isActive: true)
                                 .padding(.vertical, 8)
                         })
                         
@@ -609,7 +609,7 @@ struct CurrentProfileView: View {
                 
                 Spacer()
                 
-                LargeButtonView(title: "Share")
+                LargeButtonView(title: "Share", isActive: true)
                 
                 Spacer()
             }

@@ -10,6 +10,8 @@ import SwiftUI
 struct AddUsernameView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: RegistrationViewModel
+    @State private var isActive: Bool = false
+    @State private var readyToNavigate: Bool = false
     
     var body: some View {
         VStack(spacing: 25) {
@@ -29,14 +31,23 @@ struct AddUsernameView: View {
                 .modifier(TextFieldModifier())
                 .autocapitalization(.none)
                 .autocorrectionDisabled()
+                .onChange(of: viewModel.username, initial: true) {
+                    if viewModel.username.count >= 3 {
+                        isActive = true
+                    } else {
+                        isActive = false
+                    }
+                }
             
-            NavigationLink {
-                AddStreamingView()
-                    .navigationBarBackButtonHidden()
+            Button {
+                if isActive {
+                    readyToNavigate.toggle()
+                }
             } label: {
-                LargeButtonView(title: "Next")
+                LargeButtonView(title: "Next", isActive: isActive)
             }
-
+            .disabled(!isActive)
+            
             Spacer()
             
             Text("3/4")
@@ -55,6 +66,10 @@ struct AddUsernameView: View {
                         .font(.system(size: 20))
                 }
             }
+        }
+        .navigationDestination(isPresented: $readyToNavigate) {
+            AddStreamingView()
+                .navigationBarBackButtonHidden()
         }
     }
 }

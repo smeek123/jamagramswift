@@ -10,6 +10,15 @@ import SwiftUI
 struct AddEmailView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: RegistrationViewModel
+    @State private var isActive: Bool = false
+    @State private var readyToNavigate: Bool = false
+    
+    func isValidEmail(email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
     
     var body: some View {
         VStack(spacing: 25) {
@@ -30,13 +39,22 @@ struct AddEmailView: View {
                 .modifier(TextFieldModifier())
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
+                .onChange(of: viewModel.email, initial: true) {
+                    if isValidEmail(email: viewModel.email) {
+                        isActive = true
+                    } else {
+                        isActive = false
+                    }
+                }
             
-            NavigationLink {
-                AddPasswordView()
-                    .navigationBarBackButtonHidden()
+            Button {
+                if isActive {
+                    readyToNavigate.toggle()
+                }
             } label: {
-                LargeButtonView(title: "Next")
+                LargeButtonView(title: "Next", isActive: isActive)
             }
+            .disabled(!isActive)
             
             Spacer()
             
@@ -56,6 +74,10 @@ struct AddEmailView: View {
                         .font(.system(size: 20))
                 }
             }
+        }
+        .navigationDestination(isPresented: $readyToNavigate) {
+            AddPasswordView()
+                .navigationBarBackButtonHidden()
         }
     }
 }

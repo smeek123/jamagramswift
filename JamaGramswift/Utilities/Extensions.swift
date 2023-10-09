@@ -66,13 +66,14 @@ struct TextFieldModifier: ViewModifier {
 
 struct LargeButtonView: View {
     let title: String
+    let isActive: Bool
     
     var body: some View {
         HStack {
             Spacer()
             
             Text(title)
-                .foregroundColor(.primary)
+                .foregroundColor(isActive ? .primary : .secondary)
                 .font(.title3)
                 .padding(.horizontal, 15)
                 .lineLimit(2)
@@ -82,7 +83,8 @@ struct LargeButtonView: View {
         }
         .frame(width: UIScreen.main.bounds.width * 0.85, height: 35)
         .padding(.horizontal, 15)
-        .background(Color("MainColor"))
+        .background(isActive ? Color("MainColor") : Color(uiColor: .secondarySystemBackground))
         .clipShape(Capsule())
     }
 }
+

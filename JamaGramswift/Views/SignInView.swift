@@ -10,6 +10,15 @@ import SwiftUI
 struct SignInView: View {
     @StateObject var loginViewModel = LoginViewModel()
     @Environment(\.dismiss) var dismiss
+    @State private var isActive: Bool = false
+    @State private var readyToNavigate: Bool = false
+    
+    func isValidEmail(email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
     
     var body: some View {
         VStack(spacing: 25) {
@@ -30,11 +39,14 @@ struct SignInView: View {
             
             Button {
                 Task {
-                    try await loginViewModel.signIn()
+                    if !loginViewModel.email.isEmpty && !loginViewModel.password.isEmpty {
+                        try await loginViewModel.signIn()
+                    }
                 }
             } label: {
-                LargeButtonView(title: "Log In")
+                LargeButtonView(title: "Log In", isActive: !loginViewModel.email.isEmpty && loginViewModel.password.count >= 8)
             }
+            .disabled(loginViewModel.email.isEmpty || loginViewModel.password.count < 8)
             
             Spacer()
             
