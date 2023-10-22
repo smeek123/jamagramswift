@@ -9,7 +9,6 @@ import SwiftUI
 import Kingfisher
 
 struct SearchView: View {
-    @State private var search: String = ""
     @State private var tab: Int = 0
     @State private var searchPrompt: String = "Search for friends"
     @Namespace private var pickerTabs
@@ -92,7 +91,7 @@ struct SearchView: View {
                         posts
                     }
                 }
-                .searchable(text: $search, prompt: searchPrompt)
+                .searchable(text: $viewModel.searchText, prompt: searchPrompt)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -137,7 +136,7 @@ struct SearchView: View {
     
     var users: some View {
         LazyVStack(spacing: 24) {
-            ForEach(viewModel.users) { user in
+            ForEach(viewModel.isSearching ? viewModel.filteredUsers : viewModel.allUsers) { user in
                 NavigationLink(value: user) {
                     HStack {
                         ProfileImageView(user: user, size: 60)
@@ -208,6 +207,7 @@ struct SearchView: View {
                             }
                     }
                 }
+                .padding(.vertical)
             }
         }
         .task {

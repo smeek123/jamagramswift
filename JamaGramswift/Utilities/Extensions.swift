@@ -8,6 +8,19 @@
 import Foundation
 import SwiftUI
 
+extension String {
+    func generateStringSequence() -> [String] {
+        guard self.count > 0 else {
+            return []
+        }
+        var sequences: [String] = []
+        for i in 1...self.count {
+            sequences.append(String(self.prefix(i)))
+        }
+        return sequences
+    }
+}
+
 //this extension allows a date to be saved in the devices app storage which is used in the login process
 extension Date: RawRepresentable {
     public var rawValue: String {

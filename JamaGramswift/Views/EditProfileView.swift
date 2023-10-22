@@ -7,14 +7,18 @@
 
 import SwiftUI
 import PhotosUI
+import FirebaseFirestore
 
 struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: EditProfileViewModel
     @State private var isLoading: Bool = false
     @State private var showError: Bool = false
+    let user: FireUser
     
     init(user: FireUser) {
+        self.user = user
+        
         self._viewModel = StateObject(wrappedValue: EditProfileViewModel(user: user))
     }
     

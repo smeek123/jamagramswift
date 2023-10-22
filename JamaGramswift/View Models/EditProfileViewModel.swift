@@ -75,6 +75,8 @@ class EditProfileViewModel: ObservableObject {
         
         if !data.isEmpty {
             try await Firestore.firestore().collection("users").document(user.id).updateData(data)
+            
+            try? await Firestore.firestore().collection("users").document(user.id).updateData(["searchTerms": user.searchTerms])
         }
     }
 }

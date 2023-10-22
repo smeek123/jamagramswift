@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseFirestore
 
 struct UserService {
     static func fetchUser(uid: String) async throws -> FireUser {

@@ -10,6 +10,7 @@ import FirebaseAuth
 import FirebaseFirestoreSwift
 import Firebase
 
+@MainActor
 class UserAuthService {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: FireUser?
@@ -21,7 +22,6 @@ class UserAuthService {
         }
     }
     
-    @MainActor
     func loginWithEmail(with email: String, password: String) async throws {
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
@@ -32,7 +32,6 @@ class UserAuthService {
         }
     }
     
-    @MainActor
     func createUser(email: String, password: String, username: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
@@ -43,7 +42,6 @@ class UserAuthService {
         }
     }
     
-    @MainActor
     func loadUserDate() async throws {
         self.userSession = Auth.auth().currentUser
         guard let currentUid = userSession?.uid else {
@@ -63,6 +61,8 @@ class UserAuthService {
         }
         
         try? await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
+        
+        try? await Firestore.firestore().collection("users").document(user.id).updateData(["searchTerms": user.searchTerms])
     }
     
     func signout() {
