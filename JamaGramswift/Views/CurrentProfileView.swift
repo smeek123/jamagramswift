@@ -540,17 +540,12 @@ struct CurrentProfileView: View {
     var saves: some View {
         VStack {
             if userPostViewModel.savedPosts.isEmpty {
-                VStack(spacing: 20) {
-                    Spacer()
-                    
+                ContentUnavailableView {
                     Image(systemName: "bookmark")
                         .font(.system(size: 100))
-                        .foregroundColor(.secondary)
-                    
+                } description: {
                     Text("Nothing saved yet.")
-                        .foregroundColor(.primary)
-                    
-                    Spacer()
+                        .fontWeight(.semibold)
                 }
             } else {
                 LazyVGrid(columns: gridItem, spacing: 1) {

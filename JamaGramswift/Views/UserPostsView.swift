@@ -26,13 +26,12 @@ struct UserPostsView: View {
     
     var body: some View {
         if viewModel.userPosts.isEmpty {
-            VStack {
+            ContentUnavailableView {
                 Image(systemName: "music.note.list")
                     .font(.system(size: 100))
-                    .foregroundColor(.secondary)
-                
+            } description: {
                 Text("No posts yet.")
-                    .foregroundColor(.primary)
+                    .fontWeight(.semibold)
             }
         } else {
             LazyVGrid(columns: gridItem, spacing: 1) {
